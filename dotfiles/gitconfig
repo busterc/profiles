@@ -1,0 +1,9 @@
+[user]
+	name = Buster Collings
+	email = busterc@gmail.com
+
+[github]
+	user = busterc
+
+[core]
+	excludesfile = ~/.gitignore_global

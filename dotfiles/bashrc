@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# INTENDED FOR: OSX & LINUX
+
+if [ -f ~/.profile_x ]; then
+	source ~/.profile_x
+fi
+

@@ -1,0 +1,16 @@
+{
+	// Details: https://github.com/victorporof/Sublime-HTMLPrettify#using-your-own-jsbeautifyrc-options
+	// Documentation: https://github.com/einars/js-beautify/
+	"html": {
+		"indent_char": "\t",
+		"indent_size": 1
+	},
+	"css": {
+		"indent_char": "\t",
+		"indent_size": 1
+	},
+	"js": {
+		"indent_char": "\t",
+		"indent_size": 1
+	}
+}

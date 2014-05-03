@@ -1,0 +1,87 @@
+#!/bin/bash
+
+# INTENDED FOR: OSX & LINUX
+
+# Prompt display
+#export PS1="\u @$(scutil --get ComputerName) in \$PWD $"
+export PS1="\u @$(hostname -s) in \$PWD $"
+
+# Sublime as editor, when possible
+export EDITOR="subl"
+
+# Easy navigation
+alias cdd="cdl -"
+alias ~="cdl ~"
+alias ..="cdl .."
+alias ...="cdl ../.."
+alias ....="cdl ../../.."
+alias .....="cdl ../../../.."
+
+# Shortcuts
+alias dl="cdl ~/Downloads"
+alias dt="cdl ~/Desktop"
+
+# List all files colorized in long format
+alias l="ls -l"
+
+# List all files colorized in long format, including dot files
+alias la="ls -la"
+
+# List only directories
+alias lsd='ls -l | grep "^d"'
+
+# List only directories, including dot files
+alias lsda='ls -la | grep "^d"'
+
+# Remove directory
+alias rd="rm -rf"
+
+# Create a new directory and enter it
+function md() {
+	mkdir -p "$@" && cd "$@"
+}
+
+# Change directory and list contents
+function cdl() {
+	cd "$@" && la
+}
+
+# Lazy change directory and list contents
+function cdz() {
+	local ds=$(find "$@"* -maxdepth 0 -type d | wc -l)
+	if [[ $ds -eq 1 ]]; then
+		cdl $(find "$@"* -maxdepth 0 -type d)
+	else
+		printf "\nTOO LAZY\n========\n"
+		find "$@"* -maxdepth 0 -type d
+		printf "\n"
+	fi
+}
+
+# Determine size of a file or total size of a directory
+function fs() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh
+	else
+		local arg=-sh
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@"
+	else
+		du $arg .[^.]* *
+	fi
+}
+
+# Open Editor
+function e(){
+	if [ "$1" = "" ]; then
+		exec $EDITOR .
+	else
+		exec $EDITOR "$1"
+	fi
+}
+
+# Open .profiles in Editor
+function profiles(){
+	e ~/.profiles
+}

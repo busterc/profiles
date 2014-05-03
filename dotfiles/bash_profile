@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# INTENDED FOR: OSX & LINUX
+if [ -f ~/.bashrc ]; then
+	source ~/.bashrc
+fi
+
+# INTENDED FOR: OSX
+if [ -f ~/.profile_osx ]; then
+	source ~/.profile_osx
+fi
+
+# INTENDED FOR: Linux
+if [ -f ~/.profile_linux ]; then
+	source ~/.profile_linux
+fi

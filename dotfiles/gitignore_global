@@ -1,0 +1,17 @@
+# for more https://github.com/github/gitignore/tree/master/Global
+
+# OSX
+.DS_Store
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+
+# Windows
+
+Thumbs.db
+ehthumbs.db
+Desktop.ini

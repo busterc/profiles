@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# INTENDED FOR: LINUX
+
+# Open Chromium from terminal
+alias chrome="chromium-browser"
+
+# Open finder to Sublime Snippets
+alias snippets="open ~/.config/sublime-text-2/Packages/User"
+
+# Clear terminal screen & kill history
+alias cl="reset"
+
+# Open Nautilus to system Fonts
+alias fonts="nautilus /usr/share/fonts"
