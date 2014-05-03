@@ -43,7 +43,7 @@ function copydots() {
 
 case $1 in
 osx)
-	echo "Running dotfiles Setup for OSX"
+	echo "Running profiles Setup for OSX"
 	sleep 3
 	copydots "osx"
 
@@ -52,7 +52,7 @@ osx)
 	exec init/osx
 	;;
 linux)
-	echo "Running dotfiles Setup for Linux"
+	echo "Running profiles Setup for Linux"
 	sleep 3
 	copydots "linux"
 	;;

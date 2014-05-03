@@ -6,3 +6,12 @@ if [ -f ~/.profile_x ]; then
 	source ~/.profile_x
 fi
 
+# INTENDED FOR: OSX
+if [ -f ~/.profile_osx ]; then
+	source ~/.profile_osx
+fi
+
+# INTENDED FOR: Linux
+if [ -f ~/.profile_linux ]; then
+	source ~/.profile_linux
+fi
