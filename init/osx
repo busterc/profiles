@@ -27,7 +27,6 @@ defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 echo "✓ Save screenshots to the ~/Screenshots"
-mkdir -p ~/Screenshots
 defaults write com.apple.screencapture location ~/Screenshots
 killall SystemUIServer
 
@@ -71,7 +70,7 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 echo "✓ Automatically open a new Finder window when a volume is mounted"
 defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
-defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
+defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool false # don't open when TimeMachine starts
 defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
 echo "✓ Enable snap-to-grid for icons on the desktop and in other icon views"

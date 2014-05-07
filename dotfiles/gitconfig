@@ -1,9 +1,15 @@
 [user]
 	name = Buster Collings
 	email = busterc@gmail.com
-
 [github]
 	user = busterc
-
 [core]
 	excludesfile = ~/.gitignore_global
+[url "git@github.com:"]
+	insteadOf = gh:
+[url "git@github.com:"]
+	insteadOf = gh:
+[url "git@gist.github.com:"]
+	insteadOf = gist:
+[url "git@heroku.com:"]
+	insteadOf = heroku:

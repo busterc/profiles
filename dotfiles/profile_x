@@ -3,8 +3,31 @@
 # INTENDED FOR: OSX & LINUX
 
 # Prompt display
-#export PS1="\u @$(scutil --get ComputerName) in \$PWD $"
-export PS1="\u @$(hostname -s) in \$PWD $"
+export PROMPTERTYPE=short
+function prompter(){
+	local _ps1="$ "
+	if [ $# -gt 0 ]; then
+		export PROMPTERTYPE="$1"
+	fi
+
+	case "$PROMPTERTYPE" in
+	long)
+		_ps1="\u @$(hostname -s) in \$PWD $ "
+		;;
+	short)
+		_ps1="`pwd | sed "s#$HOME#~#"` $ "
+		;;
+	z)
+		_ps1="`pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g"` $ "
+		;;
+	$)
+		# just use _ps1="$ "
+		;;
+	esac
+
+	PS1=$_ps1 ; export PS1
+}
+export PROMPT_COMMAND=prompter
 
 # Sublime as editor, when possible
 export EDITOR="subl"
@@ -20,6 +43,8 @@ alias .....="cdl ../../../.."
 # Shortcuts
 alias dl="cdl ~/Downloads"
 alias dt="cdl ~/Desktop"
+mkdir -p ~/Screenshots
+alias sss="cdl ~/Screenshots"
 
 # List all files colorized in long format
 alias l="ls -l"
@@ -75,9 +100,9 @@ function fs() {
 # Open Editor
 function e(){
 	if [ "$1" = "" ]; then
-		exec $EDITOR .
+		exec $EDITOR . &
 	else
-		exec $EDITOR "$1"
+		exec $EDITOR "$1" &
 	fi
 }
 

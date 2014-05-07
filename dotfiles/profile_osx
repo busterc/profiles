@@ -31,26 +31,32 @@ function cl {
 
 # Open a new Terminal (Tab or Window) & run passed commands
 function term() {
-        [ $# -lt 2 ] && return
-        osascript -e "
-                tell application \"System Events\" to tell process \"Terminal\" to keystroke \"$1\" using command down
-                tell application \"Terminal\" to do script \"cd \\\"$(PWD)\\\"\" in selected tab of the front window
-                tell application \"Terminal\" to do script \"$2\" in selected tab of the front window
-        " > /dev/null 2>&1
+	case $2 in
+	"")
+		osascript -e "
+				tell application \"System Events\" to tell process \"Terminal\" to keystroke \"$1\" using command down
+		" > /dev/null 2>&1
+		;;
+	*)
+		osascript -e "
+				tell application \"System Events\" to tell process \"Terminal\" to keystroke \"$1\" using command down
+				tell application \"Terminal\" to do script \"$2\" in selected tab of the front window
+		" > /dev/null 2>&1
+	esac
 }
+
 # Open new Terminal Tab
 function tab() {
-    term t "$1"
+	term t "$1"
 }
+
 # Open new Terminal Tab and Close Current Tab
 function tabx() {
-    term t "$1"
-    exit
+	term t "$1"
+	exit
 }
+
 # Open new Terminal Window
 function window() {
-    term n "$1"
+	term n "$1"
 }
-
-
-
