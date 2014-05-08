@@ -10,18 +10,33 @@ function prompter(){
 		export PROMPTERTYPE="$1"
 	fi
 
+	local status="$(git status 2>/dev/null)"
+	local git=""
+	local branch="$(echo "$status" | awk '/# On branch/ {print $4}')"
+	if [ "$branch" != "" ]; then
+		local flags="$(
+			echo "$status" | awk 'BEGIN {r=""} \
+				/^# Changes to be committed:$/        {r=r "+"}\
+				/^# Changes not staged for commit:$/  {r=r "!"}\
+				/^# Untracked files:$/                {r=r "?"}\
+				END {print r}'
+		)"
+		git="[$branch$flags] "
+	fi
+
 	case "$PROMPTERTYPE" in
 	long)
-		_ps1="\u @$(hostname -s) in \$PWD $ "
+		_ps1="\u @$(hostname -s) in \$PWD "$git"$ "
 		;;
 	short)
-		_ps1="`pwd | sed "s#$HOME#~#"` $ "
+		_ps1="`pwd | sed "s#$HOME#~#"` "$git"$ "
 		;;
 	z)
-		_ps1="`pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g"` $ "
+		_ps1="`pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g"` "$git"$ "
 		;;
 	$)
 		# just use _ps1="$ "
+		_ps1=$git"$ "
 		;;
 	esac
 
@@ -79,6 +94,20 @@ function cdz() {
 	else
 		printf "\nTOO LAZY\n========\n"
 		find "$@"* -maxdepth 0 -type d
+		printf "\n"
+	fi
+}
+
+# Lazier change directory and list contents
+function cz() {
+	local d="`echo $1 | sed "s#/#*\/#g"`*"
+	local ds=$(find $d -type d | wc -l)
+
+	if [[ $ds -eq 1 ]]; then
+		cdl $d
+	else
+		printf "\nTOO LAZY\n========\n"
+		find $d -type d | less
 		printf "\n"
 	fi
 }
