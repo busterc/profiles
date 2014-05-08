@@ -70,6 +70,9 @@ alias la="ls -la"
 # List only directories
 alias lsd='ls -l | grep "^d"'
 
+# List only dotfiles
+alias lds='ls -lad .*'
+
 # List only directories, including dot files
 alias lsda='ls -la | grep "^d"'
 
