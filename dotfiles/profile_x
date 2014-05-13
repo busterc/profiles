@@ -12,13 +12,14 @@ function prompter(){
 
 	local status="$(git status 2>/dev/null)"
 	local git=""
-	local branch="$(echo "$status" | awk '/# On branch/ {print $4}')"
+	local branch="$(echo "$status" | awk '/On branch/ {print $3}')"
+
 	if [ "$branch" != "" ]; then
 		local flags="$(
 			echo "$status" | awk 'BEGIN {r=""} \
-				/^# Changes to be committed:$/        {r=r "+"}\
-				/^# Changes not staged for commit:$/  {r=r "!"}\
-				/^# Untracked files:$/                {r=r "?"}\
+				/^Changes to be committed:$/        {r=r "+"}\
+				/^Changes not staged for commit:$/  {r=r "!"}\
+				/^Untracked files:$/                {r=r "?"}\
 				END {print r}'
 		)"
 		git="[$branch$flags] "
