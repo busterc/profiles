@@ -1,0 +1,29 @@
+# Cordova PhoneGap shorteners (v3.X)
+alias cor="cordova" # candidate for "corc"
+alias cori="cordova info"
+alias corc="cordova create"
+
+# Platform specifics for Cordova PhoneGap
+alias corpfl="cordova platform ls"
+alias corpfa="cordova platform add"
+alias corpfr="cordova platform remove"
+alias corpfx="corpfr"
+
+# Build specifics for Cordova PhoneGap
+alias corpre="cordova prepare"
+alias corco="cordova compile"
+alias corb="cordova build"
+
+# Running specifics for Cordova PhoneGap
+alias corem="cordova emulate"
+alias corr="cordova run"
+alias cors="cordova serve"
+alias corbem="cordova build && cordova emulate"
+
+# Plugin specifics for Cordova PhoneGap
+alias corp="cordova plugin" # candidate for "corpa"
+alias corps="cordova plugin search"
+alias corpl="cordova plugin ls"
+alias corpa="cordova plugin add"
+alias corpr="cordova plugin remove"
+alias corpx="corpr"
