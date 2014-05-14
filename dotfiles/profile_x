@@ -143,9 +143,3 @@ function e() {
 function profiles() {
 	e ~/.profiles
 }
-
-# Run HTTP-Server and open Chrome
-function serve() {
-	echo "served"
-}
-

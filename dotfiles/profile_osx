@@ -62,3 +62,10 @@ function tabx() {
 function window() {
 	term n "$1"
 }
+
+# Run HTTP-Server and open Chrome
+function serve() {
+	local port=$(portdiscovery)
+	tab "http-server -p $port -c-1"
+	chrome "http://$(hostname -s):$port"
+}
