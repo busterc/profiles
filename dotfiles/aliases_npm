@@ -1,35 +1,52 @@
-# install local
+## normal user local
+#######################################
+
+# local install
 alias npmi="npm install"
 
-# install global
-alias npmig="npmi --global"
-alias npmgi="npmig"
-alias npmg="npmig"
+# local update
+alias npmu="npm update"
 
-# remove local
+# local remove
 alias npmr="npm remove"
 alias npmx="npmr"
 
-# remove global
-alias npmrg="npmr --global"
-alias npmgr="npmrg"
-alias npmxg="npmrg"
-alias npmgx="npmrg"
+## super user local
+#######################################
 
-# Sudo install local
+# local install
 alias snpmi="sudo npm install"
 
-# Sudo remove local
+# local update
+alias snpmu="sudo npm update"
+
+# local remove
 alias snpmr="sudo npm remove"
 alias snpmx="snpmr"
 
-# Sudo install global
-alias snpmig="sudo npm install --global"
-alias snpmgi="snpmig"
-alias snpmg="snpmig"
+## super user global
+#######################################
 
-# Sudo remove global
-alias snpmrg="sudo npm remove --global"
-alias snpmgr="snpmrg"
-alias snpmxg="snpmrg"
-alias snpmgx="snpmrg"
+# global install
+alias npmig="sudo npm install --global"
+alias npmgi="npmig"
+alias npmg="npmig"
+alias snpmig="npmig"
+alias snpmgi="npmig"
+alias snpmg="npmig"
+
+# global update
+alias npmug="sudo npm update --global"
+alias npmgu="npmug"
+alias snpmug="npmug"
+alias snpmgu="npmug"
+
+# global remove
+alias npmrg="suod npm remove --global"
+alias npmgr="npmrg"
+alias npmxg="npmrg"
+alias npmgx="npmrg"
+alias snpmrg="npmrg"
+alias snpmgr="npmrg"
+alias snpmxg="npmrg"
+alias snpmgx="npmrg"
