@@ -1,0 +1,35 @@
+# install local
+alias npmi="npm install"
+
+# install global
+alias npmig="npmi --global"
+alias npmgi="npmig"
+alias npmg="npmig"
+
+# remove local
+alias npmr="npm remove"
+alias npmx="npmr"
+
+# remove global
+alias npmrg="npmr --global"
+alias npmgr="npmrg"
+alias npmxg="npmrg"
+alias npmgx="npmrg"
+
+# Sudo install local
+alias snpmi="sudo npm install"
+
+# Sudo remove local
+alias snpmr="sudo npm remove"
+alias snpmx="snpmr"
+
+# Sudo install global
+alias snpmig="sudo npm install --global"
+alias snpmgi="snpmig"
+alias snpmg="snpmig"
+
+# Sudo remove global
+alias snpmrg="sudo npm remove --global"
+alias snpmgr="snpmrg"
+alias snpmxg="snpmrg"
+alias snpmgx="snpmrg"

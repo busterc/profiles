@@ -1,4 +1,4 @@
-# Cordova PhoneGap shorteners (v3.X)
+# Cordova PhoneGap aliases (v3.X)
 alias cor="cordova" # candidate for "corc"
 alias cori="cordova info"
 alias corc="cordova create"

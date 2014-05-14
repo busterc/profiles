@@ -131,7 +131,7 @@ function fs() {
 }
 
 # Open Editor
-function e(){
+function e() {
 	if [ "$1" = "" ]; then
 		exec $EDITOR . &
 	else
@@ -140,6 +140,12 @@ function e(){
 }
 
 # Open .profiles in Editor
-function profiles(){
+function profiles() {
 	e ~/.profiles
 }
+
+# Run HTTP-Server and open Chrome
+function serve() {
+	echo "served"
+}
+

@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # INTENDED FOR: OSX & LINUX
-
 if [ -f ~/.profile_x ]; then
 	source ~/.profile_x
-	source ~/.cordovarc
+	source ~/.aliases_cordova
+	source ~/.aliases_npm
 fi
 
 # INTENDED FOR: OSX
