@@ -143,3 +143,8 @@ function e() {
 function profiles() {
 	e ~/.profiles
 }
+
+# List aliases that match regexp, e.g. $ alls .*sudo.*
+function alls() {
+	alias -p | sed -n "/^alias $1/p"
+}
