@@ -51,6 +51,9 @@ export EDITOR="subl"
 # Sencha Touch CMD
 export PATH="$HOME/bin/Sencha/Cmd/4.0.4.84:$PATH"
 export SENCHA_CMD_3_0_0="$HOME/bin/Sencha/Cmd/4.0.4.84"
+function senga() {
+	sencha -sdk $HOME/bin/Sencha/touch-2.3.1 generate app "$1" ./"$1" && cd ./"$1"
+}
 
 
 # Easy navigation
