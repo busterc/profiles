@@ -48,6 +48,11 @@ export PROMPT_COMMAND=prompter
 # Sublime as editor, when possible
 export EDITOR="subl"
 
+# Sencha Touch CMD
+export PATH="$HOME/bin/Sencha/Cmd/4.0.4.84:$PATH"
+export SENCHA_CMD_3_0_0="$HOME/bin/Sencha/Cmd/4.0.4.84"
+
+
 # Easy navigation
 alias cdd="cdl -"
 alias ~="cdl ~"
