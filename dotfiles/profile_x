@@ -156,3 +156,8 @@ function profiles() {
 function alls() {
 	alias -p | sed -n "/^alias $1/p"
 }
+
+# List functions that match regexp, e.g. $ fnls .*c.*
+function fnls() {
+	declare -F | sed -n "/^declare -f $1/p" | sed "s#declare -f ##g"
+}
