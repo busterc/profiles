@@ -1,6 +1,6 @@
-// http://www.jshint.com/docs/options/
-
 {
+	// http://www.jshint.com/docs/options/
+
 	// Enforcing
 	"bitwise": true, // true: Prohibit bitwise operators (&, |, ^, etc.)
 	"camelcase": true, // true: Identifiers must be in camelCase
@@ -24,13 +24,13 @@
 	//    "double" : require double quotes
 	"undef": true, // true: Require all non-global variables to be declared (prevents global leaks)
 	"unused": true, // true: Require all defined variables be used
-	"strict": true, // true: Requires all functions run in ES5 Strict Mode
+	"strict": false, // true: Requires all functions run in ES5 Strict Mode
 	"trailing": true, // true: Prohibit trailing whitespaces
 	"maxparams": false, // {int} Max number of formal params allowed per function
 	"maxdepth": false, // {int} Max depth of nested blocks (within functions)
 	"maxstatements": false, // {int} Max number statements per function
 	"maxcomplexity": false, // {int} Max cyclomatic complexity per function
-	"maxlen": 80, // {int} Max number of characters per line
+	//"maxlen": 80, // {int} Max number of characters per line
 
 	// Relaxing
 	"asi": false, // true: Tolerate Automatic Semicolon Insertion (no semicolons)
@@ -54,7 +54,7 @@
 	"maxerr": 50, // {int} Maximum error before stopping
 	"moz": false, // true: Tells JSHint your code uses Mozilla JS extensions
 	"multistr": false, // true: Tolerate multi-line strings
-	"notypeof": false, // true: suppresses warnings about invalid typeof operator values
+	//"notypeof": false, // true: suppresses warnings about invalid typeof operator values
 	"proto": false, // true: Tolerate using the `__proto__` property
 	"scripturl": false, // true: Tolerate script-targeted URLs
 	"smarttabs": false, // true: Tolerate mixed tabs/spaces when used for alignment
@@ -62,7 +62,7 @@
 	"sub": false, // true: Tolerate using `[]` notation when it can still be expressed in dot notation
 	"supernew": false, // true: Tolerate `new function () { ... };` and `new Object;`
 	"validthis": false, // true: Tolerate using this in a non-constructor function
-	"noyield": false, // true: Suppresses warnings about generator functions with no yield statement in them.
+	//"noyield": false, // true: Suppresses warnings about generator functions with no yield statement in them.
 
 	// Environments
 	"browser": true, // Web Browser (window, document, etc)
@@ -84,5 +84,5 @@
 	"nomen": false, // true: Prohibit dangling `_` in variables
 	"onevar": true, // true: Allow only one `var` statement per function
 	"passfail": false, // true: Stop on first error
-	"white": true, // true: Check against strict whitespace and indentation rules
+	"white": true // true: Check against strict whitespace and indentation rules
 }

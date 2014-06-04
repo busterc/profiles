@@ -11,6 +11,9 @@
 	},
 	"js": {
 		"indent_char": "\t",
-		"indent_size": 1
+		"indent_size": 1,
+		"indent_with_tabs": true,
+		"jslint_happy": true,
+		"space_before_conditional": true
 	}
 }
