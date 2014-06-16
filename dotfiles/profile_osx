@@ -8,6 +8,9 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 ## Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+# Sublime as editor, when possible
+export EDITOR="subl"
+
 # Open Chrome from terminal
 alias chrome="open /Applications/Google\ Chrome.app"
 

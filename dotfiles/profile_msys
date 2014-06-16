@@ -2,15 +2,20 @@
 
 # INTENDED FOR: MSYS (WINDOWS)
 
-
 # Open explorer
 alias open="explorer"
+
+# Sublime as editor, when possible
+export EDITOR="/c/Program\ Files/Sublime\ Text\ 2/sublime_text.exe"
+
+# Sublime Text 2
+alias subl="/c/Program\ Files/Sublime\ Text\ 2/sublime_text.exe"
 
 # Open Chrome from terminal
 alias chrome="start chrome"
 
 # Open explorer to system Fonts
-alias fonts="open /c/Windows/Fonts"
+alias fonts="explorer /c/Windows/Fonts"
 
 # Clear terminal screen
 alias cl="clear"

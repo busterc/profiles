@@ -5,15 +5,15 @@ function copydots() {
 
 	for f in dotfiles/*; do
 		if [ "$1" = "linux" ]; then
-			if [ "$f" = "dotfiles/profile_osx" ]; then
+			if [ "$f" = "dotfiles/profile_osx" ] || [ "$f" = "dotfiles/profile_msys"]; then
 				continue # jump the loop
 			fi
 		elif [ "$1" = "osx" ]; then
-			if [ "$f" = "dotfiles/profile_linux" ]; then
+			if [ "$f" = "dotfiles/profile_linux" ] || [ "$f" = "dotfiles/profile_msys" ]; then
 				continue # jump the loop
 			fi
 		elif [ "$1" = "msys" ]; then
-			if [ "$f" = "dotfiles/profile_msys" ]; then
+			if [ "$f" = "dotfiles/profile_osx" ] || [ "$f" = "dotfiles/profile_linux" ]; then
 				continue # jump the loop
 			fi
 		else

@@ -2,6 +2,9 @@
 
 # INTENDED FOR: LINUX
 
+# Sublime as editor, when possible
+export EDITOR="subl"
+
 # Open Chromium from terminal
 alias chrome="chromium-browser"
 

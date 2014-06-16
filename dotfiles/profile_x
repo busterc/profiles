@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# INTENDED FOR: OSX & LINUX
+# INTENDED FOR: OSX, LINUX & MSYS
 
 # Prompt display
 export PROMPTERTYPE=short
@@ -45,8 +45,6 @@ function prompter(){
 }
 export PROMPT_COMMAND=prompter
 
-# Sublime as editor, when possible
-export EDITOR="subl"
 
 # Sencha Touch CMD
 export PATH="$HOME/bin/Sencha/Cmd/4.0.4.84:$PATH"
@@ -141,9 +139,9 @@ function fs() {
 # Open Editor
 function e() {
 	if [ "$1" = "" ]; then
-		exec $EDITOR . &
+		eval $EDITOR . &
 	else
-		exec $EDITOR "$1" &
+		eval $EDITOR "$1" &
 	fi
 }
 
