@@ -6,7 +6,7 @@ dotfiles, system defaults and more
 ```sh
 $ git clone https://github.com/busterc/profiles.git ~/.profiles
 $ cd ~/.profiles
-$ [sudo] ./setup.sh <osx|linux>
+$ [sudo] ./setup.sh <osx|linux|msys>
 ```
 
 ## FYI
