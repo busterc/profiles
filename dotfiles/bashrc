@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# INTENDED FOR: OSX & LINUX
+# INTENDED FOR: OSX, LINUX & MSYS
 if [ -f ~/.profile_x ]; then
 	source ~/.profile_x
 	source ~/.aliases_cordova
@@ -15,4 +15,9 @@ fi
 # INTENDED FOR: Linux
 if [ -f ~/.profile_linux ]; then
 	source ~/.profile_linux
+fi
+
+# INTENDED FOR: MSYS
+if [ -f ~/.profile_msys ]; then
+	source ~/.profile_msys
 fi

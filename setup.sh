@@ -12,6 +12,10 @@ function copydots() {
 			if [ "$f" = "dotfiles/profile_linux" ]; then
 				continue # jump the loop
 			fi
+		elif [ "$1" = "msys" ]; then
+			if [ "$f" = "dotfiles/profile_msys" ]; then
+				continue # jump the loop
+			fi
 		else
 			echo "Odd.. you are running copydots() without a valid argument."
 			break # stop what you're doing
@@ -56,10 +60,15 @@ linux)
 	sleep 3
 	copydots "linux"
 	;;
+msys)
+	echo "Running profiles Setup for MSYS"
+	sleep 3
+	copydots "msys"
+	;;
 *)
 	echo "Houston, we have a problem.."
 	sleep 2
-	echo "You must pass a system type argument <osx|linux> for example:"
+	echo "You must pass a system type argument <osx|linux|msys> for example:"
 	echo -e "\t$ ./setup.sh osx"
 esac
 

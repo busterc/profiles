@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# INTENDED FOR: MSYS (WINDOWS)
+
+
+# Open explorer
+alias open="explorer"
+
+# Open Chrome from terminal
+alias chrome="start chrome"
+
+# Open explorer to system Fonts
+alias fonts="open /c/Windows/Fonts"
+
+# Clear terminal screen
+alias cl="clear"
