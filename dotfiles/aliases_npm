@@ -1,3 +1,10 @@
+## general info
+#######################################
+
+alias npmv="npm --version"
+alias npmlg="npm list --global --depth 0"
+alias npmgl="npmlg"
+
 ## normal user local
 #######################################
 
