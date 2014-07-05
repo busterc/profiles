@@ -40,9 +40,33 @@ function copydots() {
 
 	done
 
+	nodify
+
 	echo "✓ Finished however a system restart might be required."
 	echo "..this script will finish in 10 seconds"
 	sleep 10
+}
+
+function nodify() {
+	# Update NPM and install various global packages
+
+	npm update -g npm
+	echo "✓ NPM updated"
+
+	local packages=()
+	packages+=("http-server")
+	packages+=("grunt")
+	packages+=("gulp")
+	packages+=("bower")
+	packages+=("yo")
+	packages+=("cordova")
+	packages+=("ionic")
+
+	for package in "${packages[@]}"
+	do
+		npm install -g $package
+		echo "✓ NPM installed: $package"
+	done
 }
 
 case $1 in
