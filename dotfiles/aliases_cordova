@@ -55,3 +55,5 @@ alias corpa-push="cordova plugin add https://github.com/phonegap-build/PushPlugi
 alias corpa-socialsharing="cordova plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git"
 alias corpa-spinnerdialog="cordova plugin add https://github.com/Paldom/SpinnerDialog.git"
 alias corpa-toast="cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git"
+alias corpa-ga="cordova plugin add https://github.com/danwilson/google-analytics-plugin.git"
+
