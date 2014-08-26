@@ -12,7 +12,8 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export EDITOR="subl"
 
 # Android Developer Tools SDK
-export PATH="$HOME/bin/adt-bundle-mac-x86_64-20140321/sdk/platform-tools:$HOME/bin/adt-bundle-mac-x86_64-20140321/sdk/tools:$PATH"
+export ANDROID_HOME="$HOME/bin/adt-bundle-mac-x86_64-20140321/sdk"
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"
 
 # Open Chrome from terminal
 alias chrome="open /Applications/Google\ Chrome.app"
