@@ -46,12 +46,8 @@ function prompter(){
 export PROMPT_COMMAND=prompter
 
 
-# Sencha Touch CMD
-export PATH="$HOME/bin/Sencha/Cmd/4.0.4.84:$PATH"
-export SENCHA_CMD_3_0_0="$HOME/bin/Sencha/Cmd/4.0.4.84"
-function senga() {
-	sencha -sdk $HOME/bin/Sencha/touch-2.3.1 generate app "$1" ./"$1" && cd ./"$1"
-}
+# ActivePerl & PPM (perl package manager)
+export PATH="/usr/local/ActivePerl-5.16/bin:$PATH"
 
 
 # Easy navigation
@@ -85,6 +81,9 @@ alias lsda='ls -la | grep "^d"'
 
 # Remove directory
 alias rd="rm -rf"
+
+# Run Makefiles quietly
+alias makes="make -s"
 
 # Create a new directory and enter it
 function md() {
@@ -158,4 +157,31 @@ function alls() {
 # List functions that match regexp, e.g. $ fnls .*c.*
 function fnls() {
 	declare -F | sed -n "/^declare -f $1/p" | sed "s#declare -f ##g"
+}
+
+# ImageMagick FavIcon Generator
+function favicon() {
+	if [[ $# -eq 0 ]]; then
+		echo "  usage: $0 <image-filename>"
+	else
+		convert "$1" -bordercolor white -border 0 \
+			\( -clone 0 -resize 16x16 \) \
+			\( -clone 0 -resize 32x32 \) \
+			\( -clone 0 -resize 48x48 \) \
+			\( -clone 0 -resize 64x64 \) \
+			-delete 0 -alpha off -colors 256 favicon.ico
+	fi
+}
+
+# Generate a stubbed Bash file
+function gen-bash() {
+	if [[ $# -eq 0 ]]; then
+		echo "  usage: gen-bash <scriptname>"
+		echo "    <scriptname>: no .sh extension required"
+	else
+		local bashfile="$1.sh"
+		printf "#!/bin/bash\n# $1\n\n" > $bashfile
+		chmod +x $bashfile
+		e $bashfile
+	fi
 }
