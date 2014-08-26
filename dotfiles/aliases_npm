@@ -10,13 +10,26 @@ alias npmgl="npmlg"
 
 # local install
 alias npmi="npm install"
+alias npmis="npmi --save"
+alias npmisd="npmi --save-dev"
+alias npmiso="npmi --save-optional"
+alias npmise="npmi --save-exact"
 
 # local update
 alias npmu="npm update"
 
 # local remove
 alias npmr="npm remove"
+alias npmrs="npmr --save"
+alias npmrsd="npmr --save-dev"
+alias npmrso="npmr --save-optional"
+alias npmrse="npmr --save-exact"
 alias npmx="npmr"
+alias npmxrs="npmrs"
+alias npmxsd="npmrsd"
+alias npmxso="npmrso"
+alias npmxse="npmrse"
+
 
 ## super user local
 #######################################
@@ -49,7 +62,7 @@ alias snpmug="npmug"
 alias snpmgu="npmug"
 
 # global remove
-alias npmrg="suod npm remove --global"
+alias npmrg="sudo npm remove --global"
 alias npmgr="npmrg"
 alias npmxg="npmrg"
 alias npmgx="npmrg"
