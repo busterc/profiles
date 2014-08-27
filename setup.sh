@@ -5,7 +5,7 @@ function copydots() {
 
 	for f in dotfiles/*; do
 		if [ "$1" = "linux" ]; then
-			if [ "$f" = "dotfiles/profile_osx" ] || [ "$f" = "dotfiles/profile_msys"]; then
+			if [ "$f" = "dotfiles/profile_osx" ] || [ "$f" = "dotfiles/profile_msys" ]; then
 				continue # jump the loop
 			fi
 		elif [ "$1" = "osx" ]; then
