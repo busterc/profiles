@@ -5,7 +5,7 @@
 # Prompt display
 export PROMPTERTYPE=short
 function prompter(){
-	local _ps1="$ "
+	local _ps1=""
 	if [ $# -gt 0 ]; then
 		export PROMPTERTYPE="$1"
 	fi
@@ -22,26 +22,26 @@ function prompter(){
 				/^Untracked files:$/                {r=r "?"}\
 				END {print r}'
 		)"
-		git="[$branch$flags] "
+		git=" [$branch$flags]"
 	fi
 
 	case "$PROMPTERTYPE" in
 	long)
-		_ps1="\u @$(hostname -s) in \$PWD "$git"$ "
+		_ps1="\u @$(hostname -s) in \$PWD"$git
 		;;
 	short)
-		_ps1="`pwd | sed "s#$HOME#~#"` "$git"$ "
+		_ps1="`pwd | sed "s#$HOME#~#"`"$git
 		;;
 	z)
-		_ps1="`pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g"` "$git"$ "
+		_ps1="`pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g"`"$git
 		;;
 	$)
 		# just use _ps1="$ "
-		_ps1=$git"$ "
+		_ps1=$git
 		;;
 	esac
 
-	PS1=$_ps1 ; export PS1
+	PS1="$(tput rev)$_ps1$(tput sgr0) $ " ; export PS1
 }
 export PROMPT_COMMAND=prompter
 
