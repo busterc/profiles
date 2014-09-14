@@ -41,7 +41,7 @@ function prompter(){
 		;;
 	esac
 
-	PS1="$(tput rev)$_ps1$(tput sgr0) $ " ; export PS1
+	PS1="$(hr)$(tput rev)$_ps1$(tput sgr0)\n$ " ; export PS1
 }
 export PROMPT_COMMAND=prompter
 
@@ -184,4 +184,24 @@ function gen-bash() {
 		chmod +x $bashfile
 		e $bashfile
 	fi
+}
+
+# HR for terminal, see also: https://github.com/LuRsT/hr
+function hr() {
+	local COLS="$(tput cols)"
+	if (( COLS <= 0 )) ; then
+		COLS="${COLUMNS:-80}"
+	fi
+
+	local WORD="$1"
+	if [[ -z "$WORD" ]] ; then
+		WORD="_"
+	fi
+
+	local LINE=''
+	while (( ${#LINE} < COLS ))
+	do
+		LINE="$LINE$WORD"
+	done
+	echo "${LINE:0:$COLS}"
 }

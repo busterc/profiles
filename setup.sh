@@ -4,6 +4,13 @@ function copydots() {
 	local dt=$(date -u +%F-%H%M%S)
 
 	for f in dotfiles/*; do
+
+# todo: replace if || checking with:
+# if [ \
+#		"$f" = "dotfiles/abc" -o \
+#		"$1" = "dotfiles/xyz" \
+#	];
+
 		if [ "$1" = "linux" ]; then
 			if [ "$f" = "dotfiles/profile_osx" ] || [ "$f" = "dotfiles/profile_msys" ]; then
 				continue # jump the loop
@@ -62,11 +69,26 @@ function nodify() {
 	packages+=("cordova")
 	packages+=("ionic")
 
+	# Mine, of course
+	packages+=("boomlet")
+	packages+=("grunt-file")
+	packages+=("gulpfile")
+	packages+=("no-exif")
+
 	for package in "${packages[@]}"
 	do
 		npm install -g $package
 		echo "✓ NPM installed: $package"
 	done
+}
+
+function gitignore() {
+	# generate OS specific gitignore_global
+	case $1 in msys)
+		cat dotfiles/gitignore_global_msys >> dotfiles/gitignore_global
+		echo "✓ Generate MSYS .gitignore_global"
+	;;
+	esac
 }
 
 case $1 in
@@ -87,6 +109,7 @@ linux)
 msys)
 	echo "Running profiles Setup for MSYS"
 	sleep 3
+	gitignore "msys"
 	copydots "msys"
 	;;
 *)
