@@ -27,3 +27,4 @@
 	df = diff
 	co = checkout
 	ci = commit
+	ad = add

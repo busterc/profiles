@@ -1,0 +1,30 @@
+# Git aliases (even smaller than .gitconfig aliases)
+alias gti="git init"
+alias gtc="git clone"
+alias gtp="git push"
+alias gts="git status"
+alias gtd="git diff"
+alias gtco="git commit"
+alias gta="git add"
+
+# GitHub aliases
+function ghc() {
+	git clone git@github.com:$1
+}
+function ghcbc() {
+	git clone git@github.com:busterc/$1
+}
+function ghchc() {
+	git clone git@github.com:helpdotcom/$1
+}
+
+# BitBucket aliases
+function ghc() {
+	git clone git@bitbucket.org:$1
+}
+function ghcbc() {
+	git clone git@bitbucket.org:busterc/$1
+}
+function ghchc() {
+	git clone git@bitbucket.org:helpdotcom/$1
+}
