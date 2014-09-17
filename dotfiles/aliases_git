@@ -19,12 +19,12 @@ function ghchc() {
 }
 
 # BitBucket aliases
-function ghc() {
+function bbc() {
 	git clone git@bitbucket.org:$1
 }
-function ghcbc() {
+function bbcbc() {
 	git clone git@bitbucket.org:busterc/$1
 }
-function ghchc() {
+function bbchc() {
 	git clone git@bitbucket.org:helpdotcom/$1
 }
