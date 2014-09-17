@@ -92,6 +92,11 @@ alias rd="rm -rf"
 # Run Makefiles quietly
 alias makes="make -s"
 
+# VirtualBox
+alias vbxl="VBoxManage list vms"
+alias vbxs="VBoxManage startvm"
+alias vbx="VBoxManage startvm --type headless"
+
 # Create a new directory and enter it
 function md() {
 	mkdir -p "$@" && cd "$@"
