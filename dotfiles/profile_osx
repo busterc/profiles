@@ -8,6 +8,12 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 ## Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+# MongoDB 2.6.4
+export PATH="$HOME/bin/mongodb-osx-x86_64-2.6.4/bin:$PATH"
+
+# PostgreSQL 9.3
+export PATH="/Library/PostgreSQL/9.3/bin:$PATH"
+
 # Sublime as editor, when possible
 export EDITOR="subl"
 
