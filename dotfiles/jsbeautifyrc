@@ -2,17 +2,17 @@
 	// Details: https://github.com/victorporof/Sublime-HTMLPrettify#using-your-own-jsbeautifyrc-options
 	// Documentation: https://github.com/einars/js-beautify/
 	"html": {
-		"indent_char": "\t",
-		"indent_size": 1
+		"indent_char": " ",
+		"indent_size": 4
 	},
 	"css": {
-		"indent_char": "\t",
-		"indent_size": 1
+		"indent_char": " ",
+		"indent_size": 4
 	},
 	"js": {
-		"indent_char": "\t",
-		"indent_size": 1,
-		"indent_with_tabs": true,
+		"indent_char": " ",
+		"indent_size": 4,
+		"indent_with_tabs": false,
 		"jslint_happy": true,
 		"space_before_conditional": true
 	}
