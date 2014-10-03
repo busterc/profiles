@@ -57,6 +57,9 @@ export MAGICK_HOME="$HOME/bin/ImageMagick-6.8.9"
 export PATH="$MAGICK_HOME/bin:$PATH"
 export DYLD_LIBRARY_PATH="$MAGICK_HOME/lib/"
 
+# open editor with current directory
+alias e.="e ."
+
 # Easy navigation
 alias cdd="cdl -"
 alias ~="cdl ~"
