@@ -92,6 +92,9 @@ alias lsda='ls -la | grep "^d"'
 # Remove directory
 alias rd="rm -rf"
 
+# Recursively touch all files and subdirectories
+alias grope="find . -exec touch {} \;"
+
 # Run Makefiles quietly
 alias makes="make -s"
 
@@ -219,4 +222,13 @@ function hr() {
 		LINE="$LINE$WORD"
 	done
 	echo "${LINE:0:$COLS}"
+}
+
+# Get word definitions from dict.org dictionary
+function define() {
+  if [[ $# -eq 0 ]]; then
+    echo "  usage: define <phrase>"
+  else
+    eval "curl 'dict://dict.org/d:$@'"
+  fi
 }
