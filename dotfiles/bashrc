@@ -22,3 +22,6 @@ fi
 if [ -f ~/.profile_msys ]; then
 	source ~/.profile_msys
 fi
+
+# MACHINE SPECIFICS
+source ~/.profile_machine
