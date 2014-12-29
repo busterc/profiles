@@ -70,3 +70,13 @@ alias snpmrg="npmrg"
 alias snpmgr="npmrg"
 alias snpmxg="npmrg"
 alias snpmgx="npmrg"
+
+# Run NPM Install on all subdirectories
+function subnpmi() {
+  for d in $(find . -name 'package.json' | grep -v 'node_modules' | sed 's/\/package\.json//g'); do
+  hr
+  cd $d
+  echo "NPM Installing $d ...";
+  sudo npm install
+  cd -; done
+}
