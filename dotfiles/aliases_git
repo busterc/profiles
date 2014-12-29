@@ -1,4 +1,5 @@
 # Git aliases (even smaller than .gitconfig aliases)
+
 alias gti="git init"
 alias gtc="git clone"
 alias gtp="git push"
@@ -8,6 +9,7 @@ alias gtco="git commit"
 alias gta="git add"
 
 # GitHub aliases
+
 function ghc() {
 	git clone git@github.com:$1
 }
@@ -17,8 +19,15 @@ function ghcbc() {
 function ghchc() {
 	git clone git@github.com:helpdotcom/$1
 }
+function ghcus() {
+  git clone git@github.com:UserStyles/$1
+}
+function ghchj() {
+  git clone git@github.com:HyperJSON/$1
+}
 
 # BitBucket aliases
+
 function bbc() {
 	git clone git@bitbucket.org:$1
 }
@@ -27,4 +36,26 @@ function bbcbc() {
 }
 function bbchc() {
 	git clone git@bitbucket.org:helpdotcom/$1
+}
+
+# Git Power Functions
+
+# Run Git-Status on all immediate subdirectories
+function gtss() {
+  for d in $(find . -name ".git" -maxdepth 2); do
+  hr
+  cd $d/..
+  echo "processing $d ...";
+  git status
+  cd - &>/dev/null; done
+}
+
+# Run Git Pull on all immediate subdirectories
+function gtps() {
+  for d in $(find . -name ".git" -maxdepth 2); do
+  hr
+  cd $d/..
+  echo "processing $d ...";
+  git pull
+  cd - &>/dev/null; done
 }
