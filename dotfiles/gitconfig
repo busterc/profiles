@@ -18,6 +18,10 @@
 	insteadOf = ghbc:
 [url "git@github.com:helpdotcom/"]
 	insteadOf = ghhc:
+[url "git@github.com:UserStyles/"]
+  insteadOf = ghus:
+[url "git@github.com:HyperJSON/"]
+  insteadOf = ghhj:
 
 [alias]
 	in = init
