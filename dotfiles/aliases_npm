@@ -77,6 +77,6 @@ function subnpmi() {
   hr
   cd $d
   echo "NPM Installing $d ...";
-  sudo npm install
+  npm install
   cd -; done
 }
