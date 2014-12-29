@@ -1,0 +1,74 @@
+# This is the machine profile for: hobo
+# Make sure to save any additions and/or modifications
+# to the machines/hobo file and not to profile_machine
+
+# Intended for individual (very) specific machine settings
+
+# ActivePerl & PPM (perl package manager)
+export PATH="/usr/local/ActivePerl-5.16/bin:$PATH"
+
+# ImageMagick
+export MAGICK_HOME="$HOME/bin/ImageMagick-6.8.9"
+export PATH="$MAGICK_HOME/bin:$PATH"
+export DYLD_LIBRARY_PATH="$MAGICK_HOME/lib/"
+
+# Apache Maven
+export M2_HOME="/usr/local/apache-maven/apache-maven-3.2.3"
+export M2="$M2_HOME/bin"
+export PATH="$M2:$PATH"
+
+# MongoDB 2.6.4
+export PATH="$HOME/bin/mongodb-osx-x86_64-2.6.4/bin:$PATH"
+
+# PostgreSQL 9.3
+export PATH="/Library/PostgreSQL/9.3/bin:$PATH"
+
+# Redis 2.8.17
+export PATH="$HOME/bin/redis-2.8.17/src:$PATH"
+
+# Java JDK Settings for Apache Maven
+export JAVA_HOME=$(/usr/libexec/java_home)
+export PATH="$JAVA_HOME:$PATH"
+
+# Kaskade VM
+function kaskade() {
+  # Usage: kaskade <up|down|ssh>
+
+  local vmname=Kaskade
+  local port=2224
+  local user=help@127.0.0.1
+  local vmdir=/home/help
+  local hostdir=/Users/buster/Github/helpdotcom/kaskade-vm
+
+  function _ssh() {
+    ssh -p $port $user
+  }
+
+  function _down() {
+    VBoxManage controlvm $vmname poweroff
+    pgrep -lf sshfs | sed 's# .*##' | xargs sudo kill -9
+    sudo umount -f $hostdir
+  }
+
+  function _up() {
+    mkdir -p $hostdir
+    VBoxManage list runningvms | grep $vmname &>/dev/null || VBoxManage startvm --type headless $vmname
+    sudo sshfs -o defer_permissions -o allow_other -o kernel_cache -o auto_cache -o reconnect -o compression=no -o cache_timeout=600 -o ServerAliveInterval=15 -p $port $user:$vmdir $hostdir
+    _ssh
+  }
+
+  case "$1" in
+  up)
+    _up
+    ;;
+  down)
+    _down
+    ;;
+  ssh)
+    _ssh
+    ;;
+  *)
+    echo "  Usage: kaskade <up|down|ssh>"
+    ;;
+  esac
+}

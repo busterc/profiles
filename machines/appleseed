@@ -1,0 +1,26 @@
+# This is the machine profile for: appleseed
+# Make sure to save any additions and/or modifications
+# to the machines/appleseed file and not to profile_machine
+
+# Intended for individual (very) specific machine settings
+
+# MacPorts Installer addition on 2013-01-15_at_22:34:03: adding an appropriate PATH variable for use with MacPorts.
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+
+## Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# ActivePerl & PPM (perl package manager)
+export PATH="/usr/local/ActivePerl-5.16/bin:$PATH"
+
+# ImageMagick
+export MAGICK_HOME="$HOME/bin/ImageMagick-6.8.9"
+export PATH="$MAGICK_HOME/bin:$PATH"
+export DYLD_LIBRARY_PATH="$MAGICK_HOME/lib/"
+
+# MongoDB 2.6.4
+export PATH="$HOME/bin/mongodb-osx-x86_64-2.6.4/bin:$PATH"
+
+# Android Developer Tools SDK
+export ANDROID_HOME="$HOME/bin/adt-bundle-mac-x86_64-20140702/sdk"
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"

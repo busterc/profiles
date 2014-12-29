@@ -2,27 +2,8 @@
 
 # INTENDED FOR: OSX
 
-# MacPorts Installer addition on 2013-01-15_at_22:34:03: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-
-## Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-# MongoDB 2.6.4
-export PATH="$HOME/bin/mongodb-osx-x86_64-2.6.4/bin:$PATH"
-
-# PostgreSQL 9.3
-export PATH="/Library/PostgreSQL/9.3/bin:$PATH"
-
-# Redis 2.8.17
-export PATH="$HOME/bin/redis-2.8.17/src:$PATH"
-
 # Sublime as editor, when possible
 export EDITOR="subl"
-
-# Android Developer Tools SDK
-export ANDROID_HOME="$HOME/bin/adt-bundle-mac-x86_64-20140702/sdk"
-export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"
 
 # Open Chrome from terminal
 alias chrome="open /Applications/Google\ Chrome.app"
@@ -79,9 +60,9 @@ function window() {
 	term n "$1"
 }
 
-# Run HTTP-Server and open Chrome
+# Run NPM HTTP-Server and open Chrome
 function serve() {
-	local port=$(portdiscovery)
+	local port=${@-8080}
 	tab "http-server -p $port -c-1"
-	chrome "http://$(hostname -s):$port"
+	chrome "http://$(hostname):$port"
 }

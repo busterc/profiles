@@ -49,13 +49,8 @@ export PROMPT_COMMAND=prompter
 mkdir -p "$HOME/bin"
 export PATH="$HOME/bin:$PATH"
 
-# ActivePerl & PPM (perl package manager)
-export PATH="/usr/local/ActivePerl-5.16/bin:$PATH"
-
-# ImageMagick
-export MAGICK_HOME="$HOME/bin/ImageMagick-6.8.9"
-export PATH="$MAGICK_HOME/bin:$PATH"
-export DYLD_LIBRARY_PATH="$MAGICK_HOME/lib/"
+# Reload profile
+alias repro="source ~/.bash_profile"
 
 # open editor with current directory
 alias e.="e ."
@@ -73,6 +68,8 @@ alias dl="cdl ~/Downloads"
 alias dt="cdl ~/Desktop"
 mkdir -p ~/Screenshots
 alias sss="cdl ~/Screenshots"
+mkdir -p ~/Github
+alias cdg="cdl ~/Github"
 
 # List all files colorized in long format
 alias l="ls -l"
@@ -98,10 +95,24 @@ alias grope="find . -exec touch {} \;"
 # Run Makefiles quietly
 alias makes="make -s"
 
+# Process Search
+alias psa="ps aux | grep -v 'grep' | grep "
+
+# xcv aliases
+alias fsx="xcv x"
+alias fsc="xcv c"
+alias fsv="xcv v"
+alias fsl="xcv l"
+
 # VirtualBox
 alias vbxl="VBoxManage list vms"
+alias vbxlr="VBoxManage list runningvms"
 alias vbxs="VBoxManage startvm"
 alias vbx="VBoxManage startvm --type headless"
+# VirtualBox PowerOff VM
+function vbxo() {
+  VBoxManage controlvm $1 poweroff
+}
 
 # Create a new directory and enter it
 function md() {
@@ -113,30 +124,34 @@ function cdl() {
 	cd "$@" && la
 }
 
-# Lazy change directory and list contents
-function cdz() {
-	local ds=$(find "$@"* -maxdepth 0 -type d | wc -l)
-	if [[ $ds -eq 1 ]]; then
-		cdl $(find "$@"* -maxdepth 0 -type d)
-	else
-		printf "\nTOO LAZY\n========\n"
-		find "$@"* -maxdepth 0 -type d
-		printf "\n"
-	fi
+# Dumb and lazy change directory for _children_ only
+function d() {
+  local ds=($(find . -type d | grep "$@" | grep -v "$@".*/))
+
+  if [[ ${#ds[@]} -eq 1 ]]; then
+    cdl ${ds[@]}
+  elif [[ ${#ds[@]} -eq 0 ]]; then
+    printf "\nNO MATCHING DIRECTORIES FOUND\n"
+  else
+    printf "\nU TOO LAZY, ME TOO DUMB\n=======================\n"
+    for d in ${ds[@]}; do
+    echo $d; done
+  fi
 }
 
-# Lazier change directory and list contents
-function cz() {
-	local d="`echo $1 | sed "s#/#*\/#g"`*"
-	local ds=$(find $d -type d | wc -l)
+# Find files or directories with grep
+function _q() {
+  find . -type "$1" | grep "$2" | grep -v "$2".*/
+}
 
-	if [[ $ds -eq 1 ]]; then
-		cdl $d
-	else
-		printf "\nTOO LAZY\n========\n"
-		find $d -type d | less
-		printf "\n"
-	fi
+# Find files with grep
+function qf() {
+  _q f "$@"
+}
+
+# Find directories with grep
+function qd() {
+  _q d "$@"
 }
 
 # Determine size of a file or total size of a directory

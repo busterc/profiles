@@ -61,6 +61,12 @@ function nodify() {
 	echo "✓ NPM updated"
 
 	local packages=()
+  packages+=("colors")
+  packages+=("browserify")
+  packages+=("keybase")
+  packages+=("node-inspector")
+  packages+=("optipng-bin")
+  packages+=("pm2")
 	packages+=("http-server")
 	packages+=("grunt")
 	packages+=("gulp")
@@ -91,31 +97,59 @@ function gitignore() {
 	esac
 }
 
-case $1 in
-osx)
-	echo "Running profiles Setup for OSX"
-	sleep 3
-	copydots "osx"
+function machinehead() {
+  if [ -f ./machines/$1 ]; then
+    cat machines/$1 > dotfiles/profile_machine
+    echo "✓ profile_machine overwritten"
+  fi
+}
 
-	echo "One more thing.."
-	sleep 5
-	exec init/osx
-	;;
-linux)
-	echo "Running profiles Setup for Linux"
-	sleep 3
-	copydots "linux"
-	;;
-msys)
-	echo "Running profiles Setup for MSYS"
-	sleep 3
-	gitignore "msys"
-	copydots "msys"
-	;;
-*)
-	echo "Houston, we have a problem.."
-	sleep 2
-	echo "You must pass a system type argument <osx|linux|msys> for example:"
-	echo -e "\t$ ./setup.sh osx"
-esac
+function init() {
+  case $1 in
+  osx)
+    echo "Running profiles Setup for OSX"
+    sleep 3
+    copydots "osx"
 
+    echo "One more thing.."
+    sleep 5
+    exec init/osx
+    ;;
+  linux)
+    echo "Running profiles Setup for Linux"
+    sleep 3
+    copydots "linux"
+    ;;
+  msys)
+    echo "Running profiles Setup for MSYS"
+    sleep 3
+    gitignore "msys"
+    copydots "msys"
+    ;;
+  appleseed)
+    echo "Running profiles Setup for $1"
+    sleep 3
+    machinehead $1
+    # init "osx"
+    ;;
+  hobo)
+    echo "Running profiles Setup for $1"
+    sleep 3
+    machinehead $1
+    # init "osx"
+    ;;
+  penny)
+    echo "Running profiles Setup for $1"
+    sleep 3
+    machinehead $1
+    # init "linux"
+    ;;
+  *)
+    echo "Houston, we have a problem.."
+    sleep 2
+    echo "  You must pass a system type (or name) argument <osx|linux|msys|appleseed|hobo|penny> for example:"
+    echo "    $ ./setup.sh osx"
+  esac
+}
+
+init $@
