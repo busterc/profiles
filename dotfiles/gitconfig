@@ -5,6 +5,7 @@
 	user = busterc
 [core]
 	excludesfile = ~/.gitignore_global
+	editor = subl -n -w
 [url "git@github.com:"]
 	insteadOf = gh:
 [url "git@gist.github.com:"]
@@ -32,3 +33,5 @@
 	co = checkout
 	ci = commit
 	ad = add
+[push]
+	default = simple
