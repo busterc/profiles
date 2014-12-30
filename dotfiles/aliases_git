@@ -7,6 +7,11 @@ alias gts="git status"
 alias gtd="git diff"
 alias gtco="git commit"
 alias gta="git add"
+alias gtpom="git push origin master"
+
+# Rebase Workflow = gtur then gtpomm
+alias gtur="git fetch upstream && git rebase upstream/master"
+alias gtpomm="git push origin +master:master"
 
 # GitHub aliases
 
