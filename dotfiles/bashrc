@@ -25,3 +25,6 @@ fi
 
 # MACHINE SPECIFICS
 source ~/.profile_machine
+if [ -f ~/.env ]; then
+  export $(cat ~/.env | xargs)
+fi
