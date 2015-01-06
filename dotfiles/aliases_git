@@ -1,5 +1,4 @@
-# Git aliases (even smaller than .gitconfig aliases)
-
+# Git aliases
 alias gti="git init"
 alias gtc="git clone"
 alias gtp="git push"
@@ -9,12 +8,31 @@ alias gtco="git commit"
 alias gta="git add"
 alias gtpom="git push origin master"
 
+# GitHub RESET TO UPSTREAM # Caution: this is destructive
+alias gtreup="git fetch upstream && git checkout master && git reset --hard upstream/master && git push origin master --force"
+
 # Rebase Workflow = gtur then gtpomm
 alias gtur="git fetch upstream && git rebase upstream/master"
 alias gtpomm="git push origin +master:master"
 
-# Github Public API Rate Limit
+# GitHub Public API Rate Limit
 alias ghrate="curl -s https://api.github.com/rate_limit"
+
+# GitHub upstreaming
+function upstreamhub() {
+  if [[ $# -eq 0 ]]; then
+    cat <<EOF
+Usage: upstreamhub <organization|username>
+
+  Description:
+    Set the GitHub upstream for the current repo, by passing
+    an organization or username
+
+EOF
+  else
+    echo $PWD | sed 's#.*\/##' | xargs -I '{}' git remote add upstream git@github.com:$1/{}
+  fi
+}
 
 # GitHub bulk clone repos for users or orgs
 function cloghub() {
@@ -29,7 +47,7 @@ function cloghub() {
 Usage: cloghub [options]
 
   Description:
-    Bulk clone Github repos by username or organization
+    Bulk clone GitHub repos by username or organization
 
   Options:
 
@@ -69,8 +87,6 @@ EOF
     esac
   fi
 }
-
-
 
 # GitHub aliases
 
