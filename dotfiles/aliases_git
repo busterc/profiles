@@ -13,6 +13,65 @@ alias gtpom="git push origin master"
 alias gtur="git fetch upstream && git rebase upstream/master"
 alias gtpomm="git push origin +master:master"
 
+# Github Public API Rate Limit
+alias ghrate="curl -s https://api.github.com/rate_limit"
+
+# GitHub bulk clone repos for users or orgs
+function cloghub() {
+  : ${CLOGHUB_GITHUB_TOKEN?"Error: missing environment variable: CLOGHUB_GITHUB_TOKEN"}
+
+  local userRepos="${CLOGHUB_GITHUB_TOKEN}:x-oauth-basic https://api.github.com/users/$2/repos"
+  local orgRepos="${CLOGHUB_GITHUB_TOKEN}:x-oauth-basic https://api.github.com/orgs/$2/repos"
+  local myRepos="${CLOGHUB_GITHUB_TOKEN}:x-oauth-basic https://api.github.com/user/repos"
+
+  function usage() {
+    cat <<EOF
+Usage: cloghub [options]
+
+  Description:
+    Bulk clone Github repos by username or organization
+
+  Options:
+
+    -u  <username>      clones a specific user's public repos
+    -o  <organization>  clones all accessible repos for an organization
+    -me                 clones all of your own repos
+
+EOF
+  }
+
+  if [[ $# -eq 0 ]]; then
+    usage
+  else
+    case "$1" in
+      -u)
+        if [[ $# -lt 2 ]]; then
+          printf >&2 "Error: a username is required\n\n"
+          usage
+        else
+          curl -s -u ${CLOGHUB_GITHUB_TOKEN}:x-oauth-basic https://api.github.com/users/$2/repos?per_page=100 | grep ssh_url | sed 's#.*\"\: \"##' | sed 's#[,\"]##g' | xargs -n 1 git clone
+        fi
+        ;;
+      -o)
+        if [[ $# -lt 2 ]]; then
+          printf >&2 "Error: an organization name is required\n\n"
+          usage
+        else
+          curl -s -u ${CLOGHUB_GITHUB_TOKEN}:x-oauth-basic https://api.github.com/orgs/$2/repos?per_page=100 | grep ssh_url | sed 's#.*\"\: \"##' | sed 's#[,\"]##g' | xargs -n 1 git clone
+        fi
+        ;;
+      -me)
+        curl -s -u ${CLOGHUB_GITHUB_TOKEN}:x-oauth-basic https://api.github.com/user/repos?per_page=100 | grep ssh_url | sed 's#.*\"\: \"##' | sed 's#[,\"]##g' | xargs -n 1 git clone
+        ;;
+      *)
+        usage
+        ;;
+    esac
+  fi
+}
+
+
+
 # GitHub aliases
 
 function ghc() {
