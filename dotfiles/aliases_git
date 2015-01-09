@@ -7,6 +7,8 @@ alias gtd="git diff"
 alias gtco="git commit"
 alias gta="git add"
 alias gtpom="git push origin master"
+alias gtdup="git fetch upstream && git diff master upstream/master"
+alias gtrev="git remote -v"
 
 # GitHub RESET TO UPSTREAM # Caution: this is destructive
 alias gtreup="git fetch upstream && git checkout master && git reset --hard upstream/master && git push origin master --force"
@@ -119,6 +121,16 @@ function bbchc() {
 }
 
 # Git Power Functions
+
+# Run Git-Diff on Upstream for all immediate subdirectories
+function gtdups() {
+  for d in $(find . -name ".git" -maxdepth 2); do
+  hr
+  cd $d/..
+  echo "processing $d ...";
+  git fetch upstream && git diff master upstream/master
+  cd - &>/dev/null; done
+}
 
 # Run Git-Status on all immediate subdirectories
 function gtss() {
