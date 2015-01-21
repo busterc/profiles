@@ -11,9 +11,11 @@ alias npmgl="npmlg"
 # local install
 alias npmi="npm install"
 alias npmis="npmi --save"
+alias npmise="npmis --save-exact"
 alias npmisd="npmi --save-dev"
+alias npmisde="npmisd --save-exact"
 alias npmiso="npmi --save-optional"
-alias npmise="npmi --save-exact"
+alias npmisoe="npmiso --save-exact"
 
 # local update
 alias npmu="npm update"
@@ -23,7 +25,6 @@ alias npmr="npm remove"
 alias npmrs="npmr --save"
 alias npmrsd="npmr --save-dev"
 alias npmrso="npmr --save-optional"
-alias npmrse="npmr --save-exact"
 alias npmx="npmr"
 alias npmxrs="npmrs"
 alias npmxsd="npmrsd"
@@ -76,7 +77,7 @@ function subnpmi() {
   for d in $(find . -name 'package.json' | grep -v 'node_modules' | sed 's/\/package\.json//g'); do
   hr
   cd $d
-  echo "NPM Installing $d ...";
+  echo "NPM Installing $d";
   npm install
   cd -; done
 }
