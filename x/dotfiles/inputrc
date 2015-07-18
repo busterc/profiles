@@ -1,0 +1,10 @@
+# do not bell on tab-completion
+set bell-style none
+
+# Completed names which are symbolic links to
+# directories have a slash appended.
+set mark-symlinked-directories on
+
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+"\ex": kill-whole-line

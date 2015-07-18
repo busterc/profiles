@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Cordova PhoneGap aliases (v3.X)
+alias cor="cordova" # candidate for "corc"
+alias cori="cordova info"
+alias corc="cordova create"
+
+# Platform specifics for Cordova PhoneGap
+alias corpfl="cordova platform ls"
+alias corpfa="cordova platform add"
+alias corpfr="cordova platform remove"
+alias corpfx="corpfr"
+
+# Build specifics for Cordova PhoneGap
+alias corpre="cordova prepare"
+alias corco="cordova compile"
+alias corb="cordova build"
+
+# Running specifics for Cordova PhoneGap
+alias corem="cordova emulate"
+alias corr="cordova run"
+alias cors="cordova serve"
+alias corbs="cordova build && cordova serve"
+alias corbem="cordova build && cordova emulate"
+
+# Plugin specifics for Cordova PhoneGap
+alias corp="cordova plugin" # candidate for "corpa"
+alias corps="cordova plugin search"
+alias corpl="cordova plugin ls"
+alias corpa="cordova plugin add"
+alias corpr="cordova plugin remove"
+alias corpx="corpr"
+
+# Common official plugins
+alias corpa-battery-status="cordova plugin add org.apache.cordova.battery-status"
+alias corpa-camera="cordova plugin add org.apache.cordova.camera"
+alias corpa-contacts="cordova plugin add org.apache.cordova.contacts"
+alias corpa-device="cordova plugin add org.apache.cordova.device"
+alias corpa-device-motion="cordova plugin add org.apache.cordova.device-motion"
+alias corpa-device-orientation="cordova plugin add org.apache.cordova.device-orientation"
+alias corpa-dialogs="cordova plugin add org.apache.cordova.dialogs"
+alias corpa-file="cordova plugin add org.apache.cordova.xxx"
+alias corpa-file-transfer="cordova plugin add org.apache.cordova.file-transfer"
+alias corpa-geolocation="cordova plugin add org.apache.cordova.geolocation"
+alias corpa-globalization="cordova plugin add org.apache.cordova.globalization"
+alias corpa-inappbrowser="cordova plugin add org.apache.cordova.inappbrowser"
+alias corpa-media="cordova plugin add org.apache.cordova.media"
+alias corpa-media-capture="cordova plugin add org.apache.cordova.media-capture"
+alias corpa-network-information="cordova plugin add org.apache.cordova.network-information"
+alias corpa-splashscreen="cordova plugin add org.apache.cordova.splashscreen"
+alias corpa-vibration="cordova plugin add org.apache.cordova.vibration"
+alias corpa-statusbar="cordova plugin add org.apache.cordova.statusbar"
+alias corpa-console="cordova plugin add org.apache.cordova.console"
+
+# Common 3rd party plugins
+alias corpa-push="cordova plugin add https://github.com/phonegap-build/PushPlugin.git"
+alias corpa-socialsharing="cordova plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git"
+alias corpa-spinnerdialog="cordova plugin add https://github.com/Paldom/SpinnerDialog.git"
+alias corpa-toast="cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git"
+alias corpa-ga="cordova plugin add https://github.com/danwilson/google-analytics-plugin.git"

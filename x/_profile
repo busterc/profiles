@@ -1,0 +1,331 @@
+#!/bin/bash
+
+# X _profile
+
+function source_profile_x() {
+  local sources=($(dirname "${BASH_SOURCE[0]}")/sources/*)
+  for s in "${sources[@]}"; do
+    source "$s"
+  done
+}
+source_profile_x
+
+# Prompt display
+export PROMPTERTYPE=short
+function prompter(){
+  local _ps1=""
+  if [[ $# -gt 0 ]]; then
+    export PROMPTERTYPE="$1"
+  fi
+
+  local git
+  local status
+  local branch
+
+  status="$(git status 2>/dev/null)"
+  branch="$(echo "$status" | awk '/On branch/ {print $3}')"
+
+  if [[ "$branch" != "" ]]; then
+    local flags
+    flags="$(
+      echo "$status" | awk 'BEGIN {r=""} \
+        /^Changes to be committed:$/        {r=r "+"}\
+        /^Changes not staged for commit:$/  {r=r "!"}\
+        /^Untracked files:$/                {r=r "?"}\
+        END {print r}'
+    )"
+    git=" [$branch$flags]"
+  fi
+
+  case "$PROMPTERTYPE" in
+  long)
+    _ps1="\u @$(hostname -s) in \$PWD"$git
+    ;;
+  short)
+    _ps1="$(pwd | sed "s#$HOME#~#")"$git
+    ;;
+  z)
+    _ps1="$(pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g")"$git
+    ;;
+  $)
+    # just use _ps1="$ "
+    _ps1=$git
+    ;;
+  esac
+
+  PS1="$(hr)$(tput rev)$_ps1$(tput sgr0)\n$ " ; export PS1
+}
+export PROMPT_COMMAND=prompter
+
+# Prep ~/bin
+mkdir -p "$HOME/bin"
+export PATH="$HOME/bin:$PATH"
+
+# Reload profile
+alias repro="source ~/.bash_profile"
+
+# open editor with current directory
+alias e.="e ."
+
+# Clear terminal screen and kill history
+alias cl="clear && history -c"
+
+# Easy navigation
+alias cdd="cdl -"
+alias ~="cdl ~"
+alias ..="cdl .."
+alias ...="cdl ../.."
+alias ....="cdl ../../.."
+alias .....="cdl ../../../.."
+
+# Shortcuts
+alias dl="cdl ~/Downloads"
+alias dt="cdl ~/Desktop"
+mkdir -p ~/Screenshots
+alias sss="cdl ~/Screenshots"
+mkdir -p ~/Github
+alias cdg="cdl ~/Github"
+
+# List all files colorized in long format
+alias l="ls -l"
+
+# List all files colorized in long format, including dot files
+alias la="ls -la"
+
+# List only directories
+alias lsd='ls -l | grep "^d"'
+
+# List only dotfiles
+alias lds='ls -lad .*'
+
+# List only directories, including dot files
+alias lsda='ls -la | grep "^d"'
+
+# Recursively touch all files and subdirectories
+alias grope="find . -exec touch {} \;"
+
+# Run Makefiles quietly
+alias makes="make -s"
+
+# Process Search
+alias psa="ps aux | grep -v 'grep' | grep "
+
+# xcv aliases
+alias fsx="xcv x"
+alias fsc="xcv c"
+alias fsv="xcv v"
+alias fsl="xcv l"
+
+# VirtualBox
+alias vbxl="VBoxManage list vms"
+alias vbxlr="VBoxManage list runningvms"
+alias vbxs="VBoxManage startvm"
+alias vbx="VBoxManage startvm --type headless"
+# VirtualBox PowerOff VM
+function vbxo() {
+  VBoxManage controlvm "$1" poweroff
+}
+
+# Create a new directory and enter it
+function md() {
+  mkdir -p "$@" && cd "$@"
+}
+
+# Remove files and/or directories
+function rmd() {
+  if [[ "$1" = "." ]]; then
+    # remove everything inside the CWD,
+    # including dotfiles while suppressing
+    # the error message for . and ..
+    find . -exec rm -rf {} 2> /dev/null \;
+  else
+    rm -rf "$@"
+  fi
+}
+
+# Erase the contents of a directory, leaving the folder
+function riddir() {
+  function usage() {
+    cat <<EOF
+
+  Usage: riddir <directory>
+
+    Description:
+      Remove the contents of a directory,
+      leaving the directory itself in place.
+
+EOF
+  }
+
+  if [ -z "$1" ]; then
+    usage
+    return 1
+  fi
+
+  if [ -d "$1" ]; then
+    (
+      cd "$1"
+      find . -exec rm -rf {} 2> /dev/null \;
+    )
+  else
+    cat <<EOF
+
+    Error: Not a valid directory => "$1"
+
+EOF
+  fi
+
+}
+alias rid=riddir
+
+# Change directory and list contents
+function cdl() {
+  cd "$@" && la
+}
+
+# Find files or directories (by name) with grep
+function _q() {
+  find . -type "$1" | grep "$2" | grep -v "$2.*/"
+}
+
+# Find files with grep
+function qf() {
+  _q f "$@"
+}
+
+# Find directories with grep
+function qd() {
+  _q d "$@"
+}
+
+# Determine size of a file or total size of a directory
+function fs() {
+  if du -b /dev/null > /dev/null 2>&1; then
+    local arg=-sbh
+  else
+    local arg=-sh
+  fi
+  if [[ -n "$@" ]]; then
+    du $arg -- "$@"
+  else
+    du $arg .[^.]* *
+  fi
+}
+
+# Open Editor
+function e() {
+  if [[ -z "$1" ]]; then
+    eval "$EDITOR" . &
+  else
+    eval "$EDITOR" "$1" &
+  fi
+}
+
+# Open .profiles in Editor
+function profiles() {
+  e ~/.profiles
+}
+
+# List aliases that match regexp, e.g. $ alls .*sudo.*
+function alls() {
+  alias -p | sed -n "/^alias $1/p"
+}
+
+# List functions that match regexp, e.g. $ fnls .*c.*
+function fnls() {
+  declare -F | sed -n "/^declare -f $1/p" | sed "s#declare -f ##g"
+}
+
+# ImageMagick FavIcon Generator
+function favicon() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: favicon <image-filename>\n\n"
+  else
+    convert "$1" -bordercolor white -border 0 \
+      \( -clone 0 -resize 16x16 \) \
+      \( -clone 0 -resize 32x32 \) \
+      \( -clone 0 -resize 48x48 \) \
+      \( -clone 0 -resize 64x64 \) \
+      -delete 0 -alpha off -colors 256 favicon.ico
+  fi
+}
+
+# Generate a stubbed Bash file
+function bashfile() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: bashfile <filename>\n\n"
+  else
+    local shell
+    shell=$(which bash)
+    local file
+    file="$1"
+    printf "#!/$shell\n# %s\n\n" "$1" > "$file"
+    chmod +x "$file"
+    e "$file"
+  fi
+}
+
+# Generate a stubbed Shell file
+function shfile() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: shfile <filename>\n\n"
+  else
+    local shell
+    shell=$(which sh)
+    local file
+    file="$1"
+    printf "#!/$shell\n# %s\n\n" "$1" > "$file"
+    chmod +x "$file"
+    e "$file"
+  fi
+}
+
+# HR for terminal, see also: https://github.com/LuRsT/hr
+function hr() {
+  local COLS
+  COLS="$(tput cols)"
+  if (( COLS <= 0 )) ; then
+    COLS="${COLUMNS:-80}"
+  fi
+
+  local WORD="$1"
+  if [[ -z "$WORD" ]] ; then
+    WORD="_"
+  fi
+
+  local LINE=''
+  while (( ${#LINE} < COLS ))
+  do
+    LINE="$LINE$WORD"
+  done
+  echo "${LINE:0:$COLS}"
+}
+
+# Get word definitions from dict.org dictionary
+function define() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: define <phrase>\n\n"
+  else
+    eval "curl 'dict://dict.org/d:$*'"
+  fi
+}
+
+# Shellcheck with grep
+function shrepcheck() {
+  # $ shrepcheck <regex>
+  local regex="^#!"
+  # [[ -z "$@" ]] || $regex="$@"
+
+  local fs=($(grep -lr "$regex" .))
+
+  if [[ ${#fs[@]} -eq 0 ]]; then
+    echo "  No matching files found"
+  else
+    for f in "${fs[@]}"; do
+      shellcheck "$f"
+      if [[ $? -ne 0 ]]; then
+        hr
+      fi
+    done
+  fi
+}

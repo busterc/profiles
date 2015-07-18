@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# CROSS-PROFILE GOODNESS
+if [[ -f "$HOME/.profiles/x/_profile" ]]; then
+  source "$HOME/.profiles/x/_profile"
+fi
+
+# ACTIVE PROFILE SPECIFICS
+if [[ -f "$HOME/.profiles/active/profile" ]]; then
+  source "$HOME/.profiles/active/profile"
+fi
+
+# .env contains uncommitted secrets (eg. private tokens)
+if [[ -f "$HOME/.env" ]]; then
+	export $(xargs < "$HOME/.env")
+fi

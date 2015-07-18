@@ -1,0 +1,37 @@
+[user]
+  name = Buster Collings
+  email = busterc@gmail.com
+[github]
+  user = busterc
+[core]
+  excludesfile = ~/.gitignore_global
+  editor = subl -n -w
+[url "git@github.com:"]
+  insteadOf = gh:
+[url "git@gist.github.com:"]
+  insteadOf = gist:
+[url "git@heroku.com:"]
+  insteadOf = heroku:
+[url "git@bitbucket.org:"]
+  insteadOf = bb:
+
+[url "git@github.com:busterc/"]
+  insteadOf = ghbc:
+[url "git@github.com:helpdotcom/"]
+  insteadOf = ghhc:
+[url "git@github.com:UserStyles/"]
+  insteadOf = ghus:
+[url "git@github.com:HyperJSON/"]
+  insteadOf = ghhj:
+
+[alias]
+  in = init
+  cl = clone
+  pu = push
+  st = status
+  df = diff
+  co = checkout
+  ci = commit
+  ad = add
+[push]
+  default = simple

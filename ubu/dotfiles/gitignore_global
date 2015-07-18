@@ -1,0 +1,17 @@
+# for more https://github.com/github/gitignore/tree/master/Global
+
+node_modules/
+.sass-cache
+.env
+
+# ========================================
+# Linux
+# ========================================
+
+*~
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
