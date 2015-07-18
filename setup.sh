@@ -1,155 +1,154 @@
 #!/bin/bash
 
+cat <<EOF
+
+# IN THE BEGINNING, THERE WERE ...
+
+EOF
+
+# Prevent sourcing of this file
+if [[ ${BASH_SOURCE[0]} != $0 ]]; then
+  echo >&2 "Error: Cannot be sourced"
+  return 1
+fi
+
+temp="${0%/*}/temp"
+datetime=$(date -u +%F-%H%M%S)
+backupdir="$(pwd)/backup/$datetime"
+activedir="$(pwd)/active"
+
+function cleanup() {
+  rm -rf "$temp"
+}
+
+# Clean up before exiting
+trap cleanup EXIT
+
+function usage() {
+  cat <<EOF
+
+  Usage: $0 <osx|msys|ubu>
+
+EOF
+
+  exit 1
+}
+
+function main() {
+
+  # Ask for the administrator password upfront
+  sudo -v
+
+  local valid="false"
+  local profiles=(
+    osx
+    msys
+    ubu
+  )
+
+  # Prepare temp directory
+  mkdir -p "$temp"
+
+  # Prepare the active directory
+  mkdir -p "$activedir"
+
+  for profile in "${profiles[@]}"; do
+
+    # Validate profile
+    if [[ "$1" = "$profile" ]]; then
+      valid="true"
+
+      # Prepare backup directory
+      mkdir -p "$backupdir"
+
+      copydots "x" # cross-profile dots
+      copydots "$1"
+      activate "$1"
+
+      # Add sshkey
+      sshme
+
+      # [ -f "./x/installs.sh" ] && source "./x/installs.sh"
+      # [ -f "./$1/installs.sh" ] && source "./$1/installs.sh"
+      [ -f "./$1/defaults.sh" ] && source "./$1/defaults.sh"
+
+      break    
+    fi
+  done
+
+  [[ "$valid" = "true" ]] || usage
+}
+
+function validatepwd() {
+
+  function badpath() {
+    printf "\n  Error: you need to cd into $HOME/.profiles then run setup.sh\n\n"
+    exit 2
+  }
+
+  [[ "$(pwd)" = "$HOME/.profiles" ]] || badpath
+
+}
+
 function copydots() {
-	local dt=$(date -u +%F-%H%M%S)
+  local dotfile
 
-	for f in dotfiles/*; do
+  cat <<EOF
 
-# todo: replace if || checking with:
-# if [ \
-#		"$f" = "dotfiles/abc" -o \
-#		"$1" = "dotfiles/xyz" \
-#	];
+================================================================================
+# DOTFILES ($1)
+================================================================================
 
-		if [ "$1" = "linux" ]; then
-			if [ "$f" = "dotfiles/profile_osx" ] || [ "$f" = "dotfiles/profile_msys" ]; then
-				continue # jump the loop
-			fi
-		elif [ "$1" = "osx" ]; then
-			if [ "$f" = "dotfiles/profile_linux" ] || [ "$f" = "dotfiles/profile_msys" ]; then
-				continue # jump the loop
-			fi
-		elif [ "$1" = "msys" ]; then
-			if [ "$f" = "dotfiles/profile_osx" ] || [ "$f" = "dotfiles/profile_linux" ]; then
-				continue # jump the loop
-			fi
-		else
-			echo "Odd.. you are running copydots() without a valid argument."
-			break # stop what you're doing
-		fi
+EOF
 
-		local df=~/.${f:9} # dotfile
+  for f in "$(pwd)/$1/dotfiles/"*; do
+    # get the file basename
+    dotfile="$HOME/.${f##*/}"
 
+    # make sure the file is real, not '/*'
+    [[ -f "$f" ]] || break
 
-		# backup existing/matching file in ~/
-		if [ -f $df ]; then
+    # backup existing/matching file in ~/
+    if [[ -f "$dotfile" ]]; then
+      cp "$dotfile" "$backupdir"
+    fi
 
-			local bdf=./backup/$dt
-			mkdir -p $bdf
-
-			cp $df $bdf
-			echo "✓ Backup "$df
-		fi
-
-		# create symlinks for ~
-		ln -sfn $(pwd)/$f $df
-		echo "✓ Symlinked $(pwd)/$f -> $df"
-
-	done
-
-	nodify
-
-	echo "✓ Finished however a system restart might be required."
-	echo "..this script will finish in 10 seconds"
-	sleep 10
+    # create symlinks for ~
+    ln -sfn "$f" "$dotfile"
+    echo "✓ $dotfile"
+  done
 }
 
-function nodify() {
-	# Update NPM and install various global packages
+function sshme() {
 
-	npm update -g npm
-	echo "✓ NPM updated"
+  cat <<EOF
 
-	local packages=()
-  packages+=("colors")
-  packages+=("browserify")
-  packages+=("keybase")
-  packages+=("node-inspector")
-  packages+=("optipng-bin")
-  packages+=("pm2")
-	packages+=("http-server")
-	packages+=("grunt")
-	packages+=("gulp")
-	packages+=("bower")
-	packages+=("yo")
-	packages+=("cordova")
-	packages+=("ionic")
+================================================================================
+# SSH
+================================================================================
 
-	# Mine, of course
-	packages+=("boomlet")
-	packages+=("grunt-file")
-	packages+=("gulpfile")
-	packages+=("no-exif")
+EOF
 
-	for package in "${packages[@]}"
-	do
-		npm install -g $package
-		echo "✓ NPM installed: $package"
-	done
+  local privatekey="$HOME/.ssh/id_rsa"
+  [ -f "$privatekey" ] || lpass show --notes "SSH key for busterc" > "$privatekey"
+  chmod 600 "$privatekey"
+  echo "✓ Added -> $privatekey"
 }
 
-function gitignore() {
-	# generate OS specific gitignore_global
-	case $1 in msys)
-		cat dotfiles/gitignore_global_msys >> dotfiles/gitignore_global
-		echo "✓ Generate MSYS .gitignore_global"
-	;;
-	esac
+function activate() {
+  cat <<EOF
+
+================================================================================
+# PROFILE ACTIVATION
+================================================================================
+
+EOF
+
+  # ~/.bashrc sources ./active/profile
+  # ./active/profile links to the appropriate profile
+  ln -sfn "$(pwd)/$1/_profile" "$activedir/profile"
+  echo "✓ Activated $1"
 }
 
-function machinehead() {
-  if [ -f ./machines/$1 ]; then
-    cat machines/$1 > dotfiles/profile_machine
-    echo "✓ profile_machine overwritten"
-  fi
-}
-
-function init() {
-  case $1 in
-  osx)
-    echo "Running profiles Setup for OSX"
-    sleep 3
-    copydots "osx"
-
-    echo "One more thing.."
-    sleep 5
-    exec init/osx
-    ;;
-  linux)
-    echo "Running profiles Setup for Linux"
-    sleep 3
-    copydots "linux"
-    ;;
-  msys)
-    echo "Running profiles Setup for MSYS"
-    sleep 3
-    gitignore "msys"
-    copydots "msys"
-    ;;
-  appleseed)
-    echo "Running profiles Setup for $1"
-    sleep 3
-    machinehead $1
-    # init "osx"
-    ;;
-  hobo)
-    echo "Running profiles Setup for $1"
-    sleep 3
-    machinehead $1
-    # init "osx"
-    ;;
-  penny)
-    echo "Running profiles Setup for $1"
-    sleep 3
-    machinehead $1
-    # init "linux"
-    ;;
-  *)
-    echo "Houston, we have a problem.."
-    sleep 2
-    echo "  You must pass a system type (or name) argument <osx|linux|msys|appleseed|hobo|penny> for example:"
-    echo "    $ ./setup.sh osx"
-  esac
-}
-
-init $@
+validatepwd
+main "$@"
