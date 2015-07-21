@@ -2,10 +2,27 @@
 
 # Setup a Mac with apps, tools and defaults
 function osxify() {
+
+  cat <<EOF
+
+================================================================================
+# XCODE
+================================================================================
+
+EOF
+
   # XCode Command Line Tools
   xcode-select --install
 
-  # Homebrew
+  cat <<EOF
+
+================================================================================
+# HOMEBREW
+================================================================================
+
+EOF
+
+  # Homebrew itself
   if [[ ! "$(type -P brew)" ]]; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
@@ -13,7 +30,7 @@ function osxify() {
   brew update
 
   # LastPass
-  brew install lastpass-cli --with-pinentry --with-doc
+  brew install lastpass-cli --with-pinentry # --with-doc
 
   # Prevent Homebrew from getting rate-limited
   export "HOMEBREW_GITHUB_API_TOKEN=$(lpass show --notes 'GitHub Access Token')"
@@ -33,12 +50,14 @@ function osxify() {
   done 
 
   local casks=(
+    google-chrome
     google-drive
+    lastpass
     picasa
     rescuetime
+    spectacle
     sublime-text
     vagrant
-    virtualbox
     vlc
     vmware-fusion
   )

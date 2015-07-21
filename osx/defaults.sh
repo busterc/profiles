@@ -85,14 +85,14 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
-echo "✓ Enable 3-finger drag. (Moving with 3 fingers in any window "chrome" moves the window.)"
+echo "✓ Enable 3-finger drag. (Moving with 3 fingers in any window \"chrome\" moves the window.)"
 # UGH, REQUIRES RESTART ON FORCE-TOUCH MACBOOK
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Dragging -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 defaults write com.apple.AppleMultitouchTrackpad Dragging -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 
-echo "✓ Disable “natural” (Lion-style) scrolling"
+echo "✓ Disable \"natural\" (Lion-style) scrolling"
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 echo "✓ Enable full keyboard access for all controls"
@@ -313,26 +313,60 @@ defaults write com.apple.Terminal "Default Window Settings" -string "Homebrew"
 defaults write com.apple.Terminal "Startup Window Settings" -string "Homebrew"
 
 echo "✓ Underline cursor"
-/usr/libexec/PlistBuddy -c "Set 'Window Settings:Homebrew:CursorType' 1" "$HOME/Library/Preferences/com.apple.Terminal.plist"
+plist_cursor_underline() {
+  /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:CursorType' ${2-} 1" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
+  [[ "$?" -eq 0 && -z "$2" ]] || plist_cursor_underline "Add" "integer"
+}
+plist_cursor_underline
 
 echo "✓ Blink cursor"
-/usr/libexec/PlistBuddy -c "Set 'Window Settings:Homebrew:CursorBlink' 1" "$HOME/Library/Preferences/com.apple.Terminal.plist"
+plist_cursor_blink() {
+  /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:CursorBlink' ${2-} 1" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
+  [[ "$?" -eq 0 && -z "$2" ]] || plist_cursor_blink "Add" "bool"
+}
+plist_cursor_blink
 
 echo "✓ Use Option/Alt as Meta"
-/usr/libexec/PlistBuddy -c "Set 'Window Settings:Homebrew:useOptionAsMetaKey' 1" "$HOME/Library/Preferences/com.apple.Terminal.plist"
+plist_meta_key() {
+  /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:useOptionAsMetaKey' ${2-} true" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
+  [[ "$?" -eq 0 && -z "$2" ]] || plist_meta_key "Add" "bool"
+}
+plist_meta_key
 
 echo "✓ Disable audio bell"
-/usr/libexec/PlistBuddy -c "Set 'Window Settings:Homebrew:Bell' 0" "$HOME/Library/Preferences/com.apple.Terminal.plist"
+plist_audio_bell() {
+  /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:Bell' ${2-} false" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
+  [[ "$?" -eq 0 && -z "$2" ]] || plist_audio_bell "Add" "bool"
+}
+plist_audio_bell
 
 echo "✓ Enable visual bell"
-/usr/libexec/PlistBuddy -c "Set 'Window Settings:Homebrew:VisualBell' 1" "$HOME/Library/Preferences/com.apple.Terminal.plist"
-/usr/libexec/PlistBuddy -c "Set 'Window Settings:Homebrew:VisualBellOnlyWhenMuted' 0" "$HOME/Library/Preferences/com.apple.Terminal.plist"
+plist_visual_bell() {
+  /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:VisualBellOnlyWhenMuted' ${2-} true" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
+  [[ "$?" -eq 0 && -z "$2" ]] || plist_visual_bell "Add" "bool"
+}
+plist_visual_bell
+
+echo "✓ Enable visual bell when not muted"
+plist_visual_bell_muted() {
+  /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:VisualBellOnlyWhenMuted' ${2-} false" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
+  [[ "$?" -eq 0 && -z "$2" ]] || plist_visual_bell_muted "Add" "bool"
+}
+plist_visual_bell_muted
 
 echo "✓ Close terminal window on exit"
-/usr/libexec/PlistBuddy -c "Set 'Window Settings:Homebrew:shellExitAction' 0" "$HOME/Library/Preferences/com.apple.Terminal.plist"
+plist_close_exit() {
+  /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:shellExitAction' ${2-} 0" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
+  [[ "$?" -eq 0 && -z "$2" ]] || plist_close_exit "Add" "integer"
+}
+plist_close_exit
 
 echo "✓ Don't show dimensions in title"
-/usr/libexec/PlistBuddy -c "Set 'Window Settings:Homebrew:ShowDimensionsInTitle' 0" "$HOME/Library/Preferences/com.apple.Terminal.plist"
+plist_dimensions_hide() {
+  /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:ShowDimensionsInTitle' ${2-} false" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
+  [[ "$?" -eq 0 && -z "$2" ]] || plist_dimensions_hide "Add" "bool"
+}
+plist_dimensions_hide
 
 echo "✓ Always show tabbar"
 defaults write com.apple.Terminal ShowTabBar -int 1

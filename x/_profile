@@ -67,9 +67,6 @@ alias repro="source ~/.bash_profile"
 # open editor with current directory
 alias e.="e ."
 
-# Clear terminal screen and kill history
-alias cl="clear && history -c"
-
 # Easy navigation
 alias cdd="cdl -"
 alias ~="cdl ~"

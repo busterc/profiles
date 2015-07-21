@@ -2,6 +2,15 @@
 
 # Install bpkg and scripts
 function bpkgify() {
+
+  cat <<EOF
+
+================================================================================
+# BPKG
+================================================================================
+
+EOF
+
   local file
   file=$(which bpkg)
 
@@ -26,6 +35,15 @@ bpkgify
 
 # Update NPM and install various global packages
 function nodify() {
+
+  cat <<EOF
+
+================================================================================
+# NPM
+================================================================================
+
+EOF
+
   npm update -g npm
 
   local packages=(

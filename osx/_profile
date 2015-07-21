@@ -25,10 +25,8 @@ alias snippets="open ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Us
 # Open finder to system Fonts
 alias fonts="open /Library/Fonts"
 
-# # Clear Terminal screen & kill history
-# function cl {
-#   osascript -e 'tell application "System Events" to keystroke "k" using command down'
-# }
+# Clear terminal screen and remove backscroll
+alias cl="clear && printf '\e[3J'"
 
 # Open a new Terminal (Tab or Window) & run passed commands
 function term() {

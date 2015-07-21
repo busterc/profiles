@@ -7,7 +7,7 @@ cat <<EOF
 EOF
 
 # Prevent sourcing of this file
-if [[ ${BASH_SOURCE[0]} != $0 ]]; then
+if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
   echo >&2 "Error: Cannot be sourced"
   return 1
 fi
@@ -68,8 +68,8 @@ function main() {
       # Add sshkey
       sshme
 
-      # [ -f "./x/installs.sh" ] && source "./x/installs.sh"
-      # [ -f "./$1/installs.sh" ] && source "./$1/installs.sh"
+      [ -f "./x/installs.sh" ] && source "./x/installs.sh"
+      [ -f "./$1/installs.sh" ] && source "./$1/installs.sh"
       [ -f "./$1/defaults.sh" ] && source "./$1/defaults.sh"
 
       break    
@@ -82,7 +82,7 @@ function main() {
 function validatepwd() {
 
   function badpath() {
-    printf "\n  Error: you need to cd into $HOME/.profiles then run setup.sh\n\n"
+    printf "\n  Error: you need to cd into %s/.profiles then run setup.sh\n\n" "$HOME"
     exit 2
   }
 
@@ -129,6 +129,7 @@ function sshme() {
 
 EOF
 
+  mkdir -p "$HOME/.ssh"
   local privatekey="$HOME/.ssh/id_rsa"
   [ -f "$privatekey" ] || lpass show --notes "SSH key for busterc" > "$privatekey"
   chmod 600 "$privatekey"
