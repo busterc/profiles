@@ -12,7 +12,7 @@ function bpkgify() {
 EOF
 
   local file
-  file=$(which bpkg)
+  file="$(which bpkg || true)"
 
   if [[ -z "$file" ]]; then
     (

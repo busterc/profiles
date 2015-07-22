@@ -75,7 +75,7 @@ function main() {
       sshme
 
       # Install cross-profile apps
-      # [ -f "./x/installs.sh" ] && source "./x/installs.sh"
+      [ -f "./x/installs.sh" ] && source "./x/installs.sh"
 
       # Set profile specific system defaults
       [ -f "./$1/defaults.sh" ] && source "./$1/defaults.sh"
