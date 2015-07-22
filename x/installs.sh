@@ -25,6 +25,7 @@ EOF
 
   local scripts=(
     busterc/xcv
+    busterc/osx-iso
   )
 
   for script in "${scripts[@]}"; do
