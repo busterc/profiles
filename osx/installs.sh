@@ -30,6 +30,8 @@ EOF
   brew update
 
   # LastPass
+  brew install lastpass-cli --with-pinentry
+  # LastPass hacky install docs (overcomes HomeBrew a2x errors)
   brew install lastpass-cli --with-pinentry --with-doc
   printf "LastPass Username: "
   read lpuser
