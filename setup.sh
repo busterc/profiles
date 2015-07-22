@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable errexit; stop on any error
+set -e
+
 cat <<EOF
 
 # IN THE BEGINNING, THERE WERE ...
@@ -65,11 +68,16 @@ function main() {
       copydots "$1"
       activate "$1"
 
+      # Install profile specific apps
+      [ -f "./$1/installs.sh" ] && source "./$1/installs.sh"
+
       # Add sshkey
       sshme
 
-      [ -f "./x/installs.sh" ] && source "./x/installs.sh"
-      [ -f "./$1/installs.sh" ] && source "./$1/installs.sh"
+      # Install cross-profile apps
+      # [ -f "./x/installs.sh" ] && source "./x/installs.sh"
+
+      # Set profile specific system defaults
       [ -f "./$1/defaults.sh" ] && source "./$1/defaults.sh"
 
       break    
@@ -79,14 +87,14 @@ function main() {
   [[ "$valid" = "true" ]] || usage
 }
 
-function validatepwd() {
+function validate_pwd() {
 
-  function badpath() {
+  function bad_path() {
     printf "\n  Error: you need to cd into %s/.profiles then run setup.sh\n\n" "$HOME"
     exit 2
   }
 
-  [[ "$(pwd)" = "$HOME/.profiles" ]] || badpath
+  [[ "$(pwd)" = "$HOME/.profiles" ]] || bad_path
 
 }
 
@@ -131,9 +139,9 @@ EOF
 
   mkdir -p "$HOME/.ssh"
   local privatekey="$HOME/.ssh/id_rsa"
-  [ -f "$privatekey" ] || lpass show --notes "SSH key for busterc" > "$privatekey"
+  lpass show --notes "SSH key for busterc" > "$privatekey"
   chmod 600 "$privatekey"
-  echo "✓ Added -> $privatekey"
+  echo "✓ Added $privatekey"
 }
 
 function activate() {
@@ -151,5 +159,5 @@ EOF
   echo "✓ Activated $1"
 }
 
-validatepwd
+validate_pwd
 main "$@"
