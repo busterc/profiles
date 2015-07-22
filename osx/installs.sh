@@ -11,8 +11,8 @@ function osxify() {
 
 EOF
 
-  # XCode Command Line Tools
-  xcode-select --install
+  echo "✓ XCode Command Line Tools"
+  xcode-select --install 2>/dev/null || true
 
   cat <<EOF
 
@@ -30,7 +30,10 @@ EOF
   brew update
 
   # LastPass
-  brew install lastpass-cli --with-pinentry # --with-doc
+  brew install lastpass-cli --with-pinentry --with-doc
+  printf "LastPass Username: "
+  read lpuser
+  lpass login "$lpuser"
 
   # Prevent Homebrew from getting rate-limited
   export "HOMEBREW_GITHUB_API_TOKEN=$(lpass show --notes 'GitHub Access Token')"
