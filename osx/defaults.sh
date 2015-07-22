@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Disable errexit, yagni
+set +e 
+
 cat <<EOF
 
 ================================================================================
@@ -8,6 +11,9 @@ cat <<EOF
 ================================================================================
 
 EOF
+
+# dramatic pause
+sleep 5
 
 function namebaby() {
   local validname="^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
@@ -315,56 +321,56 @@ defaults write com.apple.Terminal "Startup Window Settings" -string "Homebrew"
 echo "✓ Underline cursor"
 plist_cursor_underline() {
   /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:CursorType' ${2-} 1" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
-  [[ "$?" -eq 0 && -z "$2" ]] || plist_cursor_underline "Add" "integer"
+  [[ "$?" -eq 0 && -z "$2" ]] || [[ -n "$2" ]] || plist_cursor_underline "Add" "integer"
 }
 plist_cursor_underline
 
 echo "✓ Blink cursor"
 plist_cursor_blink() {
   /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:CursorBlink' ${2-} 1" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
-  [[ "$?" -eq 0 && -z "$2" ]] || plist_cursor_blink "Add" "bool"
+  [[ "$?" -eq 0 && -z "$2" ]] || [[ -n "$2" ]] || plist_cursor_blink "Add" "bool"
 }
 plist_cursor_blink
 
 echo "✓ Use Option/Alt as Meta"
 plist_meta_key() {
   /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:useOptionAsMetaKey' ${2-} true" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
-  [[ "$?" -eq 0 && -z "$2" ]] || plist_meta_key "Add" "bool"
+  [[ "$?" -eq 0 && -z "$2" ]] || [[ -n "$2" ]] || plist_meta_key "Add" "bool"
 }
 plist_meta_key
 
 echo "✓ Disable audio bell"
 plist_audio_bell() {
   /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:Bell' ${2-} false" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
-  [[ "$?" -eq 0 && -z "$2" ]] || plist_audio_bell "Add" "bool"
+  [[ "$?" -eq 0 && -z "$2" ]] || [[ -n "$2" ]] || plist_audio_bell "Add" "bool"
 }
 plist_audio_bell
 
 echo "✓ Enable visual bell"
 plist_visual_bell() {
   /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:VisualBellOnlyWhenMuted' ${2-} true" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
-  [[ "$?" -eq 0 && -z "$2" ]] || plist_visual_bell "Add" "bool"
+  [[ "$?" -eq 0 && -z "$2" ]] || [[ -n "$2" ]] || plist_visual_bell "Add" "bool"
 }
 plist_visual_bell
 
 echo "✓ Enable visual bell when not muted"
 plist_visual_bell_muted() {
   /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:VisualBellOnlyWhenMuted' ${2-} false" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
-  [[ "$?" -eq 0 && -z "$2" ]] || plist_visual_bell_muted "Add" "bool"
+  [[ "$?" -eq 0 && -z "$2" ]] || [[ -n "$2" ]] || plist_visual_bell_muted "Add" "bool"
 }
 plist_visual_bell_muted
 
 echo "✓ Close terminal window on exit"
 plist_close_exit() {
   /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:shellExitAction' ${2-} 0" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
-  [[ "$?" -eq 0 && -z "$2" ]] || plist_close_exit "Add" "integer"
+  [[ "$?" -eq 0 && -z "$2" ]] || [[ -n "$2" ]] || plist_close_exit "Add" "integer"
 }
 plist_close_exit
 
 echo "✓ Don't show dimensions in title"
 plist_dimensions_hide() {
   /usr/libexec/PlistBuddy -c "${1-Set} 'Window Settings:Homebrew:ShowDimensionsInTitle' ${2-} false" "$HOME/Library/Preferences/com.apple.Terminal.plist" &>/dev/null
-  [[ "$?" -eq 0 && -z "$2" ]] || plist_dimensions_hide "Add" "bool"
+  [[ "$?" -eq 0 && -z "$2" ]] || [[ -n "$2" ]] || plist_dimensions_hide "Add" "bool"
 }
 plist_dimensions_hide
 
