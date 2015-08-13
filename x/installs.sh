@@ -30,7 +30,7 @@ EOF
 
   for script in "${scripts[@]}"; do
     bpkg install "$script"
-  done  
+  done
 }
 bpkgify
 
