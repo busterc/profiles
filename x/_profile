@@ -3,10 +3,16 @@
 # X _profile
 
 function source_profile_x() {
+  # cope with spaces in file/directory names
+  local IFS_backup="$IFS"
+  IFS=$'\n'
+
   local sources=($(dirname "${BASH_SOURCE[0]}")/sources/*)
   for s in "${sources[@]}"; do
     source "$s"
   done
+
+  IFS="$IFS_backup"
 }
 source_profile_x
 
@@ -121,6 +127,12 @@ alias vbx="VBoxManage startvm --type headless"
 # VirtualBox PowerOff VM
 function vbxo() {
   VBoxManage controlvm "$1" poweroff
+}
+
+# Touch new files in a new directory (touch + mkdir -p)
+function touchy() {
+  mkdir -p "$(dirname "$1")"
+  touch "$1"
 }
 
 # Create a new directory and enter it
@@ -256,7 +268,7 @@ function bashfile() {
     shell=$(which bash)
     local file
     file="$1"
-    printf "#!/$shell\n# %s\n\n" "$1" > "$file"
+    printf "#!$shell\n# %s\n\n" "$1" > "$file"
     chmod +x "$file"
     e "$file"
   fi
@@ -271,7 +283,7 @@ function shfile() {
     shell=$(which sh)
     local file
     file="$1"
-    printf "#!/$shell\n# %s\n\n" "$1" > "$file"
+    printf "#!$shell\n# %s\n\n" "$1" > "$file"
     chmod +x "$file"
     e "$file"
   fi
