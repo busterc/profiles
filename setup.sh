@@ -19,6 +19,7 @@ temp="${0%/*}/temp"
 datetime=$(date -u +%F-%H%M%S)
 backupdir="$(pwd)/backup/$datetime"
 activedir="$(pwd)/active"
+linktype="-sfn" # default to symlinking "-s"
 
 function cleanup() {
   rm -rf "$temp"
@@ -63,6 +64,12 @@ function main() {
 
       # Prepare backup directory
       mkdir -p "$backupdir"
+
+      # Set dotfile linking type
+      if [[ "$profile" = "msys" ]]; then
+        # On Windows, Cygwin symlinks don't always work properly (Sublimetext)
+        linktype="-fn"
+      fi
 
       copydots "x" # cross-profile dots
       copydots "$1"
@@ -122,7 +129,7 @@ EOF
     fi
 
     # create symlinks for ~
-    ln -sfn "$f" "$dotfile"
+    ln "$linktype" "$f" "$dotfile"
     echo "✓ $dotfile"
   done
 }
@@ -155,7 +162,7 @@ EOF
 
   # ~/.bashrc sources ./active/profile
   # ./active/profile links to the appropriate profile
-  ln -sfn "$(pwd)/$1/_profile" "$activedir/profile"
+  ln "$linktype" "$(pwd)/$1/_profile" "$activedir/profile"
   echo "✓ Activated $1"
 }
 
