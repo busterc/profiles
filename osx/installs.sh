@@ -55,11 +55,15 @@ EOF
   done 
 
   local casks=(
+    filezilla
+    gimp
     google-chrome
     google-drive
     lastpass
     picasa
+    real-vnc
     rescuetime
+    slingplayer-desktop
     spectacle
     sublime-text
     vagrant
