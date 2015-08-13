@@ -77,6 +77,8 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 echo "✓ Disable smart dashes as they’re annoying when typing code"
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
+echo "✓ Show all the clock fields: day of week, date, time with seconds"
+defaults write com.apple.menuextra.clock DateFormat -string "EEE MMM d  h:mm:ss a"
 
 cat <<EOF
 
