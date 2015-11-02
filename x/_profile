@@ -69,6 +69,7 @@ export PATH="$HOME/bin:$PATH"
 
 # Reload profile
 alias repro="source ~/.bash_profile"
+alias mmm="repro"
 
 # open editor with current directory
 alias e.="e ."
@@ -85,9 +86,11 @@ alias .....="cdl ../../../.."
 alias dl="cdl ~/Downloads"
 alias dt="cdl ~/Desktop"
 mkdir -p ~/Screenshots
-alias sss="cdl ~/Screenshots"
+alias ss="cdl ~/Screenshots"
 mkdir -p ~/Github
-alias cdg="cdl ~/Github"
+alias gh="cdl ~/Github"
+mkdir -p ~/Bitbucket
+alias bb="cdl ~/Bitbucket"
 
 # List all files colorized in long format
 alias l="ls -l"
@@ -131,8 +134,10 @@ function vbxo() {
 
 # Touch new files in a new directory (touch + mkdir -p)
 function touchy() {
-  mkdir -p "$(dirname "$1")"
-  touch "$1"
+  for path in $@; do
+    mkdir -p "$(dirname "$path")"
+    touch "$path"
+  done
 }
 
 # Create a new directory and enter it
@@ -245,6 +250,26 @@ function fnls() {
   declare -F | sed -n "/^declare -f $1/p" | sed "s#declare -f ##g"
 }
 
+# List functions (with source) that match regexp, e.g. $ funls .*c.*
+function funls() {
+  fns="$(fnls $1)"
+  for fn in "$fns"; do
+    declare -f $fn
+  done
+}
+
+# List functions AND aliases that match regexp, e.g. $ fnalls .*c.*
+function fnalls() {
+  alls "$1"
+  fnls "$1"
+}
+
+# List functions (with source) AND aliases that match regexp, e.g. $ funalls .*c.*
+function funalls() {
+  alls "$1"
+  funls "$1"
+}
+
 # ImageMagick FavIcon Generator
 function favicon() {
   if [[ $# -eq 0 ]]; then
@@ -315,7 +340,7 @@ function define() {
   if [[ $# -eq 0 ]]; then
     printf "\n  Usage: define <phrase>\n\n"
   else
-    eval "curl 'dict://dict.org/d:$*'"
+    eval "curl 'dict://dict.org/d:$*'" | less
   fi
 }
 
@@ -338,3 +363,28 @@ function shrepcheck() {
     done
   fi
 }
+
+# Node REPL with eXtras (packages & rlwrap)
+function noderx() {
+  dir="_noderx"
+  package="package.json"
+
+  mkdir -p "$dir"
+  cd "$dir"
+
+  [ -f "$package" ] || printf "{\"name\":\"noderx\"}" > "$package"
+
+  for module in "$@"
+  do
+    npm install -save "$module"
+  done
+
+  if type rlwrap > /dev/null; then
+    env NODE_NO_READLINE=1 rlwrap node
+  else
+    node
+  fi
+
+  cd - > /dev/null
+}
+

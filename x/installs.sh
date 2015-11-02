@@ -52,14 +52,19 @@ EOF
     browserify
     colors
     cordova
+    eslint
+    express-generator
+    generator-node
     grunt
     gulp
     http-server
     ionic
     keybase
+    mocha
     node-inspector
     optipng-bin
     pm2
+    trash
     yo
 
     # Mine, of course
@@ -68,6 +73,7 @@ EOF
     grunt-file
     gulpfile
     no-exif
+    tos
     # xcv # installed with bpkg
   )
 

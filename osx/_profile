@@ -2,15 +2,37 @@
 
 # OSX _profile
 
+# Load bash completions
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  source $(brew --prefix)/etc/bash_completion
+fi
+
 # PlistBuddy for plist file editing
 alias PlistBuddy="/usr/libexec/PlistBuddy"
 alias plistbuddy="PlistBuddy"
 
+# Application directories
+export APPLICATIONS_DIR="/Applications"
+export USER_APPLICATIONS_DIR="$HOME/Applications"
+alias aapps="find $APPLICATIONS_DIR -regex '.*.app' | sed s#$APPLICATIONS_DIR/## | less -P '^ Apps in $APPLICATIONS_DIR'"
+alias uapps="find $USER_APPLICATIONS_DIR -regex '.*.app' | sed s#$USER_APPLICATIONS_DIR/## | less -P '^ Apps in $USER_APPLICATIONS_DIR'"
+alias apps="aapps && uapps"
+
 # Sublime as editor, when possible
 export EDITOR="subl"
 
+# Chrome as default browser
+export BROWSER="$USER_APPLICATIONS_DIR/Google\ Chrome.app"
+
+# Surfraw
+export SURFRAW_text_browser=lynx
+
+# Terminal Colors
+export CLICOLOR="cafxcxdxbxegedabagacad"
+export LSCOLORS="cafxcxdxbxegedabagacad"
+
 # Open Chrome from terminal
-alias chrome="open /Applications/Google\ Chrome.app"
+alias chrome="open $BROWSER"
 
 # start iOS simulator from terminal
 alias ios="open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
@@ -27,6 +49,9 @@ alias fonts="open /Library/Fonts"
 
 # Clear terminal screen and remove backscroll
 alias cl="clear && printf '\e[3J'"
+
+# Docker Quickstart Terminal
+alias doc="source /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh"
 
 # Open a new Terminal (Tab or Window) & run passed commands
 function term() {

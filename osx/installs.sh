@@ -42,19 +42,25 @@ EOF
 
   local recipes=(
     ack
-    boot2docker
+    bash-completion
     git
     imagemagick
+    lynx
     node
+    repl
+    rlwrap
     shellcheck
+    surfraw
     tmux
+    tree
   )
 
   for recipe in "${recipes[@]}"; do
     brew install "$recipe"
-  done 
+  done
 
   local casks=(
+    dockertoolbox
     filezilla
     gimp
     google-chrome
@@ -63,6 +69,7 @@ EOF
     picasa
     real-vnc
     rescuetime
+    skitch
     slingplayer-desktop
     spectacle
     sublime-text
@@ -70,7 +77,7 @@ EOF
     vlc
     vmware-fusion
   )
-  
+
   for cask in "${casks[@]}"; do
     brew install "Caskroom/cask/$cask"
   done
