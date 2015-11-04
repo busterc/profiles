@@ -28,3 +28,6 @@ lpass login "$lpuser"
 
 # Ack
 apt-get install -y ack-grep
+
+# Tree
+apt-get install -y tree
