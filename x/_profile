@@ -446,6 +446,7 @@ EOF
     -es)
       if [[ -f "$availableDir$2" ]]; then
         sudo ln -sfn "$availableDir$2" "$enabledDir$2"
+        sudo nginx -s reload
       else
         printf "\n  Error: $2 was not found\n\n"
       fi
@@ -453,6 +454,7 @@ EOF
     -ds)
       if [[ -f "$enabledDir$2" ]]; then
         sudo rm "$enabledDir$2"
+        sudo nginx -s reload
       else
         printf "\n  Error: $2 was not found\n\n"
       fi
