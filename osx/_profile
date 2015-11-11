@@ -53,6 +53,9 @@ alias cl="clear && printf '\e[3J'"
 # Docker Quickstart Terminal
 alias doc="source /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh"
 
+# Docker-Machine
+alias docm="docker-machine"
+
 # Open a new Terminal (Tab or Window) & run passed commands
 function term() {
   case $2 in
