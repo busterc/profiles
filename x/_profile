@@ -477,3 +477,25 @@ alias ngxes="ngx -es"
 alias ngxds="ngx -ds"
 alias ngxca="ngx -ca"
 alias ngxce="ngx -ce"
+
+# List executables in CWD + /node_modules/.bin
+function nomos() {
+  echo
+  ls $(npm bin) | sed "s#.*#=>  &#"
+  echo
+}
+
+function nomo() {
+  if [[ $# -eq 0 ]]; then
+    cat <<EOF
+
+  Usage: nomo <command>
+
+    Description: execute bins from ./node_modules/.bin
+
+EOF
+  else
+    local bin=$(npm bin)
+    "$bin/$@"
+  fi
+}
