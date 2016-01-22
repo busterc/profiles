@@ -6,6 +6,8 @@
 alias npmv="npm --version"
 alias npmlg="npm list --global --depth 0"
 alias npmgl="npmlg"
+alias npmo="npm outdated"
+alias npmog="npmo --global"
 
 ## normal user local
 #######################################
