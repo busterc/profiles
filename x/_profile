@@ -87,10 +87,12 @@ alias dl="cdl ~/Downloads"
 alias dt="cdl ~/Desktop"
 mkdir -p ~/Screenshots
 alias ss="cdl ~/Screenshots"
-mkdir -p ~/Github
+mkdir -p ~/Github/busterc
 alias gh="cdl ~/Github"
-mkdir -p ~/Bitbucket
+alias ghb="cdl ~/Github/busterc"
+mkdir -p ~/Bitbucket/busterc
 alias bb="cdl ~/Bitbucket"
+alias bbb="cdl ~/Bitbucket/busterc"
 
 # List all files colorized in long format
 alias l="ls -l"
@@ -497,5 +499,31 @@ EOF
   else
     local bin=$(npm bin)
     "$bin/$@"
+  fi
+}
+
+# Move CWD into a new/existing subdirectory
+function bury() {
+  if [[ $# -eq 0 ]]; then
+    cat <<EOF
+
+  Usage: bury <subdirectory>
+
+    Description: put contents of CWD into a new or existing subdirectory
+
+EOF
+  else
+    mkdir -p "$1"
+    (
+      shopt -s dotglob
+      for file in *;
+      do
+        local target=$(echo $1 | cut -d "/" -f1)
+        if [[ "$file" != "$target" ]]; then
+          # echo "==> $file"
+          mv "$file" "$1"
+        fi
+      done
+    )
   fi
 }
