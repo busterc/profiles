@@ -60,6 +60,7 @@ EOF
   done
 
   local casks=(
+    cheatsheet
     dockertoolbox
     filezilla
     gimp
