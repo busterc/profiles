@@ -47,6 +47,8 @@ function cloghub() {
   local orgRepos="${CLOGHUB_GITHUB_TOKEN}:x-oauth-basic https://api.github.com/orgs/$2/repos?per_page=100"
   local myRepos="${CLOGHUB_GITHUB_TOKEN}:x-oauth-basic https://api.github.com/user/repos?per_page=100"
 
+echo $orgRepos
+
   function usage() {
     cat <<EOF
 Usage: cloghub [options]
@@ -72,7 +74,7 @@ EOF
           printf >&2 "Error: a username is required\n\n"
           usage
         else
-          curl -s -u "$userRepos" | grep ssh_url | sed 's#.*\"\: \"##' | sed 's#[,\"]##g' | xargs -n 1 git clone
+          curl -u $userRepos | grep ssh_url | sed 's#.*\"\: \"##' | sed 's#[,\"]##g' | xargs -n 1 git clone
         fi
         ;;
       -o)
@@ -80,11 +82,11 @@ EOF
           printf >&2 "Error: an organization name is required\n\n"
           usage
         else
-          curl -s -u "$orgRepos" | grep ssh_url | sed 's#.*\"\: \"##' | sed 's#[,\"]##g' | xargs -n 1 git clone
+          curl -u $orgRepos | grep ssh_url | sed 's#.*\"\: \"##' | sed 's#[,\"]##g' | xargs -n 1 git clone
         fi
         ;;
       -me)
-        curl -s -u "$myRepos" | grep ssh_url | sed 's#.*\"\: \"##' | sed 's#[,\"]##g' | xargs -n 1 git clone
+        curl -u $myRepos | grep ssh_url | sed 's#.*\"\: \"##' | sed 's#[,\"]##g' | xargs -n 1 git clone
         ;;
       *)
         usage
@@ -125,14 +127,28 @@ function bbchc() {
 
 # Git Power Functions
 
-# Run Git-Diff on Upstream for all immediate subdirectories
+# Run Git-Diff on Orign/Master for all immediate subdirectories
+function gtdmoms() {
+  for d in $(find . -name ".git" -maxdepth 2); do
+  hr
+  (
+    cd "$d"/..
+    echo "processing $d" | sed 's#\/\.git##';
+    git fetch origin && git diff master origin/master
+  )
+  done
+}
+
+
+# Run Git-Diff on Upstream/Master for all immediate subdirectories
+# todo: rename to gtdmums
 function gtdups() {
   for d in $(find . -name ".git" -maxdepth 2); do
   hr
   (
     cd "$d"/..
     echo "processing $d" | sed 's#\/\.git##';
-    git fetch upstream && git diff upstream/master master
+    git fetch upstream && git diff master upstream/master
   )
   done
 }
