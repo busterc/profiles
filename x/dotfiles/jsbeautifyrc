@@ -25,7 +25,7 @@
   "js": {
     "allowed_file_extensions": ["js", "json", "jshintrc", "jsbeautifyrc"],
     "brace_style": "collapse", // "expand", "end-expand", "expand-strict"
-    "break_chained_methods": true,
+    "break_chained_methods": false,
     "e4x": false,
     "eval_code": false,
     "indent_char": " ",
