@@ -7,6 +7,9 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
   source $(brew --prefix)/etc/bash_completion
 fi
 
+# remove last newline when using `pbcopy`
+alias npbcopy="xargs echo -n | pbcopy"
+
 # PlistBuddy for plist file editing
 alias PlistBuddy="/usr/libexec/PlistBuddy"
 alias plistbuddy="PlistBuddy"
