@@ -115,6 +115,9 @@ alias grope="find . -exec touch {} \;"
 # Run Makefiles quietly
 alias makes="make -s"
 
+# Run Node eval()
+alias js="node -p"
+
 # Process Search
 alias psa="ps aux | grep -v 'grep' | grep "
 
@@ -525,5 +528,81 @@ EOF
         fi
       done
     )
+  fi
+}
+
+# CLI for JS `encodeURIComponent` handy for quick svg conversions
+function encodeURI() {
+  if [[ $# -eq 0 ]]; then
+    cat <<'EOF'
+
+  Usage: encodeURI <string>
+
+  Example: $ encodeURI "$(cat logo.svg)" | pbcopy
+
+EOF
+  else
+    local fn
+    if echo "$1" | grep "\"" >/dev/null && echo "$1" | grep "'" > /dev/null; then
+      echo "Error: string contains both single and double quotes."
+      return 1
+    elif echo "$1" | grep "\'" >/dev/null; then
+      fn="encodeURIComponent(\"$1\")"
+    else
+      fn="encodeURIComponent('$1')"
+    fi
+    node -p "$fn"
+  fi
+}
+
+# CLI for JS `decodeURIComponent` handy for quick svg conversions
+function decodeURI() {
+  if [[ $# -eq 0 ]]; then
+    cat <<'EOF'
+
+  Usage: decodeURI <string>
+
+  Example: $ decodeURI "%3Csvg%3E%3C%2Fsvg%3E" | pbcopy"
+
+EOF
+  else
+    local fn
+    if echo "$1" | grep "\"" >/dev/null && echo "$1" | grep "'" > /dev/null; then
+      echo "Error: string contains both single and double quotes."
+      return 1
+    elif echo "$1" | grep "\'" >/dev/null; then
+      fn="decodeURIComponent(\"$1\")"
+    else
+      fn="decodeURIComponent('$1')"
+    fi
+    node -p "$fn"
+  fi
+}
+
+function base64() {
+  if [[ $# -eq 0 ]]; then
+    cat <<'EOF'
+
+  Usage: base64 <string>
+
+  Example: $ base64 "$(cat logo.svg)" | pbcopy"
+
+EOF
+  else
+    node -p "new Buffer('$1').toString('base64')"
+  fi
+}
+
+function unbase64() {
+  if [[ $# -eq 0 ]]; then
+    cat <<'EOF'
+
+  Usage: unbase64 <string>
+
+  Example: $ unbase64 "PHN2Zz48L3N2Zz4=" | pbcopy"
+
+EOF
+  else
+    node -p "new Buffer('$1', 'base64').toString('utf8')"
   fi
 }
