@@ -58,12 +58,15 @@ EOF
     grunt
     gulp
     http-server
+    iconr
     ionic
     keybase
     mocha
     node-inspector
     optipng-bin
     pm2
+    svg-caster
+    svgo
     trash
     yo
 
