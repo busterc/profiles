@@ -11,6 +11,9 @@ prompter long
 alias ls="ls --color"
 alias ack="ack-grep"
 
-# Cache my ssh password :P
-eval "$(ssh-agent)" > /dev/null
-ssh-add /home/$USER/.ssh/id_rsa
+if [[ $- == *i* ]]; then
+  # is an interactive shell
+  # Cache my ssh password :P
+  eval "$(ssh-agent)" > /dev/null
+  ssh-add /home/$USER/.ssh/id_rsa
+fi
