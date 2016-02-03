@@ -7,8 +7,36 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
   source $(brew --prefix)/etc/bash_completion
 fi
 
+function source_profile_osx() {
+  # cope with spaces in file/directory names
+  local IFS_backup="$IFS"
+  IFS=$'\n'
+
+  local sources=($(dirname "${BASH_SOURCE[0]}")/../osx/sources/*)
+  for s in "${sources[@]}"; do
+    source "$s"
+  done
+
+  IFS="$IFS_backup"
+}
+source_profile_osx
+
 # remove last newline when using `pbcopy`
-alias npbcopy="xargs echo -n | pbcopy"
+alias npbcopy="tr -d '\n$' | pbcopy"
+
+# pbpaste (no need to tab)
+alias pbp="pbpaste"
+
+# quick pbcopy
+function pbc() {
+  echo "$@" | pbcopy
+}
+
+# quickly append pbcopy
+function pba() {
+  local archive="$(pbpaste)"
+  echo "$archive $@" | pbcopy
+}
 
 # PlistBuddy for plist file editing
 alias PlistBuddy="/usr/libexec/PlistBuddy"
