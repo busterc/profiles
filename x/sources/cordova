@@ -35,6 +35,9 @@ alias corbemip6p="corbem --target=iPhone-6s-Plus"
 alias corbemipad="corbem --target=iPad-2"
 alias corbemipadp="corbem --target=iPad-Pro"
 
+# Running iOS Simulator with Safari Web Inspector (for Debugging)
+alias corbemd="corbem && ios-sim-inspector"
+
 # Plugin specifics for Cordova PhoneGap
 alias corp="cordova plugin" # candidate for "corpa"
 alias corps="cordova plugin search"
