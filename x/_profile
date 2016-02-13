@@ -663,3 +663,50 @@ function fa2svg() {
   svg-caster --svg-font ./font-awesome/fonts/fontawesome-webfont.svg --svg-font-css ./font-awesome/css/font-awesome.css --out-svg ./fontawesome-svg/
   rm -rf ./font-awesome/
 }
+
+# simple stopwatch with laps
+function stopwatch() {
+  local n=0
+  local t=0
+  local lap=1
+  local key=""
+
+  cat <<EOF
+
+  * type "l" to start a new lap
+  * type "q" or "x" to stop
+
+EOF
+
+  while true; do
+    printf "\r\033[0KLap ${lap}: $n seconds"
+    read -s -t 1 -n 1 key
+
+    case "$key" in
+      l)
+        printf "\r\033[0KLap ${lap}: $n seconds\n"
+        key=""
+        n=-1
+        ((lap++))
+        ;;
+      q|x)
+        printf "\r\033[0KLap ${lap}: $n seconds\n"
+        printf "\nTotal Elapsed: $t seconds\n"
+        break
+        ;;
+    esac
+    ((t++))
+    ((n++))
+  done
+}
+
+# simple countdown timer
+function timer() {
+  local n="$1"
+  while [[ $n -gt 0 ]]; do
+    printf "\r\033[0K==> $n"
+    sleep 1
+    ((n--))
+  done
+  printf "\r\a"
+}
