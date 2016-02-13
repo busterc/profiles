@@ -70,7 +70,7 @@ alias corpa-console="cordova plugin add cordova-plugin-console"
 # Common 3rd party plugins
 alias corpa-ga="cordova plugin add cordova-plugin-google-analytics"
 alias corpa-push="cordova plugin add https://github.com/phonegap-build/PushPlugin.git"
-alias corpa-socialsharing="cordova plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git"
+alias corpa-socialsharing="cordova plugin add cordova-plugin-x-socialsharing"
 alias corpa-spinnerdialog="cordova plugin add https://github.com/Paldom/SpinnerDialog.git"
 alias corpa-toast="cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git"
 
