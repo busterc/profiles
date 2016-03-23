@@ -67,7 +67,7 @@ EOF
     pm2
     svg-caster
     svgo
-    trash
+    trash-cli
     yo
 
     # Mine, of course
