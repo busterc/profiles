@@ -66,6 +66,7 @@ EOF
     gimp
     google-chrome
     google-drive
+    keycastr
     lastpass
     picasa
     real-vnc
