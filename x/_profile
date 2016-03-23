@@ -668,31 +668,69 @@ function fa2svg() {
 function stopwatch() {
   local n=0
   local t=0
+  local continuing="true"
   local lap=1
-  local key=""
+  local key="~"
+  local pausing="~"
 
   cat <<EOF
 
-  * type "l" to start a new lap
-  * type "q" or "x" to stop
+  * type "p" to pause and "r" to resume
+  * hit the spacebar to start a new lap
+    * if paused you will resume with a new lap
+  * type "q" or "x" or Ctrl-c to stop
 
 EOF
 
-  while true; do
+  function summary() {
+    continuing="false" # break the while loop
+    local elapsed=$(($t-$lap+1))
+    printf "\r\033[0KLap ${lap}: $n seconds\n"
+    printf "\nTotal Elapsed: $elapsed seconds\n"
+  }
+
+  trap "summary" SIGINT
+
+  while [[ $continuing = "true" ]]; do
+    key="~"
+    pausing="~"
     printf "\r\033[0KLap ${lap}: $n seconds"
     read -s -t 1 -n 1 key
 
     case "$key" in
-      l)
+      "")
         printf "\r\033[0KLap ${lap}: $n seconds\n"
         key=""
         n=-1
         ((lap++))
         ;;
       q|x)
-        printf "\r\033[0KLap ${lap}: $n seconds\n"
-        printf "\nTotal Elapsed: $t seconds\n"
+        summary
         break
+        ;;
+      p)
+        function paused() {
+          read -s -n 1 pausing
+          case "$pausing" in
+            "")
+              printf "\r\033[0KLap ${lap}: $n seconds\n"
+              key=""
+              n=-1
+              ((lap++))
+              ;;
+            q|x)
+              summary
+              break
+              ;;
+            r)
+              : # noop
+              ;;
+            *)
+              paused
+              ;;
+          esac
+        }
+        paused
         ;;
     esac
     ((t++))
@@ -702,6 +740,15 @@ EOF
 
 # simple countdown timer
 function timer() {
+  if [[ $1 -lt 1 ]]; then
+    cat <<EOF
+
+  Usage: timer <seconds>
+
+EOF
+    return 1
+  fi
+
   local n="$1"
   while [[ $n -gt 0 ]]; do
     printf "\r\033[0K==> $n"
