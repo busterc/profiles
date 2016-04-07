@@ -127,6 +127,13 @@ alias psa="ps aux | grep -v 'grep' | grep "
 # khaos tips
 alias khaos-tips="curl -s https://gist.githubusercontent.com/busterc/a00b24796aa5f9ea1671f019263c721d/raw/089bc62d04574abcd71e57ddc89065565863f8d2/khaos-tips.md"
 
+# RethinkDB migration commands with debug logging
+alias rdbm-create="./create.js"
+alias rdbm-dev-up="./migrate-dev.js up -l debug"
+alias rdbm-dev-down="./migrate-dev.js down -l debug"
+alias rdbm-pro-up="./migrate-production.js up -l debug"
+alias rdbm-pro-down="./migrate-production.js down -l debug"
+
 # xcv aliases
 alias fsx="xcv x"
 alias fsc="xcv c"
