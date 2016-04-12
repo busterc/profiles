@@ -87,3 +87,30 @@ function subnpmi() {
     )
   done
 }
+
+# Reinstall modules completely
+## local, no save
+function npmri() {
+  npmrs "$@"
+  npmi "$@"
+}
+## local, save
+function npmris() {
+  npmrs "$@"
+  npmris "$@"
+}
+## local, save exact
+function npmrise() {
+  npmrs "$@"
+  npmise "$@"
+}
+## local, save dev
+function npmrisd() {
+  npmrsd "$@"
+  npmisd "$@"
+}
+## local, save dev exact
+function npmrisde() {
+  npmrsd "$@"
+  npmisde "$@"
+}
