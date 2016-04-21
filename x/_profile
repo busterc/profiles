@@ -767,3 +767,10 @@ EOF
   done
   printf "\r\a"
 }
+
+# Tree with dotfiles; use $TREEZ_IGNORE for filtering
+## ingore defaults
+export TREEZ_IGNORE=".git|node_modules"
+function treez() {
+  tree -a -I "$TREEZ_IGNORE" "$@" | less
+}
