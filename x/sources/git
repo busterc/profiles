@@ -3,7 +3,7 @@
 # Git aliases
 alias gti="git init"
 alias gtc="git clone"
-alias gtp="git push"
+alias gtp="git push && git push --tags"
 alias gts="git status"
 alias gtd="git diff"
 alias gtf="git fetch"
@@ -22,6 +22,11 @@ alias gtpomm="git push origin +master:master"
 
 # GitHub Public API Rate Limit
 alias ghrate="curl -s https://api.github.com/rate_limit"
+
+# Easy peasy git tagging
+function gtag() {
+  git tag -a "$@" -m "$@"
+}
 
 # GitHub upstreaming
 function upstreamhub() {
@@ -113,6 +118,22 @@ function ghchj() {
   git clone git@github.com:HyperJSON/"$1"
 }
 
+# Setup GitHub remote repo and push for the first time
+function repo-ghbc() {
+  # todo: curl github to create the repo
+  git remote add origin "git@github.com:busterc/$(basename $PWD).git"
+  git push -u origin --all
+  git push origin --tags
+}
+
+# Setup BitBucket remote repo and push for the first time
+function repo-bbbc() {
+  # todo: curl bitbucket to create the repo
+  git remote add origin "git@bitbucket.org:busterc/$(basename $PWD).git"
+  git push -u origin --all
+  git push origin --tags
+}
+
 # BitBucket aliases
 
 function bbc() {
@@ -177,6 +198,7 @@ function gtps() {
   done
 }
 
+
 #####################
 #  THE DANGER ZONE  #
 #####################
@@ -213,3 +235,4 @@ function gtreups() {
     done
   fi
 }
+
