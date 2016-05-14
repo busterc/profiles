@@ -836,3 +836,54 @@ export TREEZ_IGNORE=".git|node_modules"
 function treez() {
   tree -a -I "$TREEZ_IGNORE" "$@" | less
 }
+
+# Use microgen on a directory of files
+function macrogen() {
+  function usage() {
+    cat <<'EOF'
+
+  Usage: macrogen <source-directory>
+
+  Description: run microgen on a directory of files
+
+  - By default, files are written to $PWD
+    - nested files will adhere to the <source-directory> hierarchy
+
+  - For each file in the <source-directory> you will be prompted to:
+    - hit enter to begin generating, using the default file name
+      or
+    - type a new destination for the generated file
+      or
+    - type "-" to ignore the file and NOT generate it
+
+EOF
+  }
+
+  if [[ $# -ne 1 ]]; then
+    usage
+    return
+  fi
+
+  for file in $(find "$@" -type f); do
+    fromdir="${*%/}"
+    workdir=$(dirname "$file")
+    outdir="${workdir/$fromdir}"
+    outdir=${outdir/\/\/}
+    workfile=$(basename "$file" ".hbs")
+    outfile="$outdir/$workfile"
+    outfile=$(echo "$outfile" | sed 's#^\/##')
+
+    echo ""
+    read -e -p "($outfile) " custom_outfile
+
+    if [[ "$custom_outfile" == "-" ]]; then
+      continue
+    fi
+
+    if [[ -n "$custom_outfile" ]]; then
+      outfile="$custom_outfile"
+    fi
+
+    microgen "$file" "$outfile"
+  done
+}
