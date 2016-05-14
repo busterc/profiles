@@ -178,6 +178,68 @@ EOF
   fi
 }
 
+# Copy to new directory
+function cpdirp() {
+  function usage() {
+    cat <<EOF
+
+  Usage: cpdirp <source> <destination>
+
+    Description: mkdir -p the <destination> and cp -R the <source>
+
+    Examples:
+
+      $ find stuff
+      # ==> stuff
+      # ==> stuff/.dofile
+      # ==> stuff/a.file
+      # ==> stuff/b
+      # ==> stuff/b/c.file
+
+
+      ### Copy the contents of the <source> folder ###
+
+      $ cpdirp stuff/ stuff/this # stuff/ <-- has trailing slash
+
+      $ find stuff/this
+      # ==> stuff/this
+      # ==> stuff/this/.dofile
+      # ==> stuff/this/a.file
+      # ==> stuff/this/b
+      # ==> stuff/this/b/c.file
+
+
+      ### Copy the entire <source> folder ###
+
+      $ cpdirp stuff stuff/that # stuff <-- NO trailing slash
+
+      $ find stuff/that
+      # ==> stuff/that
+      # ==> stuff/that/.dofile
+      # ==> stuff/that/a.file
+      # ==> stuff/that/b
+      # ==> stuff/that/b/c.file
+
+
+      ### Copy a <source> file to folder ###
+
+      $ cpdirp stuff/a.file stuff/what/
+
+      $ find stuff/what
+      # ==> stuff/what
+      # ==> stuff/what/a.file
+
+EOF
+  }
+
+  if [[ $# -eq 2 ]]; then
+    mkdir -p "$2"
+    cp -R "$1" "$2"
+  else
+    usage
+  fi
+}
+
 # Create a new directory
 alias mdp="mkdir -p"
 
