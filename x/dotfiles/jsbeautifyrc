@@ -38,6 +38,7 @@
     "keep_function_indentation": false,
     "max_preserve_newlines": 10,
     "preserve_newlines": true,
+    "space_after_anon_function": true,
     "space_before_conditional": true,
     "space_in_paren": false,
     "unescape_strings": false,
