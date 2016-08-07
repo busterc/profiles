@@ -59,6 +59,8 @@ EOF
     brew install "$recipe"
   done
 
+  brew tap caskroom/cask
+
   local casks=(
     cheatsheet
     dockertoolbox
@@ -81,7 +83,7 @@ EOF
   )
 
   for cask in "${casks[@]}"; do
-    brew install "Caskroom/cask/$cask"
+    brew cask install "$cask"
   done
 }
 osxify
