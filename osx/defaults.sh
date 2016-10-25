@@ -108,6 +108,9 @@ echo "✓ Enable full keyboard access for all controls"
 echo "  (e.g. enable Tab in modal dialogs)"
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
+echo "✓ Use all F1, F2, etc. keys as standard function keys"
+defaults write NSGlobalDomain com.apple.keyboard.fnState -int 1
+
 
 cat <<EOF
 
