@@ -5,7 +5,7 @@
   user = busterc
 [core]
   excludesfile = ~/.gitignore_global
-  editor = subl -n -w
+  editor = vim
 [url "git@github.com:"]
   insteadOf = gh:
 [url "git@gist.github.com:"]
@@ -33,5 +33,7 @@
   co = checkout
   ci = commit
   ad = add
+	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+
 [push]
   default = simple
