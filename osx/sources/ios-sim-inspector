@@ -1,7 +1,8 @@
 #!/bin/sh
 
 function ios-sim-inspector() {
-  osascript <<'EOF'
+  appName="$1"
+  osascript <<EOF
 # Name of the device as visible in Safari->Develop menu
 set deviceName to "Simulator"
 
@@ -16,7 +17,7 @@ tell application "Safari"
     repeat until hasClicked or x > (maxWait * 10)
         try
             tell application "System Events"
-                click menu item "index.html" of menu deviceName of menu item deviceName of menu "Develop" of menu bar item "Develop" of menu bar 1 of application process "Safari"
+                click menu item "$appName" of menu deviceName of menu item deviceName of menu "Develop" of menu bar item "Develop" of menu bar 1 of application process "Safari"
             end tell
             set hasClicked to true
         on error foo
