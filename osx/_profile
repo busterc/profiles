@@ -49,8 +49,8 @@ alias aapps="find $APPLICATIONS_DIR -regex '.*.app' | sed s#$APPLICATIONS_DIR/##
 alias uapps="find $USER_APPLICATIONS_DIR -regex '.*.app' | sed s#$USER_APPLICATIONS_DIR/## | less -P '^ Apps in $USER_APPLICATIONS_DIR'"
 alias apps="aapps && uapps"
 
-# Sublime as editor, when possible
-export EDITOR="subl"
+# VSCode as editor, when possible
+export EDITOR="code"
 
 # Chrome as default browser
 export BROWSER="$USER_APPLICATIONS_DIR/Google\ Chrome.app"
