@@ -837,6 +837,9 @@ function treez() {
   tree -a -I "$TREEZ_IGNORE" "$@" | less
 }
 
+# Microgen Template Directory Shortcut
+export MICROGEN_TEMP_DIR=$HOME/Bitbucket/busterc/cc
+
 # Use microgen on a directory of files
 function macrogen() {
   function usage() {
