@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Move images into YYYY-MM-DD directories
+yyyymmdddir() {
+  if [ $# -eq 0 ]; then
+    cat <<EOF
+
+  Usage: yyyymmdddir <file>
+
+EOF
+    return 1
+  fi
+
+  for file in "$@"; do
+    echo "$file"
+    dir=$(stat -f "%Sm" -t "%Y-%m-%d" "$file")
+    mkdir -p "$dir"
+    mv "$file" "$dir"
+  done
+}
