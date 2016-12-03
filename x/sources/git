@@ -1,20 +1,39 @@
 #!/bin/bash
 
 # Git aliases
-alias gti="git init"
-alias gtc="git clone"
-alias gtp="git push && git push --tags"
-alias gts="git status"
-alias gtd="git diff"
-alias gtf="git fetch"
-alias gtco="git commit"
+## add
 alias gta="git add"
-alias gtpom="git push origin master"
+alias gtap="git add -p"
+## branch
+alias gtb="git branch"
+alias gtbd="git branch -D"
+alias gtbl="git branch --list"
+## clone
+alias gtc="git clone"
+## checkout
+alias gtch="git checkout"
+alias gtchb="git checkout -b"
+## commit
+alias gtco="git commit"
+## diff
+alias gtd="git diff"
 alias gtdmom="git fetch origin && git diff origin/master master"
 alias gtdup="git fetch upstream && git diff master upstream/master"
-alias gtrev="git remote -v"
+## fetch
+alias gtf="git fetch"
+## init
+alias gti="git init"
+## log
 alias gtlog="git log --graph --oneline --decorate --all"
-alias gtap="git add -p"
+## push
+alias gtp="git push && git push --tags"
+alias gtpuo="git push -u origin --all && git push origin --tags"
+alias gtpom="git push origin master"
+## remote
+alias gtrev="git remote -v"
+## status
+alias gts="git status"
+
 
 # Rebase Workflow = gtur then gtpomm
 alias gtur="git fetch upstream && git rebase upstream/master"
@@ -108,9 +127,6 @@ function ghc() {
 function ghcbc() {
   git clone git@github.com:busterc/"$1"
 }
-function ghchc() {
-  git clone git@github.com:helpdotcom/"$1"
-}
 function ghcus() {
   git clone git@github.com:UserStyles/"$1"
 }
@@ -141,9 +157,6 @@ function bbc() {
 }
 function bbcbc() {
   git clone git@bitbucket.org:busterc/"$1"
-}
-function bbchc() {
-  git clone git@bitbucket.org:helpdotcom/"$1"
 }
 
 # Git Power Functions
