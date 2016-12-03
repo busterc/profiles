@@ -52,6 +52,7 @@ alias corpx="corpr"
 # Common official plugins
 alias corpa-battery-status="cordova plugin add cordova-plugin-battery-status"
 alias corpa-camera="cordova plugin add cordova-plugin-camera"
+alias corpa-console="cordova plugin add cordova-plugin-console"
 alias corpa-contacts="cordova plugin add cordova-plugin-contacts"
 alias corpa-device="cordova plugin add cordova-plugin-device"
 alias corpa-device-motion="cordova plugin add cordova-plugin-device-motion"
@@ -66,18 +67,46 @@ alias corpa-media="cordova plugin add cordova-plugin-media"
 alias corpa-media-capture="cordova plugin add cordova-plugin-media-capture"
 alias corpa-network-information="cordova plugin add cordova-plugin-network-information"
 alias corpa-splashscreen="cordova plugin add cordova-plugin-splashscreen"
-alias corpa-vibration="cordova plugin add cordova-plugin-vibration"
 alias corpa-statusbar="cordova plugin add cordova-plugin-statusbar"
-alias corpa-console="cordova plugin add cordova-plugin-console"
+alias corpa-vibration="cordova plugin add cordova-plugin-vibration"
 
 # Common 3rd party plugins
+alias corpa-3dtouch="cordova plugin add cordova-plugin-3dtouch"
+alias corpa-background="cordova plugin add cordova-plugin-background-mode"
+alias corpa-badge="cordova plugin add cordova-plugin-badge"
 alias corpa-ga="cordova plugin add cordova-plugin-google-analytics"
+alias corpa-keyboard="cordova plugin add cordova-plugin-keyboard"
 alias corpa-push="cordova plugin add https://github.com/phonegap-build/PushPlugin.git"
 alias corpa-socialsharing="cordova plugin add cordova-plugin-x-socialsharing"
 alias corpa-spinnerdialog="cordova plugin add https://github.com/Paldom/SpinnerDialog.git"
 alias corpa-toast="cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git"
+alias corpa-3dtouch="cordova plugin add cordova-plugin-webviewcolor"
+alias corpa-purchase="cordova plugin add cordova-plugin-inapppurchase"
 
 # Cordova Resource Generators
 # https://github.com/busterc/cordova-resource-generators
 alias cgicons="cordova-generate-icons"
 alias cgscreens="cordova-generate-splash-screens"
+
+# Create an empty Cordova Project
+function corce() {
+  cordova create "$@"
+
+  if [[ $? -eq 0 ]]; then
+    cd "$1"
+    rm -rf www/*
+  fi
+}
+
+# Create a Cordova Project using Yo Generator: cordova-www
+function corc-www() {
+  cordova create "$@"
+
+  if [[ $? -eq 0 ]]; then
+    cd "$1"
+    rm -rf www/*
+    yo cordova-www
+
+    microgen $MICROGEN_TEMP_DIR/cordova-common/package.json.hbs
+  fi
+}
