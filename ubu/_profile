@@ -11,6 +11,10 @@ prompter long
 alias ls="ls --color"
 alias ack="ack-grep"
 
+# Clipboard copy/paste like a Mac
+alias pbcopy="xargs -0 -I {} echo \"{}\" > /tmp/clipboard"
+alias pbpaste="cat /tmp/clipboard"
+
 if [[ $- == *i* ]]; then
   # is an interactive shell
   # Cache my ssh password :P
