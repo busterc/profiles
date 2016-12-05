@@ -59,8 +59,8 @@ export BROWSER="$USER_APPLICATIONS_DIR/Google\ Chrome.app"
 export SURFRAW_text_browser=lynx
 
 # Terminal Colors
-export CLICOLOR="cafxcxdxbxegedabagacad"
-export LSCOLORS="cafxcxdxbxegedabagacad"
+export CLICOLOR="cxfxcxdxbxegedabagacad"
+export LSCOLORS="cxfxcxdxbxegedabagacad"
 
 # Open Chrome from terminal
 alias chrome="open $BROWSER"
