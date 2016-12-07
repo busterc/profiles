@@ -18,6 +18,7 @@ alias gtco="git commit"
 ## diff
 alias gtd="git diff"
 alias gtdmom="git fetch origin && git diff origin/master master"
+alias gtdfmom="git fetch origin && git diff --name-only origin/master master"
 alias gtdup="git fetch upstream && git diff master upstream/master"
 ## fetch
 alias gtf="git fetch"
