@@ -63,21 +63,28 @@ EOF
 
   local casks=(
     cheatsheet
-    dockertoolbox
+    docker-toolbox
     filezilla
     gimp
     google-chrome
     google-drive
+    hyper
     keycastr
     lastpass
     picasa
     real-vnc
+    recordit
     rescuetime
+    shotcut
+    sketch
     skitch
+    sling
     slingplayer-desktop
     spectacle
     sublime-text
     vagrant
+    virtualbox
+    visual-studio-code
     vlc
     vmware-fusion
   )
