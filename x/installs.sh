@@ -48,20 +48,15 @@ EOF
   npm update -g npm
 
   local packages=(
-    bower
-    browserify
     colors
     cordova
     eslint
     express-generator
     generator-node
-    grunt
-    gulp
     http-server
     iconr
     ionic
     keybase
-    mocha
     node-inspector
     optipng-bin
     pm2
