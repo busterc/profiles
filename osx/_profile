@@ -53,7 +53,7 @@ alias apps="aapps && uapps"
 export EDITOR="code"
 
 # Chrome as default browser
-export BROWSER="$USER_APPLICATIONS_DIR/Google\ Chrome.app"
+export BROWSER="$APPLICATIONS_DIR/Google\ Chrome.app"
 
 # Surfraw
 export SURFRAW_text_browser=lynx
@@ -80,15 +80,6 @@ alias fonts="open /Library/Fonts"
 
 # Clear terminal screen and remove backscroll
 alias cl="clear && printf '\e[3J'"
-
-# Docker Quickstart Terminal
-alias doc="source /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh"
-
-# Docker-Machine
-alias docm="docker-machine"
-
-# Docker OSX Tips/Cheatsheet
-alias doc-osx-tips="curl -s https://gist.githubusercontent.com/busterc/bfb507787e9690bbfdc5/raw/9085b02d62c9fe1aab613db6165ab27afc2d9aee/docker-osx.md 2>&1 | less"
 
 # Open a new Terminal (Tab or Window) & run passed commands
 function term() {
