@@ -62,6 +62,7 @@ EOF
   brew tap caskroom/cask
 
   local casks=(
+    arq
     cheatsheet
     docker-toolbox
     filezilla
