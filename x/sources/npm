@@ -36,6 +36,8 @@ alias npmxsd="npmrsd"
 alias npmxso="npmrso"
 alias npmxse="npmrse"
 
+# misc
+alias npmbump="npm version patch"
 
 ## super user local
 #######################################
