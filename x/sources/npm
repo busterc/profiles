@@ -23,7 +23,7 @@ alias npmiso="npmi --save-optional"
 alias npmisoe="npmiso --save-exact"
 
 # local update
-alias npmu="npm update"
+alias npmup="npm update"
 
 # local remove
 alias npmr="npm remove"
@@ -44,7 +44,7 @@ alias npmxse="npmrse"
 alias snpmi="sudo npm install"
 
 # local update
-alias snpmu="sudo npm update"
+alias snpmup="sudo npm update"
 
 # local remove
 alias snpmr="sudo npm remove"
@@ -62,10 +62,10 @@ alias snpmgi="snpmig"
 alias snpmg="snpmig"
 
 # global update
-alias npmug="npm update --global"
-alias npmgu="npmug"
-alias snpmug="sudo npm update --global"
-alias snpmgu="snpmug"
+alias npmupg="npm update --global"
+alias npmgup="npmupg"
+alias snpmupg="sudo npm update --global"
+alias snpmgup="snpmupg"
 
 # global remove
 alias npmrg="npm remove --global"
