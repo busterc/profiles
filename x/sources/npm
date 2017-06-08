@@ -15,8 +15,7 @@ alias npmog="npmo --global"
 
 # local install
 alias npmi="npm install"
-alias npmis="npmi --save"
-alias npmise="npmis --save-exact"
+alias npmise="npmi --save-exact"
 alias npmisd="npmi --save-dev"
 alias npmisde="npmisd --save-exact"
 alias npmiso="npmi --save-optional"

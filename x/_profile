@@ -485,7 +485,7 @@ function noderx() {
 
   for module in "$@"
   do
-    npm install -save "$module"
+    npm install "$module"
   done
 
   if type rlwrap > /dev/null; then
