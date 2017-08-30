@@ -77,6 +77,11 @@ alias sshload="eval \"$(ssh-agent)\" > /dev/null && ssh-add"
 alias repro="source ~/.bash_profile"
 alias mmm="repro"
 
+# Erase the last command from history
+function forget() {
+  history -d $(history 1)
+}
+
 # open editor with current directory
 alias e.="e ."
 
