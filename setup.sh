@@ -87,7 +87,7 @@ function main() {
       # Set profile specific system defaults
       [ -f "./$1/defaults.sh" ] && source "./$1/defaults.sh"
 
-      break    
+      break
     fi
   done
 
@@ -148,6 +148,7 @@ EOF
   local privatekey="$HOME/.ssh/id_rsa"
   lpass show --notes "SSH key for busterc" > "$privatekey"
   chmod 600 "$privatekey"
+  chown $USER "$privatekey"
   echo "✓ Added $privatekey"
 }
 
