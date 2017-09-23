@@ -44,6 +44,7 @@ EOF
     ack
     bash-completion
     git
+    httrack
     imagemagick
     lynx
     node
@@ -64,7 +65,7 @@ EOF
   local casks=(
     arq
     cheatsheet
-    docker-toolbox
+    docker
     filezilla
     gimp
     google-chrome
@@ -72,7 +73,6 @@ EOF
     hyper
     keycastr
     lastpass
-    picasa
     real-vnc
     recordit
     rescuetime
@@ -82,8 +82,6 @@ EOF
     sling
     slingplayer-desktop
     spectacle
-    sublime-text
-    vagrant
     virtualbox
     visual-studio-code
     vlc
