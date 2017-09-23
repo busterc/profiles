@@ -53,7 +53,7 @@ alias apps="aapps && uapps"
 export EDITOR="code"
 
 # Chrome as default browser
-export BROWSER="$APPLICATIONS_DIR/Google\ Chrome.app"
+export BROWSER="open $APPLICATIONS_DIR/Google\ Chrome.app"
 
 # Surfraw
 export SURFRAW_text_browser=lynx
@@ -61,9 +61,6 @@ export SURFRAW_text_browser=lynx
 # Terminal Colors
 export CLICOLOR="cxfxcxdxbxegedabagacad"
 export LSCOLORS="cxfxcxdxbxegedabagacad"
-
-# Open Chrome from terminal
-alias chrome="open $BROWSER"
 
 # start iOS simulator from terminal
 alias ios="open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
