@@ -128,6 +128,10 @@ alias lds='ls -lad .*'
 # List only directories, including dot files
 alias lsda='ls -la | grep "^d"'
 
+# Tar + Gzip
+alias tgz='tar -czvf'
+alias utgz='tar -xzvf'
+
 # Recursively touch all files and subdirectories
 alias grope="find . -exec touch {} \;"
 
