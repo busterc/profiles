@@ -120,17 +120,23 @@ alias l="ls -l"
 alias la="ls -la"
 
 # List only directories
-alias lsd='ls -l | grep "^d"'
+alias lsd="ls -l | grep \"^d\""
 
 # List only dotfiles
-alias lds='ls -lad .*'
+alias lds="ls -lad .*"
 
 # List only directories, including dot files
-alias lsda='ls -la | grep "^d"'
+alias lsda="ls -la | grep \"^d\""
 
 # Tar + Gzip
-alias tgz='tar -czvf'
-alias utgz='tar -xzvf'
+alias tgz="tar -czvf"
+alias utgz="tar -xzvf"
+
+# Tar + Gzip Subdirectories
+alias tgzs="find . -type d -depth 1 -exec tar -czf \"{}\".tar.gz \"{}\" \;"
+alias utgzs="find . -depth 1 -name '*.tar.gz' -exec tar -xzf \"{}\" \;"
+alias tgzs-clean="find . -type d -depth 1 -exec tar -czf \"{}\".tar.gz \"{}\" \; -exec rm -rf \"{}\" \;"
+alias utgzs-clean="find . -depth 1 -name '*.tar.gz' -exec tar -xzf \"{}\" \; -exec rm \"{}\" \;"
 
 # Recursively touch all files and subdirectories
 alias grope="find . -exec touch {} \;"
