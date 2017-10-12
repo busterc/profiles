@@ -446,6 +446,20 @@ function shfile() {
   fi
 }
 
+# Generate a stubbed Node Shell file
+function nodefile() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: nodefile <filename>\n\n"
+  else
+    local shell
+    local file
+    file="$1"
+    printf "#!/usr/bin/env node\n'use strict';\n// %s\n\n" "$1" > "$file"
+    chmod +x "$file"
+    e "$file"
+  fi
+}
+
 # HR for terminal, see also: https://github.com/LuRsT/hr
 function hr() {
   local COLS
