@@ -69,7 +69,7 @@ EOF
     filezilla
     gimp
     google-chrome
-    google-drive
+    google-backup-and-sync
     hyper
     keycastr
     lastpass
@@ -80,7 +80,7 @@ EOF
     sketch
     skitch
     sling
-    slingplayer-desktop
+    slingplayer
     spectacle
     virtualbox
     visual-studio-code
