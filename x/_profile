@@ -419,15 +419,24 @@ function favicon() {
 # Generate a stubbed Bash file
 function bashfile() {
   if [[ $# -eq 0 ]]; then
-    printf "\n  Usage: bashfile <filename>\n\n"
+    printf "\n  Usage: bashfile <name>\n\n"
   else
-    local shell
-    shell=$(which bash)
-    local file
-    file="$1"
-    printf "#!$shell\n# %s\n\n" "$1" > "$file"
-    chmod +x "$file"
-    e "$file"
+    read -r -d '' src <<'EOF'
+#!/usr/bin/env bash
+
+function {{name}}() {
+
+}
+
+if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
+  export -f {{name}}
+else
+  {{name}}
+fi
+EOF
+  echo "$src" | sed 's#{{name}}#'$1'#g' > "$1"
+  chmod +x "$1"
+  e "$1"
   fi
 }
 
@@ -436,13 +445,22 @@ function shfile() {
   if [[ $# -eq 0 ]]; then
     printf "\n  Usage: shfile <filename>\n\n"
   else
-    local shell
-    shell=$(which sh)
-    local file
-    file="$1"
-    printf "#!$shell\n# %s\n\n" "$1" > "$file"
-    chmod +x "$file"
-    e "$file"
+    read -r -d '' src <<'EOF'
+#!/usr/bin/env sh
+
+function {{name}}() {
+
+}
+
+if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
+  export -f {{name}}
+else
+  {{name}}
+fi
+EOF
+  echo "$src" | sed 's#{{name}}#'$1'#g' > "$1"
+  chmod +x "$1"
+  e "$1"
   fi
 }
 
