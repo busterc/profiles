@@ -4,8 +4,8 @@
 #######################################
 
 alias npmv="npm --version"
-alias npml="npm list --depth 0"
-alias npmlg="npm list --global --depth 0"
+alias npml="npm list --depth 0 | less"
+alias npmlg="npm list --global --depth 0 | less"
 alias npmgl="npmlg"
 alias npmo="npm outdated"
 alias npmog="npmo --global"
