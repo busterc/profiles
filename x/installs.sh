@@ -62,6 +62,7 @@ EOF
     pm2
     svg-caster
     svgo
+    tldr
     trash-cli
     yo
 
