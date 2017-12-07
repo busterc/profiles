@@ -19,7 +19,7 @@ EOF
       cd "$temp" # defined in ../setup.sh
       git clone https://github.com/bpkg/bpkg.git
       cd bpkg
-      ./setup.sh
+      ./setup.sh install
     )
   fi
 
@@ -29,7 +29,7 @@ EOF
   )
 
   for script in "${scripts[@]}"; do
-    bpkg install "$script"
+    bpkg install "$script" -g
   done
 }
 bpkgify
@@ -57,7 +57,6 @@ EOF
     iconr
     ionic
     keybase
-    node-inspector
     optipng-bin
     pm2
     svg-caster
