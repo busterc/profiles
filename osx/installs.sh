@@ -73,6 +73,7 @@ EOF
     hyper
     keycastr
     lastpass
+    lepton
     real-vnc
     recordit
     rescuetime
