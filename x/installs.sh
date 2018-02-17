@@ -57,6 +57,7 @@ EOF
     iconr
     ionic
     keybase
+    n
     optipng-bin
     pm2
     svg-caster
