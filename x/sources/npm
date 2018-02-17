@@ -37,6 +37,7 @@ alias npmxse="npmrse"
 
 # misc
 alias npmbump="npm version patch"
+alias npmy="npm init -y"
 
 ## super user local
 #######################################
