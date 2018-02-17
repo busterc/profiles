@@ -34,6 +34,10 @@ alias gtpom="git push origin master"
 alias gtrev="git remote -v"
 ## status
 alias gts="git status"
+## clean/remove ignored files/folders
+alias gtclean="git clean -Xdf"
+## dry-run clean/remove ignored files/folders
+alias gtclean-dryrun="git clean -Xdfn"
 
 
 # Rebase Workflow = gtur then gtpomm
