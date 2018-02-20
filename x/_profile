@@ -24,10 +24,15 @@ function prompter(){
     export PROMPTERTYPE="$1"
   fi
 
+  local sshd
   local git
   local status
   local branch
 
+  sshd="$(ssh-add -l | awk 'BEGIN {r=""} \
+    !/no identities/ {r="*"}\
+    END {print r}
+  ')"
   status="$(git status 2>/dev/null)"
   branch="$(echo "$status" | awk '/On branch/ {print $3}')"
 
@@ -45,10 +50,10 @@ function prompter(){
 
   case "$PROMPTERTYPE" in
   long)
-    _ps1="\u @$(hostname -s) in \$PWD"$git
+    _ps1=$sshd"\u @$(hostname -s) in \$PWD"$git
     ;;
   short)
-    _ps1="$(pwd | sed "s#$HOME#~#")"$git
+    _ps1=$sshd"$(pwd | sed "s#$HOME#~#")"$git
     ;;
   z)
     _ps1="$(pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g")"$git
