@@ -14,11 +14,11 @@
   insteadOf = heroku:
 [url "git@bitbucket.org:"]
   insteadOf = bb:
+[url "git@bitbucket.org:busterc/"]
+  insteadOf = bbbc:
 
 [url "git@github.com:busterc/"]
   insteadOf = ghbc:
-[url "git@github.com:helpdotcom/"]
-  insteadOf = ghhc:
 [url "git@github.com:UserStyles/"]
   insteadOf = ghus:
 [url "git@github.com:HyperJSON/"]
