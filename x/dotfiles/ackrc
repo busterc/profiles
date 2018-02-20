@@ -1,1 +1,2 @@
 --ignore-dir=.nyc_output
+--ignore-dir=coverage
