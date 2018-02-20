@@ -144,8 +144,8 @@ alias grope="find . -exec touch {} \;"
 # Run Makefiles quietly
 alias makes="make -s"
 
-# Run Node eval()
-alias js="node -p"
+# jstdin is a better node -p :)
+alias js="jstdin"
 
 # Process Search
 alias psa="ps aux | grep -v 'grep' | grep "

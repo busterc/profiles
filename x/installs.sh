@@ -71,7 +71,9 @@ EOF
     forkorg
     grunt-file
     gulpfile
+    jstdin
     no-exif
+    nvx
     tos
     # xcv # installed with bpkg
   )
