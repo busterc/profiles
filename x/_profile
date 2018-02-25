@@ -30,7 +30,7 @@ function prompter(){
   local branch
 
   sshd="$(ssh-add -l | awk 'BEGIN {r=""} \
-    !/no identities/ {r="*"}\
+    !/no identities/ {r="* "}\
     END {print r}
   ')"
   status="$(git status 2>/dev/null)"
@@ -50,10 +50,10 @@ function prompter(){
 
   case "$PROMPTERTYPE" in
   long)
-    _ps1=$sshd"\u @$(hostname -s) in \$PWD"$git
+    _ps1="\u @$(hostname -s) in \$PWD"$git
     ;;
   short)
-    _ps1=$sshd"$(pwd | sed "s#$HOME#~#")"$git
+    _ps1="$(pwd | sed "s#$HOME#~#")"$git
     ;;
   z)
     _ps1="$(pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g")"$git
@@ -64,7 +64,7 @@ function prompter(){
     ;;
   esac
 
-  PS1="$(hr)$(tput rev)$_ps1$(tput sgr0)\n$ " ; export PS1
+  PS1="$(hr)$sshd$(tput rev)$_ps1$(tput sgr0)\n$ " ; export PS1
 }
 if [[ $- == *i* ]]; then
   # is an interactive shell
