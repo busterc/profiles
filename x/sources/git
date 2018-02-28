@@ -38,6 +38,7 @@ alias gts="git status"
 alias gtclean="git clean -Xdf"
 ## dry-run clean/remove ignored files/folders
 alias gtclean-dryrun="git clean -Xdfn"
+alias gtcleand="gtclean-dryrun"
 
 
 # Rebase Workflow = gtur then gtpomm
