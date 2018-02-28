@@ -154,6 +154,10 @@ alias makes="make -s"
 # jstdin is a better node -p :)
 alias js="jstdin"
 
+# Quokka REPL
+mkdir -p "$HOME/.sqratch"
+alias sqratch="code $HOME/.sqratch"
+
 # Process Search
 alias psa="ps aux | grep -v 'grep' | grep "
 
