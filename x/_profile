@@ -962,3 +962,18 @@ EOF
     microgen "$file" "$outfile"
   done
 }
+
+# find a file in the first possible parent dir
+function find_up() {
+  (
+    while [[ "$PWD" != "/" ]]; do
+      find "$PWD/$@" -maxdepth 1 2>/dev/null && return || cd ..
+    done
+    (>&2 echo ":( not found")
+    return 1
+  )
+}
+
+# Quick Look at NPM Deps & DevDeps
+alias deps="find_up package.json && find_up package.json | xargs cat | jstdin 'x=>x.dependencies'"
+alias devdeps="find_up package.json && find_up package.json | xargs cat | jstdin 'x=>x.devDependencies'"
