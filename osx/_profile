@@ -52,8 +52,12 @@ alias apps="aapps && uapps"
 # VSCode as editor, when possible
 export EDITOR="code"
 
+# TextEdit (when desperate)
+alias textedit='open -a TextEdit'
+
 # Chrome as default browser
-export BROWSER="open $APPLICATIONS_DIR/Google\ Chrome.app"
+export BROWSER="open -a $APPLICATIONS_DIR/Google\ Chrome.app"
+alias chrome="$BROWSER"
 
 # Surfraw
 export SURFRAW_text_browser=lynx
