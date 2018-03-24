@@ -38,6 +38,8 @@ alias npmxse="npmrse"
 # misc
 alias npmbump="npm version patch"
 alias npmy="npm init -y"
+alias ppj="npx prettier-package-json --write ./package.json"
+alias npmc="npm-check -u"
 
 ## super user local
 #######################################
