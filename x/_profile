@@ -977,3 +977,35 @@ function find_up() {
 # Quick Look at NPM Deps & DevDeps
 alias deps="find_up package.json && find_up package.json | xargs cat | jstdin 'x=>x.dependencies'"
 alias devdeps="find_up package.json && find_up package.json | xargs cat | jstdin 'x=>x.devDependencies'"
+
+# Get absolute path to dir or file
+function abs() {
+  echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
+}
+
+# Select modified files to git-diff
+function gtds() {
+  PS3="
+Select File to Diff or Quit: "
+  files=($(git status --porcelain | awk 'match($1, "M"){print $2}'))
+
+  [[ "${#files[@]}" -eq 0 ]] && echo "No files have been modified" && return 0
+
+  files+=("Quit")
+  echo
+  select file in "${files[@]}"; do
+    case "$file" in
+      "Quit")
+        break
+        ;;
+      *)
+        if [[ "$REPLY" =~ ^[0-9]+$ ]]; then
+          git diff "$file"
+        else
+          echo "You've choosen poorly.. try using only numbers :P"
+        fi
+        break
+        ;;
+    esac
+  done
+}
