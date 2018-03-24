@@ -50,14 +50,24 @@ EOF
   local packages=(
     colors
     cordova
+    datauri-cli
+    depcheck
     eslint
     express-generator
+    generator-code
+    generator-generator
+    generator-nm
     generator-node
+    hpm-cli
     http-server
     iconr
     ionic
+    ios-sim
     keybase
+    khaos
+    marko-cli
     n
+    npm-check
     optipng-bin
     pm2
     svg-caster
@@ -67,11 +77,15 @@ EOF
     yo
 
     # Mine, of course
+    assert-dotenv-cli
     boomlet
+    distiller
     forkorg
+    generator-cordova-www
     grunt-file
     gulpfile
     jstdin
+    microgen
     no-exif
     nvx
     tos
