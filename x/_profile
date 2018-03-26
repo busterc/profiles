@@ -975,16 +975,17 @@ function find_up() {
 }
 
 # Quick Look at package.json
-function _pj() {
+function pj() {
   for key in "$@"; do
     find_up package.json && find_up package.json | xargs cat | jstdin "x=>x$key"
   done
 }
-alias pj="_pj \";\""
-alias pjd="_pj .dependencies"
-alias pjdd="_pj .devDependencies"
-alias pjddd="_pj .dependencies .devDependencies"
-alias pjs="_pj .scripts"
+alias pj-all="pj \";\""
+alias pjd="pj .dependencies"
+alias pjdd="pj .devDependencies"
+alias pjddd="pj .dependencies .devDependencies"
+alias pjs="pj .scripts"
+alias pjv="pj .version"
 
 # Get absolute path to dir or file
 function abs() {
