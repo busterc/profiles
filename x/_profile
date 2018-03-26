@@ -969,14 +969,22 @@ function find_up() {
     while [[ "$PWD" != "/" ]]; do
       find "$PWD/$@" -maxdepth 1 2>/dev/null && return || cd ..
     done
-    (>&2 echo ":( not found")
+    (>&2 echo ":( not found: $@")
     return 1
   )
 }
 
-# Quick Look at NPM Deps & DevDeps
-alias deps="find_up package.json && find_up package.json | xargs cat | jstdin 'x=>x.dependencies'"
-alias devdeps="find_up package.json && find_up package.json | xargs cat | jstdin 'x=>x.devDependencies'"
+# Quick Look at package.json
+function _pj() {
+  for key in "$@"; do
+    find_up package.json && find_up package.json | xargs cat | jstdin "x=>x$key"
+  done
+}
+alias pj="_pj \";\""
+alias pjd="_pj .dependencies"
+alias pjdd="_pj .devDependencies"
+alias pjddd="_pj .dependencies .devDependencies"
+alias pjs="_pj .scripts"
 
 # Get absolute path to dir or file
 function abs() {
