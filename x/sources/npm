@@ -40,6 +40,9 @@ alias npmbump="npm version patch"
 alias npmy="npm init -y"
 alias ppj="npx prettier-package-json --write ./package.json"
 alias npmc="npm-check -u"
+alias npmcg="npm-check -gu"
+alias npmt="npm test"
+alias npmit="npm it"
 
 ## super user local
 #######################################
