@@ -70,10 +70,12 @@ EOF
     npm-check
     optipng-bin
     pm2
+    pushover-cli
     svg-caster
     svgo
     tldr
     trash-cli
+    vsce
     yo
 
     # Mine, of course
@@ -82,14 +84,18 @@ EOF
     distiller
     forkorg
     generator-cordova-www
+    generator-prettier-package-json
     grunt-file
     gulpfile
     jstdin
     microgen
+    mvy
     no-exif
+    npmu
     nvx
     tos
     # xcv # installed with bpkg
+    yos
   )
 
   for package in "${packages[@]}"; do
