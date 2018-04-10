@@ -1,2 +1,5 @@
 --ignore-dir=.nyc_output
 --ignore-dir=coverage
+--ignore-dir=node_modules
+--color
+--pager=less -r
