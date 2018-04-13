@@ -154,6 +154,9 @@ alias makes="make -s"
 # jstdin is a better node -p :)
 alias js="jstdin"
 
+# yo node + yo prettier-package-json
+alias yonode="yo node && yo prettier-package-json"
+
 # Quokka REPL
 mkdir -p "$HOME/.sqratch"
 alias sqratch="code $HOME/.sqratch"
