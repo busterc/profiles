@@ -44,6 +44,7 @@ EOF
     ack
     bash-completion
     git
+    htop
     httrack
     imagemagick
     lynx
