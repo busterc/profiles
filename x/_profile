@@ -117,8 +117,8 @@ alias ghb="cdl ~/Github/busterc"
 mkdir -p ~/Bitbucket/busterc
 alias bb="cdl ~/Bitbucket"
 alias bbb="cdl ~/Bitbucket/busterc"
-alias dev="cd ~/Desktop && mkdir -p dev && cdl dev"
-alias temp="cd ~/Desktop && mkdir -p temp && cdl temp"
+alias dev="cd ~/Desktop && mkdir -p .dev && cdl .dev"
+alias temp="cd ~/Desktop && mkdir -p .temp && cdl .temp"
 
 # List all files colorized in long format
 alias l="ls -l"
