@@ -51,6 +51,7 @@ EOF
     colors
     cordova
     datauri-cli
+    degit
     depcheck
     eslint
     express-generator
