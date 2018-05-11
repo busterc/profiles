@@ -163,6 +163,10 @@ alias sqratch="code $HOME/.sqratch"
 
 # Process Search
 alias psa="ps aux | grep -v 'grep' | grep "
+# Process Kill Matching Name
+function psakill() {
+  ps aux | grep -v 'grep' | grep "$@" | awk '{print $2}' | xargs kill -9
+}
 
 # khaos tips
 alias khaos-tips="curl -s https://gist.githubusercontent.com/busterc/a00b24796aa5f9ea1671f019263c721d/raw/089bc62d04574abcd71e57ddc89065565863f8d2/khaos-tips.md"
