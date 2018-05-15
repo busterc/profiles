@@ -122,3 +122,12 @@ function npmrisde() {
   npmrsd "$@"
   npmisde "$@"
 }
+
+# npm stars
+function npmstars() {
+  for p in $(npm stars $@); do
+    npm view "$p" name description repository.url
+    # echo "$p"
+    hr
+  done
+}
