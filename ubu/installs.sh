@@ -9,7 +9,7 @@ apt-get install -y build-essential
 apt-get install -y git
 
 # Node
-curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 apt-get install -y nodejs
 
 # Lastpass CLI `lpass`
