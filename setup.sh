@@ -73,6 +73,11 @@ function main() {
 
       copydots "x" # cross-profile dots
       copydots "$1"
+
+      # Set XDG Defaults
+      source "./x/sources/xdg"
+
+      # Activate platform specific profile
       activate "$1"
 
       # Install profile specific apps
