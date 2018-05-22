@@ -1,19 +1,25 @@
 #!/bin/bash
 
-apt-get update
+sudo apt-get update
 
 # build essentials make, gcc, etc
-apt-get install -y build-essential
+sudo apt-get install -y build-essential
 
 # Git
-apt-get install -y git
+sudo apt-get install -y git
+
+# NVM
+export NVM_DIR="$HOME/.nvm" && (
+  git clone https://github.com/creationix/nvm.git "$NVM_DIR"
+  cd "$NVM_DIR"
+  git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+) && \. "$NVM_DIR/nvm.sh"
 
 # Node
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-apt-get install -y nodejs
+nvm install --lts
 
 # Lastpass CLI `lpass`
-apt-get install -y cmake libcurl4-openssl-dev libssl-dev libxml2 libxml2-dev openssl pinentry-curses pkg-config xclip
+sudo apt-get install -y cmake libcurl4-openssl-dev libssl-dev libxml2 libxml2-dev openssl pinentry-curses pkg-config xclip
 mkdir -p temp
 (
   cd temp
@@ -27,7 +33,7 @@ read lpuser
 lpass login "$lpuser"
 
 # Ack
-apt-get install -y ack-grep
+sudo apt-get install -y ack-grep
 
 # Tree
-apt-get install -y tree
+sudo apt-get install -y tree

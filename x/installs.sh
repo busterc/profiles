@@ -19,7 +19,7 @@ EOF
       cd "$temp" # defined in ../setup.sh
       git clone https://github.com/bpkg/bpkg.git
       cd bpkg
-      ./setup.sh install
+      sudo ./setup.sh install
     )
   fi
 
