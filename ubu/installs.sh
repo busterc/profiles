@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo add-apt-repository ppa:git-core/ppa
 sudo apt-get update
 
 # build essentials make, gcc, etc
