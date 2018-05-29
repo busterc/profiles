@@ -1,13 +1,22 @@
 #!/bin/sh
 
-function ios-sim-inspector() {
-  appName="$1"
-  osascript <<EOF
+ios-sim-inspector() {
+  if [ $# -eq 0 ]; then
+    printf "\n  Usage: $ ios-sim-inspector <index-page-title>\n\n"
+    printf "  * <index-page-title> cannot have the same name as the folder containing it :(\n\n"
+  else
+    appName="$1"
+
+    # Safari has been very stubborn about reloading "Develop" menu
+    # so, we force it to quit first :(
+    killall Safari
+
+    osascript <<EOF
 # Name of the device as visible in Safari->Develop menu
 set deviceName to "Simulator"
 
 # Number of seconds to wait for the simulator window to show up
-set maxWait to 20
+set maxWait to 10
 
 set hasClicked to false
 set x to 0
@@ -37,4 +46,5 @@ tell application "Safari"
     end if
 end tell
 EOF
+  fi
 }
