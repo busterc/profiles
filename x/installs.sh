@@ -29,7 +29,7 @@ EOF
   )
 
   for script in "${scripts[@]}"; do
-    bpkg install "$script" -g
+    sudo bpkg install "$script" -g
   done
 }
 bpkgify
