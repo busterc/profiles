@@ -9,6 +9,9 @@ sudo apt-get install -y build-essential
 # Git
 sudo apt-get install -y git
 
+# NGINX
+sudo apt-get install -y nginx
+
 # NVM
 export NVM_DIR="$HOME/.nvm" && (
   git clone https://github.com/creationix/nvm.git "$NVM_DIR"
