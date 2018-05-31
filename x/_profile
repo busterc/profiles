@@ -125,22 +125,29 @@ alias dev="cd ~/Desktop && mkdir -p .dev && cdl .dev"
 alias temp="cd ~/Desktop && mkdir -p .temp && cdl .temp"
 
 # Always use color output
-alias ls="command ls --color"
+if ls --color > /dev/null 2>&1; then
+   # GNU `ls`
+	colorflag="--color"
+else
+   # macOS `ls`
+	colorflag="-G"
+fi
+alias ls="command ls ${colorflag}"
 
 # List all files colorized in long format
-alias l="ls -l"
+alias l="ls -l ${colorflag}"
 
 # List all files colorized in long format, including dot files
-alias la="ls -la"
+alias la="ls -la ${colorflag}"
 
 # List only directories
-alias lsd="ls -l | grep \"^d\""
+alias lsd="ls -l ${colorflag} | grep '^d'"
 
 # List only dotfiles
-alias lds="ls -lad .*"
+alias lds="ls -lad ${colorflag} .*"
 
 # List only directories, including dot files
-alias lsda="ls -la | grep \"^d\""
+alias lsda="ls -la ${colorflag} | grep '^d'"
 
 # Tar + Gzip
 alias tgz="tar -czvf"
