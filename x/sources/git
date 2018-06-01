@@ -50,7 +50,16 @@ alias ghrate="curl -s https://api.github.com/rate_limit"
 
 # Easy peasy git tagging
 function gtag() {
-  git tag -a "$@" -m "$@"
+  if [[ $# -eq 0 ]]; then
+    git tag
+  else
+    git tag -a "$@" -m "$@"
+  fi
+}
+
+# Git tag with datetimestamp
+function gtagdate() {
+  gtag $(date +"%Y.%m.%d-%H%M%S")
 }
 
 # GitHub upstreaming
