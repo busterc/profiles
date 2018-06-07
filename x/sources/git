@@ -226,6 +226,56 @@ function gtps() {
   done
 }
 
+# Reuse a git repo for new project
+function regit() {
+  if [[ $# -ne 2 ]]; then
+    cat <<EOF
+
+  Usage: regit <repo> <dest>
+
+  Description:
+    Reuse a git repo for a new project.
+
+EOF
+  else
+    git clone --depth 1 "$1" "$2"
+    cd "$2"
+    rm -rf .git
+    git init
+  fi
+}
+
+# Regit shortcuts
+
+function regit-gh(){
+  if [[ $# -ne 2 ]]; then
+    cat <<EOF
+
+  Usage: regit-gh <repo> <dest>
+
+  Description:
+    Reuse a git repo (from GitHub) for a new project.
+
+EOF
+  else
+    regit "git@github.com:$1" "$2"
+  fi
+}
+function regit-bb(){
+  if [[ $# -ne 2 ]]; then
+    cat <<EOF
+
+  Usage: regit-bb <repo> <dest>
+
+  Description:
+    Reuse a git repo (from BitBucket) for a new project.
+
+EOF
+  else
+    regit "git@bitbucket.org:$1" "$2"
+  fi
+}
+
 
 #####################
 #  THE DANGER ZONE  #
