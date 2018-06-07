@@ -46,6 +46,7 @@ EOF
     git
     htop
     httrack
+    icdiff
     imagemagick
     lynx
     node
