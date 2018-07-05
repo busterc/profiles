@@ -90,6 +90,7 @@ EOF
     grunt-file
     gulpfile
     jstdin
+    lbl
     microgen
     mvy
     no-exif
