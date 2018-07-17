@@ -231,44 +231,40 @@ function regit() {
   if [[ $# -ne 2 ]]; then
     cat <<EOF
 
-  Usage: regit <repo> <dest>
+  Re-use a git repo for a new project.
 
-  Description:
-    Reuse a git repo for a new project.
+  Usage: regit <repo> <dest>
 
 EOF
   else
-    git clone --depth 1 "$1" "$2"
-    cd "$2"
-    rm -rf .git
+    git clone --depth 1 "$1" "$2" &&
+    cd "$2" &&
+    rm -rf .git &&
     git init
   fi
 }
 
-# Regit shortcuts
-
-function regit-gh(){
+function regithub() {
   if [[ $# -ne 2 ]]; then
     cat <<EOF
 
-  Usage: regit-gh <repo> <dest>
+  Re-use a git repo (from GitHub) for a new project.
 
-  Description:
-    Reuse a git repo (from GitHub) for a new project.
+  Usage: regithub <repo> <dest>
 
 EOF
   else
     regit "git@github.com:$1" "$2"
   fi
 }
-function regit-bb(){
+
+function regitbucket() {
   if [[ $# -ne 2 ]]; then
     cat <<EOF
 
-  Usage: regit-bb <repo> <dest>
+  Re-use a git repo (from BitBucket) for a new project.
 
-  Description:
-    Reuse a git repo (from BitBucket) for a new project.
+  Usage: regitbucket <repo> <dest>
 
 EOF
   else
@@ -276,6 +272,23 @@ EOF
   fi
 }
 
+# Get dist/**/* from a git repo
+function gitdist() {
+  if [[ $# -ne 2 ]]; then
+    cat <<EOF
+
+  Get dist/**/* from a git repo
+
+  Usage: gitdist <repo> <dest>
+
+EOF
+  else
+    temp_dir="$(mktemp -d)"
+    git clone --depth 1 "$1" "$temp_dir" &&
+    cp -r "$temp_dir/dist/" "$2" &&
+    rm -rf "$temp_dir"
+  fi
+}
 
 #####################
 #  THE DANGER ZONE  #
