@@ -1039,3 +1039,27 @@ Select File to Diff or Quit: "
     esac
   done
 }
+
+function scrape() {
+  function usage() {
+    cat <<EOF
+
+  Usage: scrape <url>
+
+  Description: scrape a site recursively, using wget
+
+EOF
+  }
+
+  if [[ $# -ne 1 ]]; then
+    usage
+    return
+  fi
+
+  wget -r "$@"
+
+  # Remove query strings from file names
+  for file in $(find . -name '*\?*'); do
+    mv "$file" "${file%%\?*}";
+  done
+}

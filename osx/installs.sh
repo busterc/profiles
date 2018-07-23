@@ -57,6 +57,7 @@ EOF
     surfraw
     tmux
     tree
+    wget
   )
 
   # Switch to using brew-installed bash as default shell
