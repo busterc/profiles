@@ -152,6 +152,14 @@ alias lds="ls -lad ${colorflag} .*"
 # List only directories, including dot files
 alias lsda="ls -la ${colorflag} | grep '^d'"
 
+# Always enable colored `grep` output
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+
+# Enable aliases to be sudo’ed
+alias sudo="sudo "
+
 # Tar + Gzip
 alias tgz="tar -czvf"
 alias utgz="tar -xzvf"
@@ -407,27 +415,32 @@ function profiles() {
   e ~/.profiles
 }
 
+# List all environment variables that match regexp
+alias envs="env | grep "
+
 # List aliases that match regexp, e.g. $ alls .*sudo.*
 function alls() {
-  alias -p | sed -n "/^alias $1/p"
+  alias -p | grep "^alias $1" | sed "s#^alias ##" | grep $1
 }
 
 # List functions that match regexp, e.g. $ fnls .*c.*
 function fnls() {
-  declare -F | sed -n "/^declare -f $1/p" | sed "s#declare -f ##g"
+  declare -F | grep "^declare -f $1" | sed "s#^declare -f ##" | awk '{print $0 "()"}' | grep $1
 }
 
 # List functions (with source) that match regexp, e.g. $ funls .*c.*
 function funls() {
   fns="$(fnls $1)"
   for fn in "$fns"; do
-    declare -f $fn
+    _fn=$(echo "$fn" | sed "s#()##")
+    declare -f $_fn
   done
 }
 
 # List functions AND aliases that match regexp, e.g. $ fnalls .*c.*
 function fnalls() {
   alls "$1"
+  echo
   fnls "$1"
 }
 
