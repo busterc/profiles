@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # CROSS-PROFILE GOODNESS
 if [[ -f "$HOME/.profiles/x/_profile" ]]; then

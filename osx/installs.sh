@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Setup a Mac with apps, tools and defaults
 function osxify() {
@@ -42,7 +42,8 @@ EOF
 
   local recipes=(
     ack
-    bash-completion
+    bash
+    bash-completion2
     git
     htop
     httrack
@@ -57,6 +58,12 @@ EOF
     tmux
     tree
   )
+
+  # Switch to using brew-installed bash as default shell
+  if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then
+    echo '/usr/local/bin/bash' | sudo tee -a /etc/shells;
+    chsh -s /usr/local/bin/bash;
+  fi
 
   for recipe in "${recipes[@]}"; do
     brew install "$recipe"

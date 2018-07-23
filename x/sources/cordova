@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Cordova PhoneGap aliases (v3.X)
 alias cor="cordova" # candidate for "corc"
