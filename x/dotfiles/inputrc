@@ -5,6 +5,9 @@ set bell-style none
 # directories have a slash appended.
 set mark-symlinked-directories on
 
+# Make Tab autocomplete regardless of filename case
+set completion-ignore-case on
+
 "\C-p": history-search-backward
 "\C-n": history-search-forward
 "\ex": kill-whole-line
