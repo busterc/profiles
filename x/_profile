@@ -102,6 +102,13 @@ function forget() {
   history -d $(history 1); history -d $(history 1)
 }
 
+# Copy the last command from history
+# $ ssh -i ~/.ssh/some.pem user@server.com
+# $ copythat
+# $ pbp
+# ssh -i ~/.ssh/some.pem user@server.com
+alias copythat="erase; history 1 | sed 's#^ *[0-9]* *##' | pbcopy"
+
 # open editor with current directory
 alias e.="e ."
 
