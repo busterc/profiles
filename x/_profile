@@ -600,6 +600,14 @@ function noderx() {
   cd - > /dev/null
 }
 
+# Run a node script once and cleanup
+function nodex(){
+  (
+    cd $(dirname "$@") && npm install && node .
+    rm -rf node_modules package-lock.json 2>/dev/null
+  )
+}
+
 # NGINX helper
 function ngx() {
   function usage() {
