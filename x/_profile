@@ -2,6 +2,8 @@
 
 # X _profile
 
+shopt -s direxpand
+
 function source_profile_x() {
   # cope with spaces in file/directory names
   local IFS_backup="$IFS"
@@ -78,6 +80,7 @@ fi
 # Prep ~/bin
 mkdir -p "$HOME/bin"
 export PATH="$HOME/bin:$PATH"
+export b="$HOME/bin"
 
 # SSH Key Caching
 alias sshload="eval \"$(ssh-agent)\" > /dev/null && ssh-add"
