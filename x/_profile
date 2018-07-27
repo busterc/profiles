@@ -133,6 +133,7 @@ alias bb="cdl ~/Bitbucket"
 alias bbb="cdl ~/Bitbucket/busterc"
 alias dev="cd ~/Desktop && mkdir -p .dev && cdl .dev"
 alias temp="cd ~/Desktop && mkdir -p .temp && cdl .temp"
+alias data="cd ~ && mkdir -p data && cdl data"
 
 # Always use color output
 if ls --color > /dev/null 2>&1; then
