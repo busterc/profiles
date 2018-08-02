@@ -188,7 +188,7 @@ alias makes="make -s"
 alias js="jstdin"
 
 # yo node + yo prettier-package-json
-alias yonode="yo node && yo prettier-package-json"
+alias yonode="yo node && yo prettier-package-json && npm-check -u"
 
 # Quokka REPL
 mkdir -p "$HOME/.sqratch"
