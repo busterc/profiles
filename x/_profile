@@ -409,6 +409,16 @@ function fs() {
   fi
 }
 
+# Find the biggest files in a directory
+function bigfiles() {
+  echo "Biggest Files (KB) in $PWD"
+  local target="."
+  if [[ -n "$@" ]]; then
+    target="$@"
+  fi
+  find "$target" -type f | xargs du -sk | sort -nr
+}
+
 # Open Editor
 function e() {
   if [[ -z "$1" ]]; then
