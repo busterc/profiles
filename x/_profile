@@ -190,6 +190,9 @@ alias js="jstdin"
 # yo node + yo prettier-package-json
 alias yonode="yo node && yo prettier-package-json && npm-check -u"
 
+# let degit work when currently on node < 9
+alias degit="npx -p node@9 -p degit -- degit"
+
 # Quokka REPL
 mkdir -p "$HOME/.sqratch"
 alias sqratch="code $HOME/.sqratch"
