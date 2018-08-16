@@ -197,6 +197,9 @@ alias degit="npx -p node@9 -p degit -- degit"
 mkdir -p "$HOME/.sqratch"
 alias sqratch="code $HOME/.sqratch"
 
+# My Ips
+alias ips="npx -q ips | lbl -e 'x=>{if(!x)return;x=JSON.parse(x);Object.keys(x).forEach(k=>console.log(x[k],k))}'"
+
 # Process Search
 alias psa="ps aux | grep -v 'grep' | grep "
 # Process Kill Matching Name
