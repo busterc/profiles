@@ -131,6 +131,29 @@ function gtdmoms() {
   done
 }
 
+# Run Git-Clean all immediate subdirectories
+function gtcleans() {
+  for d in $(find . -name ".git" -maxdepth 2); do
+  hr
+  (
+    cd "$d"/..
+    echo "processing $d" | sed 's#\/\.git##';
+    git clean -Xdf
+  )
+  done
+}
+
+# Run a Dryrun of Git-Clean all immediate subdirectories
+function gtcleands() {
+  for d in $(find . -name ".git" -maxdepth 2); do
+  hr
+  (
+    cd "$d"/..
+    echo "processing $d" | sed 's#\/\.git##';
+    git clean -Xdfn
+  )
+  done
+}
 
 # Run Git-Diff on Upstream/Master for all immediate subdirectories
 # todo: rename to gtdmums
