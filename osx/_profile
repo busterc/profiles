@@ -55,9 +55,8 @@ export EDITOR="code"
 # TextEdit (when desperate)
 alias textedit='open -a TextEdit'
 
-# Chrome as default browser
-export BROWSER="open -a $APPLICATIONS_DIR/Google\ Chrome.app"
-alias chrome="$BROWSER"
+# Chrome browser from CLI
+alias chrome="open -a $APPLICATIONS_DIR/Google\ Chrome.app"
 
 # Surfraw
 export SURFRAW_text_browser=lynx
