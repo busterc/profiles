@@ -3,6 +3,7 @@
 # X _profile
 
 shopt -s direxpand
+shopt -s autocd
 
 function source_profile_x() {
   # cope with spaces in file/directory names
