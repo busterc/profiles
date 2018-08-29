@@ -131,3 +131,16 @@ function npmstars() {
     hr
   done
 }
+
+# Check deps on subdirectories
+function npm-check-subs() {
+  for d in $(find . -name 'package.json' -maxdepth 2 | sed 's#/package.json##g'); do
+    hr
+    (
+      cd "$d"
+      echo "$d"
+      npm install --silent
+      npm-check -ps
+    )
+  done
+}
