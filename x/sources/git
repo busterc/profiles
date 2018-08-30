@@ -16,10 +16,10 @@ alias gtchb="git checkout -b"
 ## commit
 alias gtco="git commit"
 ## diff
-alias gtd="git diff"
-alias gtdmom="git fetch origin && git diff origin/master master"
-alias gtdfmom="git fetch origin && git diff --name-only origin/master master"
-alias gtdup="git fetch upstream && git diff master upstream/master"
+alias gtd="git difftool"
+alias gtdmom="git fetch origin && git difftool origin/master master"
+alias gtdfmom="git fetch origin && git difftool --name-only origin/master master"
+alias gtdup="git fetch upstream && git difftool master upstream/master"
 ## fetch
 alias gtf="git fetch"
 ## init
@@ -126,7 +126,7 @@ function gtdmoms() {
   (
     cd "$d"/..
     echo "processing $d" | sed 's#\/\.git##';
-    git fetch origin && git diff master origin/master
+    git fetch origin && git difftool master origin/master
   )
   done
 }
@@ -163,7 +163,7 @@ function gtdups() {
   (
     cd "$d"/..
     echo "processing $d" | sed 's#\/\.git##';
-    git fetch upstream && git diff master upstream/master
+    git fetch upstream && git difftool master upstream/master
   )
   done
 }
@@ -191,6 +191,38 @@ function gtps() {
   )
   done
 }
+
+# Select modified files to git-diff
+function gtds() {
+  PS3="
+Select File to Diff or Quit: "
+  files=($(git status --porcelain | awk 'match($1, "M"){print $2}'))
+
+  [[ "${#files[@]}" -eq 0 ]] && echo "No files have been modified" && return 0
+
+  files+=("Quit")
+  echo
+  select file in "${files[@]}"; do
+    case "$file" in
+      "Quit")
+        break
+        ;;
+      *)
+        if [[ "$REPLY" =~ ^[0-9]+$ ]] && [[ "$REPLY" -le "${#files[@]}" ]]; then
+          git difftool "$file"
+          if [[ "$@" == "-ac" ]]; then
+            git add "$file"
+            git commit
+          fi
+        else
+          echo "You've choosen poorly.. try using only numbers :P"
+        fi
+        break
+        ;;
+    esac
+  done
+}
+alias gtdac="gtds -ac"
 
 # Reuse a git repo for new project
 function regit() {
