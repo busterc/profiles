@@ -119,6 +119,6 @@ function pipify() {
 EOF
 
   pip install git+https://github.com/jeffkaufman/icdiff.git
-
+  pip install pgcli
 }
 pipify
