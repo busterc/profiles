@@ -37,3 +37,10 @@
 
 [push]
   default = simple
+
+[diff]
+	tool = icdiff
+[difftool]
+	prompt = false
+[difftool "icdiff"]
+	cmd = icdiff --highlight --line-numbers $LOCAL $REMOTE | less
