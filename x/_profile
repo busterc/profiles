@@ -139,11 +139,11 @@ alias data="cd ~ && mkdir -p data && cdl data"
 
 # Always use color output
 if ls --color > /dev/null 2>&1; then
-   # GNU `ls`
-	colorflag="--color"
+  # GNU `ls`
+  colorflag="--color"
 else
-   # macOS `ls`
-	colorflag="-G"
+  # macOS `ls`
+  colorflag="-G"
 fi
 alias ls="command ls ${colorflag}"
 
@@ -1061,33 +1061,6 @@ alias pjv="pj .version"
 # Get absolute path to dir or file
 function abs() {
   echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
-}
-
-# Select modified files to git-diff
-function gtds() {
-  PS3="
-Select File to Diff or Quit: "
-  files=($(git status --porcelain | awk 'match($1, "M"){print $2}'))
-
-  [[ "${#files[@]}" -eq 0 ]] && echo "No files have been modified" && return 0
-
-  files+=("Quit")
-  echo
-  select file in "${files[@]}"; do
-    case "$file" in
-      "Quit")
-        break
-        ;;
-      *)
-        if [[ "$REPLY" =~ ^[0-9]+$ ]]; then
-          git diff "$file"
-        else
-          echo "You've choosen poorly.. try using only numbers :P"
-        fi
-        break
-        ;;
-    esac
-  done
 }
 
 function scrape() {
