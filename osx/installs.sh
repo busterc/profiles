@@ -73,6 +73,7 @@ EOF
 
   local casks=(
     arq
+    bitbar
     cheatsheet
     docker
     filezilla
@@ -83,6 +84,7 @@ EOF
     keycastr
     lastpass
     lepton
+    mysql-shell
     real-vnc
     recordit
     rescuetime
@@ -92,6 +94,7 @@ EOF
     sling
     slingplayer
     spectacle
+    ubiquiti-unifi-controller
     virtualbox
     visual-studio-code
     vlc
