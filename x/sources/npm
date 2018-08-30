@@ -144,3 +144,23 @@ function npm-check-subs() {
     )
   done
 }
+
+# Check deps on subdirectiories AND clean up after
+function npm-check-subs-clean() {
+  local report_file=$(date +"%Y.%m.%d-%H%M%S")_deps_report.txt
+  rm *_deps_report.txt 2>/dev/null
+
+  for d in $(find . -name 'package.json' -maxdepth 2 | sed 's#/package.json##g'); do
+    hr
+    (
+      cd "$d"
+      echo "$d"
+      npm install --silent >/dev/null
+      hr >> "../$report_file"
+      echo "$d" >> "../$report_file"
+      npm-check -ps | lbl -e 'x=>!x.match(/^Use npm-check/) && log(x)' | tee -a "../$report_file"
+    )
+  done
+  gtcleans >/dev/null
+  echo "Results saved to: $report_file"
+}
