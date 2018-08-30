@@ -4,6 +4,7 @@
 
 shopt -s direxpand
 shopt -s autocd
+export LESS="r"
 
 function source_profile_x() {
   # cope with spaces in file/directory names
