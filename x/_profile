@@ -5,6 +5,10 @@
 shopt -s direxpand
 shopt -s autocd
 export LESS="r"
+export PAGER="less"
+if [[ -s "$HOME/bin/bat_pager" ]]; then
+  export BAT_PAGER="$HOME/bin/bat_pager"
+fi
 
 function source_profile_x() {
   # cope with spaces in file/directory names
