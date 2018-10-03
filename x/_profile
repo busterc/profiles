@@ -199,6 +199,9 @@ alias yonode="yo node && yo prettier-package-json && npm-check -u"
 # let degit work when currently on node < 9
 alias degit="npx -p node@9 -p degit -- degit"
 
+# ntl (npm task list) with autocomplete
+alias ntla="npx ntl -A"
+
 # Quokka REPL
 mkdir -p "$HOME/.sqratch"
 alias sqratch="code $HOME/.sqratch"

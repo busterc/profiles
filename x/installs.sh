@@ -68,8 +68,8 @@ EOF
     khaos
     live-server
     marko-cli
-    n
     npm-check
+    ntl
     optipng-bin
     pm2
     pushover-cli
