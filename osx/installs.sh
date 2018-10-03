@@ -44,6 +44,7 @@ EOF
     ack
     bash
     bash-completion2
+    bat
     git
     htop
     httrack
