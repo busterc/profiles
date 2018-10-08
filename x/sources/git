@@ -59,6 +59,15 @@ function gtag() {
   fi
 }
 
+# Git tag with semver "vX.X.X" "X.X.X"
+function gtagv() {
+  if [[ $# -eq 0 ]]; then
+    git tag
+  else
+    git tag -a "v$@" -m "$@"
+  fi
+}
+
 # Git tag with datetimestamp
 function gtagdate() {
   gtag $(date +"%Y.%m.%d-%H%M%S")
