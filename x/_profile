@@ -209,11 +209,34 @@ alias sqratch="code $HOME/.sqratch"
 # My Ips
 alias ips="npx -q ips | lbl -e 'x=>{if(!x)return;x=JSON.parse(x);Object.keys(x).forEach(k=>console.log(x[k],k))}'"
 
-# Process Search
+# Process Search by Name
 alias psa="ps aux | grep -v 'grep' | grep "
+
 # Process Kill Matching Name
 function psakill() {
   ps aux | grep -v 'grep' | grep "$@" | awk '{print $2}' | xargs kill -9
+}
+
+# Process ID Search by Port
+function psport() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: psport <port>\n\n"
+  else
+    if [[ $(lsof -ti:$1) -eq 0 ]]; then
+      echo "No process found for port: $1"
+    else
+      ps | grep "^$(lsof -ti:$1)"
+    fi
+  fi
+}
+
+# Process Kill by Port
+function killport() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: killport <port>\n\n"
+  else
+    lsof -ti:$1 | xargs -I{} kill -9 {}
+  fi
 }
 
 # khaos tips
