@@ -58,6 +58,7 @@ EOF
     tmux
     tree
     wget
+    youtube-dl
   )
 
   # Switch to using brew-installed bash as default shell
