@@ -47,10 +47,13 @@ EOF
     bat
     git
     htop
+    httpie
     httrack
     imagemagick
+    jq
     lynx
     node
+    rename
     repl
     rlwrap
     shellcheck
@@ -78,11 +81,13 @@ EOF
     bitbar
     cheatsheet
     docker
+    fanny
     filezilla
     gimp
     google-chrome
     google-backup-and-sync
     hyper
+    inkscape
     keycastr
     lastpass
     lepton
@@ -90,10 +95,10 @@ EOF
     real-vnc
     recordit
     rescuetime
+    scribus
     shotcut
     sketch
     skitch
-    sling
     slingplayer
     spectacle
     ubiquiti-unifi-controller
