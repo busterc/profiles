@@ -64,6 +64,7 @@ EOF
     iconr
     ionic
     ios-sim
+    ipt
     keybase
     khaos
     live-server
