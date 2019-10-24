@@ -21,6 +21,10 @@ function source_profile_osx() {
 }
 source_profile_osx
 
+# homebrew related
+alias bro="brew outdated --verbose | sed 's#[<()]##g; s#\S*, ##g' | column -t"
+alias bru="brew outdated | ipt -m -M 'Select Packages to Upgrade:' | xargs brew upgrade"
+
 # remove last newline when using `pbcopy`
 alias npbcopy="tr -d '\n$' | pbcopy"
 
