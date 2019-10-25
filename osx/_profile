@@ -22,8 +22,12 @@ function source_profile_osx() {
 source_profile_osx
 
 # homebrew related
-alias bro="brew outdated --verbose | sed 's#[<()]##g; s#\S*, ##g' | column -t"
-alias bru="brew outdated | ipt -m -M 'Select Packages to Upgrade:' | xargs brew upgrade"
+alias brew-outdated="brew outdated --verbose | sed 's#[<()]##g; s#\S*, ##g' | column -t"
+alias bro="brew-outdated"
+alias brew-upgrade="brew outdated | ipt -m -M 'Select Packages to Upgrade:' | xargs brew upgrade"
+alias bru="brew-upgrade"
+alias cask-outdated="brew cask outdated --verbose | sed 's#[!=<()]##g; s#\S*, ##g' | column -t"
+alias cask-upgrade="brew cask outdated | ipt -m -M 'Select Packages to Upgrade:' | xargs brew cask upgrade"
 
 # remove last newline when using `pbcopy`
 alias npbcopy="tr -d '\n$' | pbcopy"
