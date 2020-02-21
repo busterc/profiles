@@ -190,6 +190,12 @@ alias grope="find . -exec touch {} \;"
 # Run Makefiles quietly
 alias makes="make -s"
 
+# Node version aliases
+alias nv614="nve 6.14"
+alias node614="nve 6.14 node"
+alias nv1017="nve 10.17"
+alias node1017="nve 10.17 node"
+
 # jstdin is a better node -p :)
 alias js="jstdin"
 

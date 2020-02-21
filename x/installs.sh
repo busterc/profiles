@@ -71,6 +71,7 @@ EOF
     marko-cli
     npm-check
     ntl
+    nve
     optipng-bin
     pm2
     pushover-cli
