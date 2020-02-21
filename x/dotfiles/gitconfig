@@ -23,6 +23,8 @@
   insteadOf = ghus:
 [url "git@github.com:HyperJSON/"]
   insteadOf = ghhj:
+[url "git@github.com:trumedianetworks/"]
+  insteadOf = ghtm:
 
 [alias]
   in = init
