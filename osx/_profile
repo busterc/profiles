@@ -3,9 +3,7 @@
 # OSX _profile
 
 # Load bash completions
-if [ -f /usr/local/share/bash-completion/bash_completion ]; then
-  source /usr/local/share/bash-completion/bash_completion
-fi
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 function source_profile_osx() {
   # cope with spaces in file/directory names
@@ -22,6 +20,7 @@ function source_profile_osx() {
 source_profile_osx
 
 # homebrew related
+export PATH="/usr/local/sbin:$PATH"
 alias brew-outdated="brew outdated --verbose | sed 's#[<()]##g; s#\S*, ##g' | column -t"
 alias bro="brew-outdated"
 alias brew-upgrade="brew outdated | ipt -m -M 'Select Packages to Upgrade:' | xargs brew upgrade"
