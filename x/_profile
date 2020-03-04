@@ -171,6 +171,14 @@ alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 
+# ACK
+# case insensitive match
+alias acki="ack -i"
+# list file names
+alias ackl="ack -l"
+# case insensitive match && list file names
+alias ackil="ack -il"
+
 # Enable aliases to be sudo’ed
 alias sudo="sudo "
 
