@@ -76,7 +76,7 @@ function prompter(){
     ;;
   esac
 
-  PS1="$(hr)$sshd$(tput rev)$_ps1$(tput sgr0)\n$ " ; export PS1
+  PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
 }
 if [[ $- == *i* ]]; then
   # is an interactive shell
@@ -200,8 +200,10 @@ alias makes="make -s"
 
 # Node version aliases
 alias nv614="nve 6.14"
+alias nv614sh="PROMPT_PREFIX=\"n6.14: \" nve 6.14 $SHELL"
 alias node614="nve 6.14 node"
 alias nv1017="nve 10.17"
+alias nv1017sh="PROMPT_PREFIX=\"n10.17: \" nve 10.17 $SHELL"
 alias node1017="nve 10.17 node"
 
 # jstdin is a better node -p :)
