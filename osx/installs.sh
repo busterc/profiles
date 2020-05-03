@@ -30,9 +30,7 @@ EOF
   brew update
 
   # LastPass
-  brew install lastpass-cli --with-pinentry
-  # LastPass hacky install docs (overcomes HomeBrew a2x errors)
-  brew install lastpass-cli --with-pinentry --with-doc
+  brew install lastpass-cli
   printf "LastPass Username: "
   read lpuser
   lpass login "$lpuser"
@@ -92,6 +90,7 @@ EOF
     lastpass
     lepton
     mysql-shell
+    qlstephen
     real-vnc
     recordit
     rescuetime
