@@ -1,38 +1,38 @@
 #!/usr/bin/env bash
 
 # Install bpkg and scripts
-function bpkgify() {
+# function bpkgify() {
 
-  cat <<EOF
+#   cat <<EOF
 
-================================================================================
-# BPKG
-================================================================================
+# ================================================================================
+# # BPKG
+# ================================================================================
 
-EOF
+# EOF
 
-  local file
-  file="$(which bpkg || true)"
+#   local file
+#   file="$(which bpkg || true)"
 
-  if [[ -z "$file" ]]; then
-    (
-      cd "$temp" # defined in ../setup.sh
-      git clone https://github.com/bpkg/bpkg.git
-      cd bpkg
-      sudo ./setup.sh install
-    )
-  fi
+#   if [[ -z "$file" ]]; then
+#     (
+#       cd "$temp" # defined in ../setup.sh
+#       git clone https://github.com/bpkg/bpkg.git
+#       cd bpkg
+#       sudo ./setup.sh install
+#     )
+#   fi
 
-  local scripts=(
-    busterc/xcv
-    busterc/osx-iso
-  )
+#   local scripts=(
+#     busterc/xcv
+#     busterc/osx-iso
+#   )
 
-  for script in "${scripts[@]}"; do
-    sudo bpkg install "$script" -g
-  done
-}
-bpkgify
+#   for script in "${scripts[@]}"; do
+#     sudo bpkg install "$script" -g
+#   done
+# }
+# bpkgify
 
 # Update NPM and install various global packages
 function nodify() {
@@ -49,58 +49,58 @@ EOF
 
   local packages=(
     colors
-    cordova
-    datauri-cli
+    # cordova
+    # datauri-cli
     degit
     depcheck
-    eslint
-    express-generator
-    generator-code
-    generator-generator
-    generator-nm
-    generator-node
-    hpm-cli
+    # eslint
+    # express-generator
+    # generator-code
+    # generator-generator
+    # generator-nm
+    # generator-node
+    # hpm-cli
     http-server
-    iconr
-    ionic
-    ios-sim
+    # iconr
+    # ionic
+    # ios-sim
     ipt
-    keybase
-    khaos
+    # keybase
+    # khaos
     live-server
-    marko-cli
+    # marko-cli
     npm-check
     ntl
     nve
     optipng-bin
-    pm2
-    pushover-cli
-    svg-caster
-    svgo
+    # pm2
+    # pushover-cli
+    # svg-caster
+    # svgo
     tldr
     trash-cli
-    vsce
-    yo
+    # vsce
+    # yo
 
     # Mine, of course
-    assert-dotenv-cli
-    boomlet
-    distiller
-    forkorg
-    generator-cordova-www
-    generator-prettier-package-json
-    grunt-file
-    gulpfile
+    # assert-dotenv-cli
+    # boomlet
+    # distiller
+    # forkorg
+    # generator-cordova-www
+    # generator-prettier-package-json
+    # grunt-file
+    # gulpfile
     jstdin
     lbl
-    microgen
+    # microgen
     mvy
-    no-exif
+    # no-exif
     npmu
     nvx
-    tos
+    # tos
     # xcv # installed with bpkg
-    yos
+    # yos
   )
 
   for package in "${packages[@]}"; do
@@ -110,17 +110,17 @@ EOF
 nodify
 
 # Install various Python packages
-function pipify() {
+# function pipify() {
 
-  cat <<EOF
+#   cat <<EOF
 
-================================================================================
-# PIP
-================================================================================
+# ================================================================================
+# # PIP
+# ================================================================================
 
-EOF
+# EOF
 
-  pip install git+https://github.com/jeffkaufman/icdiff.git
-  pip install pgcli
-}
-pipify
+#   pip install git+https://github.com/jeffkaufman/icdiff.git
+#   pip install pgcli
+# }
+# pipify

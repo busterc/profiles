@@ -1,21 +1,27 @@
 # profiles
 
-dotfiles, system defaults and more
+> dotfiles, system defaults and more
+
+**Basic Version**
+
+- doesn't have _all_ the developer goodies found in master
 
 ## Setup
+
 ```sh
-$ git clone https://github.com/busterc/profiles.git ~/.profiles
+$ git clone --branch basic https://github.com/busterc/profiles.git ~/.profiles
 $ cd ~/.profiles
 $ ./setup.sh <osx|ubu|msys>
 ```
 
 ## FYI
+
 - [`setup.sh`](setup.sh) creates symlinked dotfiles in `~/`. Therefore, any existing dotfiles will be copied to `backup` under newly created date-time named directories, e.g. `./backup/2012-12-20-235959`
 - When setting up OSX you'll also apply several system defaults from [`osx/defaults.sh`](osx/defaults.sh)
 - Checkout more dotfiles https://dotfiles.github.io/
 
-
 ## License
+
 The MIT License (MIT)
 
 Copyright (c) 2015 Buster Collings

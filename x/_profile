@@ -25,8 +25,8 @@ function source_profile_x() {
 source_profile_x
 
 # NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # Prompt display
 export PROMPTERTYPE=short
@@ -199,18 +199,18 @@ alias grope="find . -exec touch {} \;"
 alias makes="make -s"
 
 # Node version aliases
-alias nv614="nve 6.14"
-alias nv614sh="PROMPT_PREFIX=\"n6.14: \" nve 6.14 $SHELL"
-alias node614="nve 6.14 node"
-alias nv1017="nve 10.17"
-alias nv1017sh="PROMPT_PREFIX=\"n10.17: \" nve 10.17 $SHELL"
-alias node1017="nve 10.17 node"
+# alias nv614="nve 6.14"
+# alias nv614sh="PROMPT_PREFIX=\"n6.14: \" nve 6.14 $SHELL"
+# alias node614="nve 6.14 node"
+# alias nv1017="nve 10.17"
+# alias nv1017sh="PROMPT_PREFIX=\"n10.17: \" nve 10.17 $SHELL"
+# alias node1017="nve 10.17 node"
 
 # jstdin is a better node -p :)
 alias js="jstdin"
 
 # yo node + yo prettier-package-json
-alias yonode="yo node && yo prettier-package-json && npm-check -u"
+# alias yonode="yo node && yo prettier-package-json && npm-check -u"
 
 # let degit work when currently on node < 9
 alias degit="npx -p node@9 -p degit -- degit"
@@ -219,8 +219,8 @@ alias degit="npx -p node@9 -p degit -- degit"
 alias ntla="npx ntl -A"
 
 # Quokka REPL
-mkdir -p "$HOME/.sqratch"
-alias sqratch="code $HOME/.sqratch"
+# mkdir -p "$HOME/.sqratch"
+# alias sqratch="code $HOME/.sqratch"
 
 # My Ips
 alias ips="npx -q ips | lbl -e 'x=>{if(!x)return;x=JSON.parse(x);Object.keys(x).forEach(k=>console.log(x[k],k))}'"
@@ -256,17 +256,17 @@ function killport() {
 }
 
 # khaos tips
-alias khaos-tips="curl -s https://gist.githubusercontent.com/busterc/a00b24796aa5f9ea1671f019263c721d/raw/089bc62d04574abcd71e57ddc89065565863f8d2/khaos-tips.md"
+# alias khaos-tips="curl -s https://gist.githubusercontent.com/busterc/a00b24796aa5f9ea1671f019263c721d/raw/089bc62d04574abcd71e57ddc89065565863f8d2/khaos-tips.md"
 
 # docker tips
-alias doc-tips="curl -s https://gist.githubusercontent.com/busterc/188c789c01b2aa586b194836050e3a1f/raw/b15557a191e0fef8b80256feddeb0e3b8e4322db/RethinkDB_Docker.md 2>&1 | less"
+# alias doc-tips="curl -s https://gist.githubusercontent.com/busterc/188c789c01b2aa586b194836050e3a1f/raw/b15557a191e0fef8b80256feddeb0e3b8e4322db/RethinkDB_Docker.md 2>&1 | less"
 
 # RethinkDB migration commands with debug logging
-alias rdbm-create="./create.js"
-alias rdbm-dev-up="./migrate-dev.js up -l debug"
-alias rdbm-dev-down="./migrate-dev.js down -l debug"
-alias rdbm-pro-up="./migrate-production.js up -l debug"
-alias rdbm-pro-down="./migrate-production.js down -l debug"
+# alias rdbm-create="./create.js"
+# alias rdbm-dev-up="./migrate-dev.js up -l debug"
+# alias rdbm-dev-down="./migrate-dev.js down -l debug"
+# alias rdbm-pro-up="./migrate-production.js up -l debug"
+# alias rdbm-pro-down="./migrate-production.js down -l debug"
 
 # xcv aliases
 alias fsx="xcv x"
@@ -275,14 +275,14 @@ alias fsv="xcv v"
 alias fsl="xcv l"
 
 # VirtualBox
-alias vbxl="VBoxManage list vms"
-alias vbxlr="VBoxManage list runningvms"
-alias vbxs="VBoxManage startvm"
-alias vbx="VBoxManage startvm --type headless"
+# alias vbxl="VBoxManage list vms"
+# alias vbxlr="VBoxManage list runningvms"
+# alias vbxs="VBoxManage startvm"
+# alias vbx="VBoxManage startvm --type headless"
 # VirtualBox PowerOff VM
-function vbxo() {
-  VBoxManage controlvm "$1" poweroff
-}
+# function vbxo() {
+#   VBoxManage controlvm "$1" poweroff
+# }
 
 # Touch new files in a new directory (touch + mkdir -p)
 function touchy() {
@@ -523,18 +523,18 @@ function funalls() {
 }
 
 # ImageMagick FavIcon Generator
-function favicon() {
-  if [[ $# -eq 0 ]]; then
-    printf "\n  Usage: favicon <image-filename>\n\n"
-  else
-    convert "$1" -bordercolor white -border 0 \
-      \( -clone 0 -resize 16x16 \) \
-      \( -clone 0 -resize 32x32 \) \
-      \( -clone 0 -resize 48x48 \) \
-      \( -clone 0 -resize 64x64 \) \
-      -delete 0 -alpha off -colors 256 favicon.ico
-  fi
-}
+# function favicon() {
+#   if [[ $# -eq 0 ]]; then
+#     printf "\n  Usage: favicon <image-filename>\n\n"
+#   else
+#     convert "$1" -bordercolor white -border 0 \
+#       \( -clone 0 -resize 16x16 \) \
+#       \( -clone 0 -resize 32x32 \) \
+#       \( -clone 0 -resize 48x48 \) \
+#       \( -clone 0 -resize 64x64 \) \
+#       -delete 0 -alpha off -colors 256 favicon.ico
+#   fi
+# }
 
 # Generate a stubbed Bash file
 function bashfile() {
@@ -629,126 +629,126 @@ function define() {
 }
 
 # Shellcheck with grep
-function shrepcheck() {
-  # $ shrepcheck <regex>
-  local regex="^#!"
-  # [[ -z "$@" ]] || $regex="$@"
+# function shrepcheck() {
+#   # $ shrepcheck <regex>
+#   local regex="^#!"
+#   # [[ -z "$@" ]] || $regex="$@"
 
-  local fs=($(grep -lr "$regex" .))
+#   local fs=($(grep -lr "$regex" .))
 
-  if [[ ${#fs[@]} -eq 0 ]]; then
-    echo "  No matching files found"
-  else
-    for f in "${fs[@]}"; do
-      shellcheck "$f"
-      if [[ $? -ne 0 ]]; then
-        hr
-      fi
-    done
-  fi
-}
+#   if [[ ${#fs[@]} -eq 0 ]]; then
+#     echo "  No matching files found"
+#   else
+#     for f in "${fs[@]}"; do
+#       shellcheck "$f"
+#       if [[ $? -ne 0 ]]; then
+#         hr
+#       fi
+#     done
+#   fi
+# }
 
 # Node REPL with eXtras (packages & rlwrap)
-function noderx() {
-  dir="_noderx"
-  package="package.json"
+# function noderx() {
+#   dir="_noderx"
+#   package="package.json"
 
-  mkdir -p "$dir"
-  cd "$dir"
+#   mkdir -p "$dir"
+#   cd "$dir"
 
-  [ -f "$package" ] || printf "{\"name\":\"noderx\"}" > "$package"
+#   [ -f "$package" ] || printf "{\"name\":\"noderx\"}" > "$package"
 
-  for module in "$@"
-  do
-    npm install "$module"
-  done
+#   for module in "$@"
+#   do
+#     npm install "$module"
+#   done
 
-  if type rlwrap > /dev/null; then
-    env NODE_NO_READLINE=1 rlwrap node
-  else
-    node
-  fi
+#   if type rlwrap > /dev/null; then
+#     env NODE_NO_READLINE=1 rlwrap node
+#   else
+#     node
+#   fi
 
-  cd - > /dev/null
-}
+#   cd - > /dev/null
+# }
 
 # Run a node script once and cleanup
-function nodex(){
-  (
-    cd $(dirname "$@") && npm install && node .
-    rm -rf node_modules package-lock.json 2>/dev/null
-  )
-}
+# function nodex(){
+#   (
+#     cd $(dirname "$@") && npm install && node .
+#     rm -rf node_modules package-lock.json 2>/dev/null
+#   )
+# }
 
 # NGINX helper
-function ngx() {
-  function usage() {
-    cat <<EOF
+# function ngx() {
+#   function usage() {
+#     cat <<EOF
 
-  Usage: ngx <options>
+#   Usage: ngx <options>
 
-    Description: NGINX utils
+#     Description: NGINX utils
 
-    Options:
+#     Options:
 
-      -la            list available websites
-      -le            list enabled websites
-      -es <website>  enable a website
-      -ds <website>  disable a website
-      -ca            cd to /etc/nginx/sites-available
-      -ce            cd to /etc/nginx/sites-enabled
+#       -la            list available websites
+#       -le            list enabled websites
+#       -es <website>  enable a website
+#       -ds <website>  disable a website
+#       -ca            cd to /etc/nginx/sites-available
+#       -ce            cd to /etc/nginx/sites-enabled
 
-EOF
-  }
+# EOF
+#   }
 
-  if [[ $# -eq 0 ]]; then
-    usage
-  else
+#   if [[ $# -eq 0 ]]; then
+#     usage
+#   else
 
-    local availableDir="/etc/nginx/sites-available/"
-    local enabledDir="/etc/nginx/sites-enabled/"
+#     local availableDir="/etc/nginx/sites-available/"
+#     local enabledDir="/etc/nginx/sites-enabled/"
 
-    case "$1" in
-    -la)
-      ls $availableDir
-      ;;
-    -le)
-      ls $enabledDir
-      ;;
-    -es)
-      if [[ -f "$availableDir$2" ]]; then
-        sudo ln -sfn "$availableDir$2" "$enabledDir$2"
-        sudo nginx -s reload
-      else
-        printf "\n  Error: $2 was not found\n\n"
-      fi
-      ;;
-    -ds)
-      if [[ -f "$enabledDir$2" ]]; then
-        sudo rm "$enabledDir$2"
-        sudo nginx -s reload
-      else
-        printf "\n  Error: $2 was not found\n\n"
-      fi
-      ;;
-    -ca)
-      cd $availableDir
-      ;;
-    -ce)
-      cd $enabledDir
-      ;;
-    *)
-      usage
-      ;;
-    esac
-  fi
-}
-alias ngxla="ngx -la"
-alias ngxle="ngx -le"
-alias ngxes="ngx -es"
-alias ngxds="ngx -ds"
-alias ngxca="ngx -ca"
-alias ngxce="ngx -ce"
+#     case "$1" in
+#     -la)
+#       ls $availableDir
+#       ;;
+#     -le)
+#       ls $enabledDir
+#       ;;
+#     -es)
+#       if [[ -f "$availableDir$2" ]]; then
+#         sudo ln -sfn "$availableDir$2" "$enabledDir$2"
+#         sudo nginx -s reload
+#       else
+#         printf "\n  Error: $2 was not found\n\n"
+#       fi
+#       ;;
+#     -ds)
+#       if [[ -f "$enabledDir$2" ]]; then
+#         sudo rm "$enabledDir$2"
+#         sudo nginx -s reload
+#       else
+#         printf "\n  Error: $2 was not found\n\n"
+#       fi
+#       ;;
+#     -ca)
+#       cd $availableDir
+#       ;;
+#     -ce)
+#       cd $enabledDir
+#       ;;
+#     *)
+#       usage
+#       ;;
+#     esac
+#   fi
+# }
+# alias ngxla="ngx -la"
+# alias ngxle="ngx -le"
+# alias ngxes="ngx -es"
+# alias ngxds="ngx -ds"
+# alias ngxca="ngx -ca"
+# alias ngxce="ngx -ce"
 
 # List executables in CWD + /node_modules/.bin
 function nomos() {
@@ -875,55 +875,55 @@ EOF
 }
 
 # defaults for `iconr` and fix classname preprending
-alias iconz="iconr . . -avNnokSd -c=i.icon.icon- | sed 's#\.i\.icon\.#i\.icon\.#g' > _iconz.css"
+# alias iconz="iconr . . -avNnokSd -c=i.icon.icon- | sed 's#\.i\.icon\.#i\.icon\.#g' > _iconz.css"
 
 # add color to svgs
-function fill-svg() {
-  if [[ $# -lt 3 ]] || [[ $1 == *".svg" ]] || [[ $2 == *".svg" ]]; then
-    cat <<'EOF'
+# function fill-svg() {
+#   if [[ $# -lt 3 ]] || [[ $1 == *".svg" ]] || [[ $2 == *".svg" ]]; then
+#     cat <<'EOF'
 
-    Usage: fill-svg <color-name> <color> <svg-file>...
+#     Usage: fill-svg <color-name> <color> <svg-file>...
 
-    Description: adds `fill="color"` to svg `<path>` element and saves
-    the new file(s) in ./filled/<color-name>/*
+#     Description: adds `fill="color"` to svg `<path>` element and saves
+#     the new file(s) in ./filled/<color-name>/*
 
-    Options:
+#     Options:
 
-      <color-name>  a user friendly name that gets applied to each filename
-      <color>       the actual color to apply; rgb(), hex or html color-name
-      <svg-file>    the source files
+#       <color-name>  a user friendly name that gets applied to each filename
+#       <color>       the actual color to apply; rgb(), hex or html color-name
+#       <svg-file>    the source files
 
-    Examples:
+#     Examples:
 
-      $ fill-svg burnt-orange "#bf5700" *.svg
+#       $ fill-svg burnt-orange "#bf5700" *.svg
 
-      $ fill-svg orange orange *.svg
+#       $ fill-svg orange orange *.svg
 
-EOF
-  else
-    local colorname="$1"
-    shift
-    local color="$1"
-    shift
+# EOF
+#   else
+#     local colorname="$1"
+#     shift
+#     local color="$1"
+#     shift
 
-    local dest="./filled/$colorname"
-    mkdir -p "$dest"
+#     local dest="./filled/$colorname"
+#     mkdir -p "$dest"
 
-    for file in $@; do
-      outfile="$(echo $file | sed s#\.svg#\-$colorname\.svg#)"
-      cat $file | sed 's/\<path/\<path fill="'$color'"/' > "$dest/$outfile"
-      echo "$dest/$outfile"
-    done
-  fi
-}
+#     for file in $@; do
+#       outfile="$(echo $file | sed s#\.svg#\-$colorname\.svg#)"
+#       cat $file | sed 's/\<path/\<path fill="'$color'"/' > "$dest/$outfile"
+#       echo "$dest/$outfile"
+#     done
+#   fi
+# }
 
 # FontAwesome to SVG (font glyphs to individual svg files)
-function fa2svg() {
-  git clone https://github.com/fortawesome/font-awesome
-  mkdir -p ./fontawesome-svg/
-  svg-caster --svg-font ./font-awesome/fonts/fontawesome-webfont.svg --svg-font-css ./font-awesome/css/font-awesome.css --out-svg ./fontawesome-svg/
-  rm -rf ./font-awesome/
-}
+# function fa2svg() {
+#   git clone https://github.com/fortawesome/font-awesome
+#   mkdir -p ./fontawesome-svg/
+#   svg-caster --svg-font ./font-awesome/fonts/fontawesome-webfont.svg --svg-font-css ./font-awesome/css/font-awesome.css --out-svg ./fontawesome-svg/
+#   rm -rf ./font-awesome/
+# }
 
 # simple stopwatch with laps
 function stopwatch() {
@@ -1027,58 +1027,58 @@ function treez() {
 }
 
 # Microgen Template Directory Shortcut
-export MICROGEN_TEMP_DIR=$HOME/Bitbucket/busterc/cc
+# export MICROGEN_TEMP_DIR=$HOME/Bitbucket/busterc/cc
 
 # Use microgen on a directory of files
-function macrogen() {
-  function usage() {
-    cat <<'EOF'
+# function macrogen() {
+#   function usage() {
+#     cat <<'EOF'
 
-  Usage: macrogen <source-directory>
+#   Usage: macrogen <source-directory>
 
-  Description: run microgen on a directory of files
+#   Description: run microgen on a directory of files
 
-  - By default, files are written to $PWD
-    - nested files will adhere to the <source-directory> hierarchy
+#   - By default, files are written to $PWD
+#     - nested files will adhere to the <source-directory> hierarchy
 
-  - For each file in the <source-directory> you will be prompted to:
-    - hit enter to begin generating, using the default file name
-      or
-    - type a new destination for the generated file
-      or
-    - type "-" to ignore the file and NOT generate it
+#   - For each file in the <source-directory> you will be prompted to:
+#     - hit enter to begin generating, using the default file name
+#       or
+#     - type a new destination for the generated file
+#       or
+#     - type "-" to ignore the file and NOT generate it
 
-EOF
-  }
+# EOF
+#   }
 
-  if [[ $# -ne 1 ]]; then
-    usage
-    return
-  fi
+#   if [[ $# -ne 1 ]]; then
+#     usage
+#     return
+#   fi
 
-  for file in $(find "$@" -type f); do
-    fromdir="${*%/}"
-    workdir=$(dirname "$file")
-    outdir="${workdir/$fromdir}"
-    outdir=${outdir/\/\/}
-    workfile=$(basename "$file" ".hbs")
-    outfile="$outdir/$workfile"
-    outfile=$(echo "$outfile" | sed 's#^\/##')
+#   for file in $(find "$@" -type f); do
+#     fromdir="${*%/}"
+#     workdir=$(dirname "$file")
+#     outdir="${workdir/$fromdir}"
+#     outdir=${outdir/\/\/}
+#     workfile=$(basename "$file" ".hbs")
+#     outfile="$outdir/$workfile"
+#     outfile=$(echo "$outfile" | sed 's#^\/##')
 
-    echo ""
-    read -e -p "($outfile) " custom_outfile
+#     echo ""
+#     read -e -p "($outfile) " custom_outfile
 
-    if [[ "$custom_outfile" == "-" ]]; then
-      continue
-    fi
+#     if [[ "$custom_outfile" == "-" ]]; then
+#       continue
+#     fi
 
-    if [[ -n "$custom_outfile" ]]; then
-      outfile="$custom_outfile"
-    fi
+#     if [[ -n "$custom_outfile" ]]; then
+#       outfile="$custom_outfile"
+#     fi
 
-    microgen "$file" "$outfile"
-  done
-}
+#     microgen "$file" "$outfile"
+#   done
+# }
 
 # find a file in the first possible parent dir
 function find_up() {
