@@ -238,11 +238,24 @@ function psport() {
   if [[ $# -eq 0 ]]; then
     printf "\n  Usage: psport <port>\n\n"
   else
-    if [[ $(lsof -ti:$1) -eq 0 ]]; then
+    pids="$(lsof -ti:$1)"
+    if [[ "${#pids}" -eq 0  ]]; then
       echo "No process found for port: $1"
     else
-      ps | grep "^$(lsof -ti:$1)"
+      for pid in $pids
+      do
+        echo $pid
+      done
     fi
+  fi
+}
+
+# Process Search by Port
+function psaport() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: psaport <port>\n\n"
+  else
+    psport "$@" | xargs -I{} ps -p {}
   fi
 }
 
