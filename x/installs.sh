@@ -108,19 +108,3 @@ EOF
   done
 }
 nodify
-
-# Install various Python packages
-function pipify() {
-
-  cat <<EOF
-
-================================================================================
-# PIP
-================================================================================
-
-EOF
-
-  pip install git+https://github.com/jeffkaufman/icdiff.git
-  pip install pgcli
-}
-pipify
