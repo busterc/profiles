@@ -41,3 +41,9 @@ sudo apt-get install -y ack-grep
 
 # Tree
 sudo apt-get install -y tree
+
+# Postgres CLI
+sudo apt-get install -y python-pip
+
+# ICDIff
+sudo apt-get install -y icdiff
