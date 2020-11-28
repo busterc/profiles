@@ -299,6 +299,29 @@ EOF
   fi
 }
 
+function stash_export() {
+  (
+    IFS=$'\n'
+    stash_dir="${PWD}/stashes"
+    mkdir -p $stash_dir
+    cd $stash_dir
+    stashes=( $(git stash list) )
+
+    for stash in "${stashes[@]}"; do
+      id=$( echo "$stash" | cut -d: -f1 )
+      label=$( echo "$stash" | cut -d: -f3 )
+
+      diffs=$(git --no-pager stash show --no-color -p "$id")
+      diff_file="${stash_dir}/$stash.diff"
+      [[ $diffs ]] && echo "$diffs" > "$diff_file" && echo "=> $diff_file"
+
+      untracked=$(git --no-pager show --no-color "$id"^3 2>/dev/null)
+      untracked_file="${stash_dir}/$stash.untracked"
+      [[ $untracked ]] && echo "$untracked" > "$untracked_file" && echo "=> $untracked_file"
+    done
+  )
+}
+
 #####################
 #  THE DANGER ZONE  #
 #####################
