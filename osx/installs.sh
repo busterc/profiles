@@ -47,10 +47,12 @@ EOF
     htop
     httpie
     httrack
+    icdiff
     imagemagick
     jq
     lynx
     node
+    pgcli
     rename
     repl
     rlwrap
@@ -72,15 +74,13 @@ EOF
     brew install "$recipe"
   done
 
-  brew tap caskroom/cask
-
   local casks=(
     arq
     bitbar
     cheatsheet
     docker
     fanny
-    filezilla
+    # filezilla # was removed from casks for malware/adware
     gimp
     google-chrome
     google-backup-and-sync
