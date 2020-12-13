@@ -59,9 +59,9 @@ EOF
     generator-generator
     generator-nm
     generator-node
-    hpm-cli
+#    hpm-cli
     http-server
-    iconr
+#    iconr
     ionic
     ios-sim
     ipt
@@ -69,6 +69,7 @@ EOF
     khaos
     live-server
     marko-cli
+    nodemon
     npm-check
     ntl
     nve
@@ -80,6 +81,7 @@ EOF
     tldr
     trash-cli
     vsce
+    yarn
     yo
 
     # Mine, of course
