@@ -407,6 +407,9 @@ function rmd() {
   fi
 }
 
+# Remove empty directories
+alias rmd-empty="find . -empty -type d -delete"
+
 # Erase the contents of a directory, leaving the folder
 function riddir() {
   function usage() {
@@ -476,6 +479,9 @@ function fs() {
   fi
 }
 
+#
+alias xfiles="find . -type f | rev | cut -d. -f1 | rev  | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -rn"
+
 # Find the biggest files in a directory
 function bigfiles() {
   echo "Biggest Files (KB) in $PWD"
@@ -483,7 +489,7 @@ function bigfiles() {
   if [[ -n "$@" ]]; then
     target="$@"
   fi
-  find "$target" -type f | xargs du -sk | sort -nr
+  find "$target" -type f | xargs -I {} du -sk "{}" | sort -nr
 }
 
 # Open Editor
@@ -784,6 +790,9 @@ EOF
     "$bin/$@"
   fi
 }
+
+# Flatten file names, e.g.: ./dir/subdir/file.ext -> ./dir-subdir-file.ext
+alias rename-flat-all="find * -type f -exec rename 's#\/#\-#g' {} \;"
 
 # Move CWD into a new/existing subdirectory
 function bury() {
