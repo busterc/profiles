@@ -50,6 +50,7 @@ EOF
     imagemagick
     jq
     lynx
+    mkcert
     node
     pgcli
     rename
@@ -68,6 +69,8 @@ EOF
     echo '/usr/local/bin/bash' | sudo tee -a /etc/shells;
     chsh -s /usr/local/bin/bash;
   fi
+
+  brew tap homebrew/cask-drivers # for ubiquiti-unifi-controller
 
   for recipe in "${recipes[@]}"; do
     brew install "$recipe"
@@ -89,16 +92,13 @@ EOF
     lastpass
     lepton
     mysql-shell
-    qlstephen
-    real-vnc
     recordit
     rescuetime
     scribus
     shotcut
-    sketch
     skitch
-    slingplayer
     spectacle
+    thunderbird
     ubiquiti-unifi-controller
     virtualbox
     visual-studio-code
