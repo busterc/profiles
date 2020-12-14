@@ -479,8 +479,16 @@ function fs() {
   fi
 }
 
-#
-alias xfiles="find . -type f | rev | cut -d. -f1 | rev  | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -rn"
+# List all file extensions in CWD and total count for each type.
+# Pass number for -maxdepth (default is infinity)
+function xfiles() {
+  local depth=${1:-1}
+  local maxdepth="-maxdepth $depth"
+  if ! [[ $1 -ge 1 ]]; then
+    maxdepth=""
+  fi
+  eval "find . -type f $maxdepth | rev | cut -d. -f1 | rev  | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -rn"
+}
 
 # Find the biggest files in a directory
 function bigfiles() {
