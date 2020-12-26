@@ -80,6 +80,7 @@ EOF
     arq
     bitbar
     cheatsheet
+    disk-inventory-x
     docker
     fanny
     # filezilla # was removed from casks for malware/adware
