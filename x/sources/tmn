@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# ferp app / ui yarn starters
+alias ferp="yarn install && nodemon --ignore / app"
+alias ferpi="yarn install && nodemon --inspect --ignore / app"
+alias ferpu="yarn install && yarn client"
+
+# Node version aliases
+alias nvsh-ferp="PROMPT_PREFIX=\"n10.17: \" nve 10.17 $SHELL"
+alias nvsh-ferp-legacy="PROMPT_PREFIX=\"n6.14: \" nve 6.14 $SHELL"
