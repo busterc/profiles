@@ -76,9 +76,12 @@ export LSCOLORS="cxfxcxdxbxegedabagacad"
 # start iOS simulator from terminal
 alias ios="open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
 
-# Show/hide hidden files in Finder
+# Show/hide HIDDEN files in Finder/Desktop
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+# Show/hide ALL files in Finder/Desktop
+alias veil="defaults write com.apple.finder CreateDesktop false && killall Finder"
+alias unveil="defaults write com.apple.finder CreateDesktop true && killall Finder"
 
 # Open finder to Sublime Snippets
 alias snippets="open ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User"
