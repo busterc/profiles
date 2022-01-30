@@ -3,15 +3,62 @@
 # ferp app / ui yarn starters
 alias ferp="yarn install && nodemon --ignore / app"
 alias ferpi="yarn install && nodemon --inspect --ignore / app"
+alias ferpib="yarn install && nodemon --inspect-brk --ignore / app"
 alias ferpu="yarn install && yarn client"
 
 # Node version aliases
 alias nvsh-ferp="PROMPT_PREFIX=\"n10.17: \" nve 10.17 $SHELL"
 alias nvsh-ferp-legacy="PROMPT_PREFIX=\"n6.14: \" nve 6.14 $SHELL"
+alias nvsh-neon="PROMPT_PREFIX=\"n14: \" nve 14.17 $SHELL"
 
 
-# ferp branche select and open in vscode
+# ferp branch select and open in vscode
 function codeferp() {
   local branches_dir="$HOME/Desktop/.dev/tmn/ferp-base/branches/"
   ls "$branches_dir" | ipt -a -M "Select a Branch:" | xargs -I{} code "$branches_dir{}"
+}
+
+# neon dataservice java jdk ugh
+export PATH="/usr/local/opt/openjdk@8/bin:$PATH"
+export CPPFLAGS="-I/usr/local/opt/openjdk@8/include"
+
+# neon flutter sdk versions
+# alias flutter="/Users/buster/Desktop/.dev/betx-labs/flutter_sdks/1.22.6/bin/flutter"
+# alias flutter_v1="/Users/buster/Desktop/.dev/betx-labs/flutter_sdks/1.22.6/bin/flutter"
+# alias flutter_v2="/Users/buster/Desktop/.dev/betx-labs/flutter_sdks/2.0.3/bin/flutter"
+
+alias flutter_shell_v1="PATH=\"$PATH:$HOME/Desktop/.dev/betx-labs/flutter_sdks/1.22.6/bin\" PROMPT_PREFIX=\"f1.22: \" $SHELL"
+alias flutter_shell_v2="PATH=\"$PATH:$HOME/Desktop/.dev/betx-labs/flutter_sdks/2.2.3/bin\" PROMPT_PREFIX=\"f2.2.3: \" $SHELL"
+
+# # neon flutter install on my test devices:
+# function flinstall() {
+#   echo "=> LOADING: baby yoda" &&
+#   echo d | flutter_v1 run -d "iPhone 8" --debug lib/app_development.dart &&
+#   echo "=> LOADED: baby yoda" &&
+#   echo "=> LOADING: mando" &&
+#   echo d | flutter_v1 run -d "iPhone 12" --debug lib/app_development.dart &&
+#   echo "=> LOADED: mando" &&
+#   echo "=> LOADING: r2d2" &&
+#   echo d | flutter_v1 run -d "iPhone SE" --debug lib/app_development.dart &&
+#   echo "=> LOADED: r2d2"
+
+#   # flutter_v1 install -d "iPhone 8" &&
+#   # flutter_v1 install -d "iPhone 12" &&
+#   # flutter_v1 install -d "iPhone SE" &&
+#   echo done!
+# }
+
+
+function madprops_build_ios() {
+  flutter clean &&
+  flutter pub get &&
+  flutter build ios --release ./lib/app_production.dart &&
+  open ../ios/Runner.xcworkspace
+}
+
+# Ngrok.com tunneling :: config file is as ~/.ngrok2/ngrok.yml
+alias ngrok-neon-api='ngrok start neon-api'
+alias ngrok-neon-ds='ngrok start neon-ds'
+function neon-ngrok() {
+  printf 'neon-api\nneon-ds' | ipt -a -M "Select an Ngrok Tunnel to Start:" | xargs -I{} ngrok start {}
 }
