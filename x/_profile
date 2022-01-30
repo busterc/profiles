@@ -868,33 +868,35 @@ EOF
   fi
 }
 
-function base64() {
-  if [[ $# -eq 0 ]]; then
-    cat <<'EOF'
+## DEPRECATE :: USE built-in $ cat log.svg | base64 | pbcopy
+# function base64() {
+#   if [[ $# -eq 0 ]]; then
+#     cat <<'EOF'
 
-  Usage: base64 <string>
+#   Usage: base64 <string>
 
-  Example: $ base64 "$(cat logo.svg)" | pbcopy"
+#   Example: $ base64 "$(cat logo.svg)" | pbcopy"
 
-EOF
-  else
-    node -p "new Buffer('$1').toString('base64')"
-  fi
-}
+# EOF
+#   else
+#     node -p "Buffer.from('$1').toString('base64')"
+#   fi
+# }
 
-function unbase64() {
-  if [[ $# -eq 0 ]]; then
-    cat <<'EOF'
+## DEPRECATE :: USE built-in $ echo "PHN2Zz48L3N2Zz4=" | base64 -d | pbcopy
+# function unbase64() {
+#   if [[ $# -eq 0 ]]; then
+#     cat <<'EOF'
 
-  Usage: unbase64 <string>
+#   Usage: unbase64 <string>
 
-  Example: $ unbase64 "PHN2Zz48L3N2Zz4=" | pbcopy"
+#   Example: $ unbase64 "PHN2Zz48L3N2Zz4=" | pbcopy"
 
-EOF
-  else
-    node -p "new Buffer('$1', 'base64').toString('utf8')"
-  fi
-}
+# EOF
+#   else
+#     node -p "Buffer.from('$1', 'base64').toString('utf8')"
+#   fi
+# }
 
 # defaults for `iconr` and fix classname preprending
 alias iconz="iconr . . -avNnokSd -c=i.icon.icon- | sed 's#\.i\.icon\.#i\.icon\.#g' > _iconz.css"
@@ -1153,4 +1155,16 @@ EOF
   for file in $(find . -name '*\?*'); do
     mv "$file" "${file%%\?*}";
   done
+}
+
+function curl_time() {
+    curl -so /dev/null -w "\
+   namelookup:  %{time_namelookup}s\n\
+      connect:  %{time_connect}s\n\
+   appconnect:  %{time_appconnect}s\n\
+  pretransfer:  %{time_pretransfer}s\n\
+     redirect:  %{time_redirect}s\n\
+starttransfer:  %{time_starttransfer}s\n\
+-------------------------\n\
+        total:  %{time_total}s\n" "$@"
 }
