@@ -5,3 +5,4 @@
 --ignore-dir=bower_components
 --color
 --pager=less -r
+--noheading
