@@ -86,7 +86,7 @@ EOF
     # filezilla # was removed from casks for malware/adware
     gimp
     google-chrome
-    google-backup-and-sync
+    google-drive
     hyper
     inkscape
     keycastr
