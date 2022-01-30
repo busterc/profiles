@@ -93,6 +93,7 @@ EOF
     lastpass
     lepton
     mysql-shell
+    ngrok
     recordit
     rescuetime
     scribus
