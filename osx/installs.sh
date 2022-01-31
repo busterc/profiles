@@ -23,10 +23,7 @@ EOF
 EOF
 
   # Homebrew itself
-  if [[ ! "$(type -P brew)" ]]; then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
-  brew update
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # LastPass
   brew install lastpass-cli
@@ -34,11 +31,16 @@ EOF
   read lpuser
   lpass login "$lpuser"
 
+  # Create ~/.env
+  lpass show --notes rover-dotenv > "$HOME/.env"
+
   # Prevent Homebrew from getting rate-limited
   export "HOMEBREW_GITHUB_API_TOKEN=$(lpass show --notes 'GitHub Access Token')"
 
   local recipes=(
     ack
+    applesimutils
+    awscli
     bash
     bash-completion2
     bat
@@ -49,6 +51,7 @@ EOF
     icdiff
     imagemagick
     jq
+    lazydocker
     lynx
     mkcert
     node
@@ -70,7 +73,8 @@ EOF
     chsh -s /usr/local/bin/bash;
   fi
 
-  brew tap homebrew/cask-drivers # for ubiquiti-unifi-controller
+  brew tap homebrew/cask-drivers # for ubiquiti-unifi-controller-lts
+  brew tap wix/brew # for applesimutils
 
   for recipe in "${recipes[@]}"; do
     brew install "$recipe"
@@ -78,7 +82,6 @@ EOF
 
   local casks=(
     arq
-    bitbar
     cheatsheet
     disk-inventory-x
     docker
@@ -93,7 +96,10 @@ EOF
     lastpass
     lepton
     mysql-shell
+    mysqlworkbench
     ngrok
+    pgadmin4
+    qlstephen
     recordit
     rescuetime
     scribus
@@ -101,15 +107,16 @@ EOF
     skitch
     spectacle
     thunderbird
-    ubiquiti-unifi-controller
+    ubiquiti-unifi-controller-lts
     virtualbox
     visual-studio-code
     vlc
     vmware-fusion
+    xbar
   )
 
   for cask in "${casks[@]}"; do
-    brew cask install "$cask"
+    brew install --cask "$cask"
   done
 }
 osxify

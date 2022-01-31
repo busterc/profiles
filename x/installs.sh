@@ -69,6 +69,7 @@ EOF
     khaos
     live-server
     marko-cli
+    @marp-team/marp-cli
     nodemon
     npm-check
     ntl
