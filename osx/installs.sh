@@ -37,6 +37,7 @@ EOF
 
   # Homebrew itself
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 
   # LastPass
   brew install lastpass-cli
