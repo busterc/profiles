@@ -2,8 +2,8 @@
 
 # X _profile
 
-shopt -s direxpand
-shopt -s autocd
+shopt -s direxpand 2>/dev/null
+shopt -s autocd 2>/dev/null
 export LESS="r"
 export PAGER="less"
 if [[ -s "$HOME/bin/bat_pager" ]]; then
