@@ -11,8 +11,9 @@ function osxify() {
 
 EOF
 
-  echo "✓ XCode Command Line Tools"
+  echo "==> XCode Command Line Tools <=="
   xcode-select --install 2>/dev/null || true
+  echo "✓ XCode Command Line Tools"
 
   cat <<EOF
 
@@ -105,10 +106,10 @@ EOF
     scribus
     shotcut
     skitch
-    spectacle
+    # spectacle
     thunderbird
     ubiquiti-unifi-controller-lts
-    virtualbox
+    # virtualbox
     visual-studio-code
     vlc
     vmware-fusion
