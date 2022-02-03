@@ -9,11 +9,11 @@ function osxify() {
 # Apple Rosetta for (Non Mac M1 Compatible) App Support
 ================================================================================
 
-  echo "==> Rosetta <=="
-  softwareupdate --install-rosetta
-  echo "✓ Rosetta"
-
 EOF
+
+  echo "==> Rosetta <=="
+  sudo softwareupdate --install-rosetta
+  echo "✓ Rosetta"
 
   cat <<EOF
 
