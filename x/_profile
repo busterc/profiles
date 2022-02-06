@@ -41,7 +41,7 @@ function prompter(){
   local status
   local branch
 
-  sshd="$(ssh-add -l | awk 'BEGIN {r=""} \
+  sshd="$(ssh-add -l 2>/dev/null | awk 'BEGIN {r=""} \
     !/no identities/ {r="* "}\
     END {print r}
   ')"
@@ -83,10 +83,13 @@ if [[ $- == *i* ]]; then
   export PROMPT_COMMAND=prompter
 fi
 
-# Prep ~/bin
+# Prep ~/bin if not already in PATH
 mkdir -p "$HOME/bin"
-export PATH="$HOME/bin:$PATH"
-export b="$HOME/bin"
+my_bin_dir="$HOME/bin:";
+if [[ "${PATH}" != *"${my_bin_dir}"* ]]; then
+  export PATH="$HOME/bin:$PATH"
+  export b="$HOME/bin"
+fi
 
 # SSH Key Caching
 alias sshload="eval \"$(ssh-agent)\" > /dev/null && ssh-add"
