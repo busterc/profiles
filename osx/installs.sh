@@ -12,7 +12,7 @@ function osxify() {
 EOF
 
   echo "==> Rosetta <=="
-  sudo softwareupdate --install-rosetta
+  sudo softwareupdate --install-rosetta --agree-to-license
   echo "✓ Rosetta"
 
   cat <<EOF
@@ -26,6 +26,12 @@ EOF
   echo "==> XCode Command Line Tools <=="
   xcode-select --install 2>/dev/null || true
   echo "✓ XCode Command Line Tools"
+
+  echo "==> CocoaPods <=="
+  # Mac M1 requires some finesing: https://stackoverflow.com/a/70129175
+  sudo arch -x86_64 gem install ffi
+  sudo arch -x86_64 gem install cocoapods
+  echo "✓ CocoaPods"
 
   cat <<EOF
 
