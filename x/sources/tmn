@@ -19,8 +19,8 @@ function codeferp() {
 }
 
 # neon dataservice java jdk ugh
-export PATH="/usr/local/opt/openjdk@8/bin:$PATH"
-export CPPFLAGS="-I/usr/local/opt/openjdk@8/include"
+# export PATH="/usr/local/opt/openjdk@8/bin:$PATH"
+# export CPPFLAGS="-I/usr/local/opt/openjdk@8/include"
 
 # neon flutter sdk versions
 # alias flutter="/Users/buster/Desktop/.dev/betx-labs/flutter_sdks/1.22.6/bin/flutter"
