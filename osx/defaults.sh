@@ -52,7 +52,7 @@ cat <<EOF
 EOF
 
 echo "✓ Disable transparency in the menu bar and elsewhere on Yosemite"
-defaults write com.apple.universalaccess reduceTransparency -bool true
+sudo defaults write com.apple.universalaccess reduceTransparency -bool true
 
 echo "✓ Always show scrollbars (other options: WhenScrolling, Automatic)"
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
@@ -79,6 +79,26 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 echo "✓ Show all the clock fields: day of week, date, time with seconds"
 defaults write com.apple.menuextra.clock DateFormat -string "EEE MMM d  h:mm:ss a"
+
+# Hot corners
+# Possible values:
+#  0: no-op
+#  2: Mission Control
+#  3: Show application windows
+#  4: Desktop
+#  5: Start screen saver
+#  6: Disable screen saver
+#  7: Dashboard
+# 10: Put display to sleep
+# 11: Launchpad
+# 12: Notification Center
+# 13: Lock Screen
+# Top left screen corner → Mission Control
+#
+# *** Corners (XX) options are [tl, tr, bl, br] for: wvous-XX-corner AND wvous-XX-modifier
+echo "✓ Set bottom-right hot corner to sleep the display"
+defaults write com.apple.dock wvous-br-corner -int 10
+defaults write com.apple.dock wvous-br-modifier -int 0
 
 cat <<EOF
 
