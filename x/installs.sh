@@ -107,9 +107,13 @@ EOF
   )
 
   for package in "${packages[@]}"; do
+    echo
     echo "==> $package <=="
+    echo
     npm install -g "$package"
+    echo
     echo "✓ $package"
+    echo
   done
 }
 nodify

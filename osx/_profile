@@ -17,8 +17,6 @@ function source_profile_osx() {
 source_profile_osx
 
 # Homebrew related
-[[ -f "/opt/homebrew/bin/brew" ]] && [[ -z "${HOMEBREW_PREFIX}" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
-# export PATH="/usr/local/sbin:$PATH"
 alias brew-outdated="brew outdated --verbose | sed 's#[<()]##g; s#\S*, ##g' | column -t"
 alias bro="brew-outdated"
 alias brew-upgrade="brew outdated | ipt -m -M 'Select Packages to Upgrade:' | xargs brew upgrade"

@@ -6,18 +6,6 @@ function osxify() {
   cat <<EOF
 
 ================================================================================
-# Apple Rosetta for (Non Mac M1 Compatible) App Support
-================================================================================
-
-EOF
-
-  echo "==> Rosetta <=="
-  sudo softwareupdate --install-rosetta --agree-to-license
-  echo "✓ Rosetta"
-
-  cat <<EOF
-
-================================================================================
 # XCODE
 ================================================================================
 
@@ -27,10 +15,9 @@ EOF
   xcode-select --install 2>/dev/null || true
   echo "✓ XCode Command Line Tools"
 
+  echo
   echo "==> CocoaPods <=="
-  # Mac M1 requires some finesing: https://stackoverflow.com/a/70129175
-  sudo arch -x86_64 gem install ffi
-  sudo arch -x86_64 gem install cocoapods
+  sudo gem install cocoapods
   echo "✓ CocoaPods"
 
   cat <<EOF
@@ -43,7 +30,6 @@ EOF
 
   # Homebrew itself
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  eval "$(/opt/homebrew/bin/brew shellenv)"
 
   # LastPass
   brew install lastpass-cli
@@ -88,9 +74,9 @@ EOF
   )
 
   # Switch to using brew-installed bash as default shell
-  if ! fgrep -q '/opt/homebrew/bin/bash' /etc/shells; then
-    echo '/opt/homebrew/bin/bash' | sudo tee -a /etc/shells;
-    chsh -s /opt/homebrew/bin/bash;
+  if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then
+    echo '/usr/local/bin/bash' | sudo tee -a /etc/shells;
+    chsh -s /usr/local/bin/bash;
   fi
 
   brew tap homebrew/cask-drivers # for ubiquiti-unifi-controller-lts
