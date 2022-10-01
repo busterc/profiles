@@ -92,7 +92,15 @@ if [[ "${PATH}" != *"${my_bin_dir}"* ]]; then
 fi
 
 # SSH Key Caching
-alias sshload="eval \"$(ssh-agent)\" > /dev/null && ssh-add"
+alias sshload='eval $(ssh-agent) > /dev/null && ssh-add'
+alias sshunload='eval $(ssh-agent -k)'
+alias sshexit="sshunload && exit"
+
+# JAVA SUCKS. Use JEnv and pray :P
+jenv_dir="$HOME/.jenv/bin:"
+if [[ "${PATH}" != *"${jenv_dir}"* ]]; then
+  export PATH="$jenv_dir$PATH"
+fi
 
 # Reload profile
 alias repro="source ~/.bash_profile"
