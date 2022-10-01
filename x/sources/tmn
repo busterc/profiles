@@ -9,8 +9,9 @@ alias ferpu="yarn install && yarn client"
 # Node version aliases
 alias nvsh-ferp="PROMPT_PREFIX=\"n10.17: \" nve 10.17 $SHELL"
 alias nvsh-ferp-legacy="PROMPT_PREFIX=\"n6.14: \" nve 6.14 $SHELL"
-alias nvsh-neon="PROMPT_PREFIX=\"n14: \" nve 14.17 $SHELL"
-
+# alias nvsh-neon="PROMPT_PREFIX=\"n14: \" nve 14.17 $SHELL"
+alias nvsh-neon="PROMPT_PREFIX=\"n16: \" nve 16 $SHELL"
+# alias nvsh-neon-x86_64="PROMPT_PREFIX=\"n14: \" arch -x86_64 nve 14 $SHELL"
 
 # ferp branch select and open in vscode
 function codeferp() {
@@ -27,8 +28,16 @@ function codeferp() {
 # alias flutter_v1="/Users/buster/Desktop/.dev/betx-labs/flutter_sdks/1.22.6/bin/flutter"
 # alias flutter_v2="/Users/buster/Desktop/.dev/betx-labs/flutter_sdks/2.0.3/bin/flutter"
 
-alias flutter_shell_v1="PATH=\"$PATH:$HOME/Desktop/.dev/betx-labs/flutter_sdks/1.22.6/bin\" PROMPT_PREFIX=\"f1.22: \" $SHELL"
-alias flutter_shell_v2="PATH=\"$PATH:$HOME/Desktop/.dev/betx-labs/flutter_sdks/2.2.3/bin\" PROMPT_PREFIX=\"f2.2.3: \" $SHELL"
+# alias flutter_shell_v1="PATH=\"$PATH:$HOME/Desktop/.dev/betx-labs/flutter_sdks/1.22.6/bin\" PROMPT_PREFIX=\"f1.22: \" $SHELL"
+# alias flutter_shell_v2="PATH=\"$PATH:$HOME/Desktop/.dev/betx-labs/flutter_sdks/2.2.3/bin\" PROMPT_PREFIX=\"f2.2.3: \" $SHELL"
+
+fvm_dir="$HOME/fvm/default/bin"
+if [[ "${PATH}" != *"${fvm_dir}"* ]]; then
+  export PATH="$PATH:$fvm_dir"
+fi
+
+alias rosetta_simulator="open /Applications/Xcode.app/Contents/Developer/Applications/"
+
 
 # # neon flutter install on my test devices:
 # function flinstall() {
@@ -48,12 +57,57 @@ alias flutter_shell_v2="PATH=\"$PATH:$HOME/Desktop/.dev/betx-labs/flutter_sdks/2
 #   echo done!
 # }
 
+command -v flutter &>/dev/null && source <(flutter bash-completion)
 
 function madprops_build_ios() {
   flutter clean &&
   flutter pub get &&
   flutter build ios --release ./lib/app_production.dart &&
   open ../ios/Runner.xcworkspace
+}
+
+function madprops_build_android() {
+  flutter clean &&
+  flutter pub get &&
+  flutter build appbundle ./lib/app_production.dart
+  open ../build/app/outputs/bundle/release/
+}
+
+
+function madprops_flutter_v1_init() {
+  fvm global 1.22.6 &&
+  cd ~/Desktop/.dev/betx-labs/neon_common_app/ &&
+  git checkout master &&
+  flutter clean &&
+  flutter pub get &&
+  cd ~/Desktop/.dev/betx-labs/neon_community_app/ &&
+  git checkout master &&
+  flutter clean &&
+  flutter pub get
+}
+
+function madprops_flutter_v2_init() {
+  fvm global 2.10.5 &&
+  cd ~/Desktop/.dev/betx-labs/neon_common_app/ &&
+  git checkout flutter-v2 &&
+  flutter clean &&
+  flutter pub get &&
+  cd ~/Desktop/.dev/betx-labs/neon_community_app/ &&
+  git checkout flutter-v2 &&
+  flutter clean &&
+  flutter pub get
+}
+
+function madprops_flutter_v3_init() {
+  fvm global 3.0.2 &&
+  cd ~/Desktop/.dev/betx-labs/neon_common_app/ &&
+  git checkout flutter-v3-merge-to-0d3da7f &&
+  flutter clean &&
+  flutter pub get &&
+  cd ~/Desktop/.dev/betx-labs/neon_community_app/ &&
+  git checkout flutter-v3-merge-to-0d3da7f &&
+  flutter clean &&
+  flutter pub get
 }
 
 # Ngrok.com tunneling :: config file is as ~/.ngrok2/ngrok.yml
