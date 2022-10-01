@@ -5,6 +5,9 @@ node_modules/
 .env
 .env.*
 
+# Personal
+_private/
+
 # ========================================
 # OSX
 # ========================================
@@ -39,9 +42,12 @@ Temporary Items
 jsbundle/
 # NEON
 .vscode/
-boot_ios_sim.sh
-install_ios_sims_v2.sh
-run_sims_ios.sh
-ROUTES.md
-build_ios_production.sh
+# boot_ios_sim.sh
+# install_ios_sims_v2.sh
+# run_sims_ios.sh
+# ROUTES.md
+# build_ios_production.sh
+
+# Flutter
+.fvm
 
