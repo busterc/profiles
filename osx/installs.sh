@@ -64,12 +64,14 @@ EOF
     bash
     bash-completion2
     bat
+    fvm
     git
     htop
     httpie
     httrack
     icdiff
     imagemagick
+    jenv
     jq
     lazydocker
     lynx
@@ -101,12 +103,12 @@ EOF
   done
 
   local casks=(
+    android-studio
     arq
     cheatsheet
     disk-inventory-x
     docker
     fanny
-    # filezilla # was removed from casks for malware/adware
     gimp
     google-chrome
     google-drive
