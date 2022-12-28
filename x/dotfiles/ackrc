@@ -3,6 +3,8 @@
 --ignore-dir=dist
 --ignore-dir=node_modules
 --ignore-dir=bower_components
+--ignore-dir=.next
+--ignore-dir=out
 --color
 --pager=less -r
 --noheading
