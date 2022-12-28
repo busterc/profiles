@@ -41,6 +41,13 @@ then
   fi
 fi
 
+# JAVA SUCKS. Use JEnv and pray :P
+jenv_dir="$HOME/.jenv/bin:"
+if [[ "${PATH}" != *"${jenv_dir}"* ]]; then
+  export PATH="$jenv_dir$PATH"
+fi
+eval "$(jenv init -)"
+
 # remove last newline when using `pbcopy`
 alias npbcopy="tr -d '\n$' | pbcopy"
 
