@@ -32,7 +32,7 @@ EOF
     sudo bpkg install "$script" -g
   done
 }
-bpkgify
+# bpkgify
 
 # Update NPM and install various global packages
 function nodify() {
