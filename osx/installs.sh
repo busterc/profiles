@@ -27,6 +27,7 @@ EOF
   xcode-select --install 2>/dev/null || true
   echo "✓ XCode Command Line Tools"
 
+  echo
   echo "==> CocoaPods <=="
   # Mac M1 requires some finesing: https://stackoverflow.com/a/70129175
   sudo arch -x86_64 gem install ffi
@@ -96,6 +97,7 @@ EOF
   fi
 
   brew tap homebrew/cask-drivers # for ubiquiti-unifi-controller-lts
+  brew tap leoafarias/fvm # for fvm
   brew tap wix/brew # for applesimutils
 
   for recipe in "${recipes[@]}"; do
