@@ -1173,3 +1173,69 @@ starttransfer:  %{time_starttransfer}s\n\
 -------------------------\n\
         total:  %{time_total}s\n" "$@"
 }
+
+# Create FVM Flutter VSCode Project
+function init_fvm_project() {
+  if [[ $# -ne 2 ]]; then
+    cat <<'EOF'
+
+    Usage: init_fvm_project <project_path> <flutter_version>
+
+    Description: quickly create a new FVM managed Flutter project for VSCode
+
+    Parameters:
+
+      <project_path>        Where the project will be created
+      <flutter_version>     What version of Flutter to configure
+
+    Examples:
+
+      $ init_fvm_project my_flutter_app stable
+      # ^ will be crated at ./my_flutter_app
+
+      $ init_fvm_project ~/Desktop/my_flutter_app 3.0.0
+
+EOF
+  else
+    (
+      # Keep this in a subsheel and exit immediately if there is an error
+      set -e
+
+      echo "🔰 Getting the goods"
+      git clone git@github.com:busterc/vscode-fvm "$1"
+      cd "$1"
+      rm -rf .git
+
+      echo
+      echo "🎯 Setting Flutter SDK Version to $2"
+      sed -i "" "s/stable/$2/g" .fvm/fvm_config.json
+
+      echo
+      echo "🗑️ Cleanup Before Initialization"
+      rm README.md
+
+      echo
+      echo "🟢 Initialize Flutter project"
+      fvm flutter create .
+
+      echo
+      echo "🚧 Cleanup After Initialization"
+      echo "- This is v0 NOT v1 - Updating pubsec.yaml version"
+      sed -i '' 's/version: 1./version: 0./g' pubspec.yaml
+      echo "- Remove comments for nubes"
+      sed -i '' '/\/\//d' lib/main.dart
+      echo "- Remove IntelliJ junk"
+      rm *.iml
+      rm -rf .idea
+      echo "- Don't commit the Flutter SDK directory"
+      echo -e "\n# FVM\n.fvm/flutter_sdk" >> .gitignore
+
+      echo
+      echo "🟢 Git Init"
+      git init && git add . && git commit -m 0.0.0
+
+      echo
+      echo "😎 Time to make the magic happen... ie, 'code $1'"
+    )
+  fi
+}
