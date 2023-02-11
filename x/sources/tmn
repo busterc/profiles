@@ -3,35 +3,35 @@
 # Node version aliases
 alias nvsh-neon="PROMPT_PREFIX=\"n16: \" nve 16 $SHELL"
 
-fvm_dir="$HOME/fvm/default/bin"
-if [[ "${PATH}" != *"${fvm_dir}"* ]]; then
-  export PATH="$PATH:$fvm_dir"
-fi
+# fvm_dir="$HOME/fvm/default/bin"
+# if [[ "${PATH}" != *"${fvm_dir}"* ]]; then
+#   export PATH="$PATH:$fvm_dir"
+# fi
 
 alias rosetta_simulator="open /Applications/Xcode.app/Contents/Developer/Applications/"
 
-command -v flutter &>/dev/null && source <(flutter bash-completion)
+# command -v flutter &>/dev/null && source <(flutter bash-completion)
 
 function madprops_build_ios() {
-  flutter clean &&
-  flutter pub get &&
-  flutter build ios --release ./lib/app_production.dart &&
+  fvm flutter clean &&
+  fvm flutter pub get &&
+  fvm flutter build ios --release ./lib/app_production.dart &&
   open ../ios/Runner.xcworkspace
 }
 
 function madprops_build_android() {
-  flutter clean &&
-  flutter pub get &&
-  flutter build appbundle ./lib/app_production.dart &&
+  fvm flutter clean &&
+  fvm flutter pub get &&
+  fvm flutter build appbundle ./lib/app_production.dart &&
   open ../build/app/outputs/bundle/release/
 }
 
 function madprops_build_both() {
-  flutter clean &&
-  flutter pub get &&
-  flutter build ios --release ./lib/app_production.dart &&
+  fvm flutter clean &&
+  fvm flutter pub get &&
+  fvm flutter build ios --release ./lib/app_production.dart &&
   open ../ios/Runner.xcworkspace &&
-  flutter build appbundle ./lib/app_production.dart &&
+  fvm flutter build appbundle ./lib/app_production.dart &&
   open ../build/app/outputs/bundle/release/
 }
 
