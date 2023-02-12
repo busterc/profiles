@@ -499,11 +499,13 @@ function bigfiles() {
 
 # Open Editor
 function e() {
+  local ed="$EDITOR"
   if [[ -z "$1" ]]; then
-    eval "$EDITOR" . &
+    ed+=" ."
   else
-    eval "$EDITOR" "$1" &
+    ed+=" $1"
   fi
+  $ed
 }
 
 # Open .profiles in Editor
