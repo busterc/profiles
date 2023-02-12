@@ -1175,11 +1175,11 @@ starttransfer:  %{time_starttransfer}s\n\
 }
 
 # Create FVM Flutter VSCode Project
-function init_fvm_project() {
+function init_vscode_fvm() {
   if [[ $# -ne 2 ]]; then
     cat <<'EOF'
 
-    Usage: init_fvm_project <project_path> <flutter_version>
+    Usage: init_vscode_fvm <project_path> <flutter_version>
 
     Description: quickly create a new FVM managed Flutter project for VSCode
 
@@ -1190,10 +1190,10 @@ function init_fvm_project() {
 
     Examples:
 
-      $ init_fvm_project my_flutter_app stable
+      $ init_vscode_fvm my_flutter_app stable
       # ^ will be crated at ./my_flutter_app
 
-      $ init_fvm_project ~/Desktop/my_flutter_app 3.0.0
+      $ init_vscode_fvm ~/Desktop/my_flutter_app 3.0.0
 
 EOF
   else
