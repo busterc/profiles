@@ -2,6 +2,9 @@
 
 # Node version aliases
 alias nvsh-neon="PROMPT_PREFIX=\"n16: \" nve 16 $SHELL"
+alias nvsh-sharphunter-api="PROMPT_PREFIX=\"n20.10.0: \" nve 20.10.0 $SHELL"
+alias nvsh-sharphunter-common="PROMPT_PREFIX=\"n22.11.0: \" nve 22.11.0 $SHELL"
+alias nvsh-sharphunter-web="PROMPT_PREFIX=\"n20: \" nve 20 $SHELL"
 
 # fvm_dir="$HOME/fvm/default/bin"
 # if [[ "${PATH}" != *"${fvm_dir}"* ]]; then
@@ -17,6 +20,13 @@ function madprops_build_ios() {
   fvm flutter pub get &&
   fvm flutter build ios --release ./lib/app_production.dart &&
   open ../ios/Runner.xcworkspace
+}
+
+function madprops_build_ios_ipa() {
+  fvm flutter clean &&
+  fvm flutter pub get &&
+  fvm flutter build ipa --release ./lib/app_production.dart
+  # open ../build/ios/
 }
 
 function madprops_build_android() {
@@ -35,7 +45,7 @@ function madprops_build_both() {
   open ../build/app/outputs/bundle/release/
 }
 
-# Ngrok.com tunneling :: config file is as ~/.ngrok2/ngrok.yml
+# Ngrok.com tunneling :: config file is as ~/.config/ngrok/ngrok.yml
 alias ngrok-neon-api='ngrok start neon-api'
 alias ngrok-neon-ds='ngrok start neon-ds'
 function neon-ngrok() {
