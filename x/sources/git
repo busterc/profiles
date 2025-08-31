@@ -8,6 +8,7 @@ alias gtap="git add -p"
 alias gtb="git branch"
 alias gtbd="git branch -D"
 alias gtbl="git branch --list"
+alias gtbld='git branch | grep -v "^\*" | sed "s/^[ \t]*//" | ipt -m | xargs -r git branch -D'
 ## clone
 alias gtc="git clone"
 ## checkout
