@@ -29,7 +29,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # Prompt display
-export PROMPTERTYPE=short
+# export PROMPTERTYPE=short
 function prompter(){
   local _ps1=""
   if [[ $# -gt 0 ]]; then
@@ -63,20 +63,20 @@ function prompter(){
   case "$PROMPTERTYPE" in
   long)
     _ps1="\u @$(hostname -s) in \$PWD"$git
+    PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
     ;;
   short)
     _ps1="$(pwd | sed "s#$HOME#~#")"$git
+    PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
     ;;
   z)
     _ps1="$(pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g")"$git
+    PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
     ;;
   $)
-    # just use _ps1="$ "
-    _ps1=$git
+    PS1="$ " ; export PS1
     ;;
   esac
-
-  PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
 }
 if [[ $- == *i* ]]; then
   # is an interactive shell
