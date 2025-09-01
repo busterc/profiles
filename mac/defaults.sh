@@ -7,7 +7,7 @@ cat <<EOF
 
 ================================================================================
 # One more thing..
-# Let's set some OS X defaults!
+# Let's set some macOS defaults!
 ================================================================================
 
 EOF
@@ -71,10 +71,10 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 echo "✓ Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window"
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
-echo "✓ Disable smart quotes as they’re annoying when typing code"
+echo "✓ Disable smart quotes as they're annoying when typing code"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-echo "✓ Disable smart dashes as they’re annoying when typing code"
+echo "✓ Disable smart dashes as they're annoying when typing code"
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 echo "✓ Show all the clock fields: day of week, date, time with seconds"
@@ -402,25 +402,3 @@ plist_dimensions_hide
 
 echo "✓ Always show tabbar"
 defaults write com.apple.Terminal ShowTabBar -int 1
-
-
-cat <<EOF
-
-================================================================================
-# THIS IS THE END, MY ONLY FRIEND, THE END
-================================================================================
-
-You need to restart the machine for all changes to take effect!
-
-EOF
-
-read -p "Would you like to restart now? [y|n] "
-
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  printf "\nVery well.. cya you on the flip flop"
-  sleep 5
-  sudo shutdown -r now
-fi
-
-printf "\nAlrighty then, but some things won't work as expected.\n\n"
-printf "     ~ Adios Amigo ~\n\n"

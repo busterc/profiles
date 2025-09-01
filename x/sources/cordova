@@ -1,135 +1,135 @@
-#!/usr/bin/env bash
+# #!/usr/bin/env bash
 
-# Cordova PhoneGap aliases (v3.X)
-alias cor="cordova" # candidate for "corc"
-alias cori="cordova info"
-alias corc="cordova create"
+# # Cordova PhoneGap aliases (v3.X)
+# alias cor="cordova" # candidate for "corc"
+# alias cori="cordova info"
+# alias corc="cordova create"
 
-# Platform specifics for Cordova PhoneGap
-alias corpfl="cordova platform ls"
-alias corpfa="cordova platform add"
-alias corpfr="cordova platform remove"
-alias corpfx="corpfr"
+# # Platform specifics for Cordova PhoneGap
+# alias corpfl="cordova platform ls"
+# alias corpfa="cordova platform add"
+# alias corpfr="cordova platform remove"
+# alias corpfx="corpfr"
 
-# Build specifics for Cordova PhoneGap
-alias corpre="cordova prepare"
-alias corco="cordova compile"
-alias corb="cordova build"
+# # Build specifics for Cordova PhoneGap
+# alias corpre="cordova prepare"
+# alias corco="cordova compile"
+# alias corb="cordova build"
 
-# Running specifics for Cordova PhoneGap
-alias corem="killall Simulator || echo && cordova emulate"
-alias coremipse="corem --target=iPhone-SE"
-# alias coremip4="corem --target=iPhone-4s"
-alias coremip5="corem --target=iPhone-5s"
-alias coremip6="corem --target=iPhone-6s"
-alias coremip6p="corem --target=iPhone-6s-Plus"
-alias coremip7="corem --target=iPhone-7"
-alias coremip7p="corem --target=iPhone-7-Plus"
-alias coremip8="corem --target=iPhone-8"
-alias coremip8p="corem --target=iPhone-8-Plus"
-alias coremipXS="corem --target=iPhone-XS"
-alias coremipXSm="corem --target=iPhone-XS-Max"
-alias coremipXR="corem --target=iPhone-XR"
-alias coremip11="corem --target=iPhone-11"
-alias coremip11p="corem --target=iPhone-11-Pro"
-alias coremip11pm="corem --target=iPhone-11-Pro-Max"
-alias coremipad="corem --target=iPad-2"
-alias coremipadp="corem --target=iPad-Pro"
+# # Running specifics for Cordova PhoneGap
+# alias corem="killall Simulator || echo && cordova emulate"
+# alias coremipse="corem --target=iPhone-SE"
+# # alias coremip4="corem --target=iPhone-4s"
+# alias coremip5="corem --target=iPhone-5s"
+# alias coremip6="corem --target=iPhone-6s"
+# alias coremip6p="corem --target=iPhone-6s-Plus"
+# alias coremip7="corem --target=iPhone-7"
+# alias coremip7p="corem --target=iPhone-7-Plus"
+# alias coremip8="corem --target=iPhone-8"
+# alias coremip8p="corem --target=iPhone-8-Plus"
+# alias coremipXS="corem --target=iPhone-XS"
+# alias coremipXSm="corem --target=iPhone-XS-Max"
+# alias coremipXR="corem --target=iPhone-XR"
+# alias coremip11="corem --target=iPhone-11"
+# alias coremip11p="corem --target=iPhone-11-Pro"
+# alias coremip11pm="corem --target=iPhone-11-Pro-Max"
+# alias coremipad="corem --target=iPad-2"
+# alias coremipadp="corem --target=iPad-Pro"
 
-alias corr="cordova run"
-alias cors="cordova serve"
-alias corbs="cordova build && cordova serve"
+# alias corr="cordova run"
+# alias cors="cordova serve"
+# alias corbs="cordova build && cordova serve"
 
-alias corbem="killall Simulator || echo && cordova build && cordova emulate"
-# alias corbemip4="corbem --target=iPhone-4s"
-alias corbemip5="corbem --target=iPhone-5s"
-alias corbemip6="corbem --target=iPhone-6s"
-alias corbemip6p="corbem --target=iPhone-6s-Plus"
-alias corbemip7="corbem --target=iPhone-7"
-alias corbemip7p="corbem --target=iPhone-7-Plus"
-alias corbemip8="corbem --target=iPhone-8"
-alias corbemip8p="corbem --target=iPhone-8-Plus"
-alias corbemipXS="corbem --target=iPhone-XS"
-alias corbemipXSm="corbem --target=iPhone-XS-Max"
-alias corbemipXR="corbem --target=iPhone-XR"
-alias corbemip11="corbem --target=iPhone-11"
-alias corbemip11p="corbem --target=iPhone-11-Pro"
-alias corbemip11pm="corbem --target=iPhone-11-Pro-Max"
-alias corbemipad="corbem --target=iPad-2"
-alias corbemipadp="corbem --target=iPad-Pro"
+# alias corbem="killall Simulator || echo && cordova build && cordova emulate"
+# # alias corbemip4="corbem --target=iPhone-4s"
+# alias corbemip5="corbem --target=iPhone-5s"
+# alias corbemip6="corbem --target=iPhone-6s"
+# alias corbemip6p="corbem --target=iPhone-6s-Plus"
+# alias corbemip7="corbem --target=iPhone-7"
+# alias corbemip7p="corbem --target=iPhone-7-Plus"
+# alias corbemip8="corbem --target=iPhone-8"
+# alias corbemip8p="corbem --target=iPhone-8-Plus"
+# alias corbemipXS="corbem --target=iPhone-XS"
+# alias corbemipXSm="corbem --target=iPhone-XS-Max"
+# alias corbemipXR="corbem --target=iPhone-XR"
+# alias corbemip11="corbem --target=iPhone-11"
+# alias corbemip11p="corbem --target=iPhone-11-Pro"
+# alias corbemip11pm="corbem --target=iPhone-11-Pro-Max"
+# alias corbemipad="corbem --target=iPad-2"
+# alias corbemipadp="corbem --target=iPad-Pro"
 
-# Running iOS Simulator with Safari Web Inspector (for Debugging)
-alias corbemd="corbem && ios-sim-inspector"
+# # Running iOS Simulator with Safari Web Inspector (for Debugging)
+# alias corbemd="corbem && ios-sim-inspector"
 
-# Plugin specifics for Cordova PhoneGap
-alias corp="cordova plugin" # candidate for "corpa"
-alias corps="cordova plugin search"
-alias corpl="cordova plugin ls"
-alias corpa="cordova plugin add"
-alias corpr="cordova plugin remove"
-alias corpx="corpr"
-alias corpup="cordova plugin ls | awk '{print $1}' | xargs -I{} sh -c 'cordova plugin remove {} ; cordova plugin add {} ;'"
-# alias corpup="cordova plugin ls | awk '{print $1}' | while read p ; do cordova plugin remove $p && cordova plugin add $p ; done'"
+# # Plugin specifics for Cordova PhoneGap
+# alias corp="cordova plugin" # candidate for "corpa"
+# alias corps="cordova plugin search"
+# alias corpl="cordova plugin ls"
+# alias corpa="cordova plugin add"
+# alias corpr="cordova plugin remove"
+# alias corpx="corpr"
+# alias corpup="cordova plugin ls | awk '{print $1}' | xargs -I{} sh -c 'cordova plugin remove {} ; cordova plugin add {} ;'"
+# # alias corpup="cordova plugin ls | awk '{print $1}' | while read p ; do cordova plugin remove $p && cordova plugin add $p ; done'"
 
-# Common official plugins
-alias corpa-battery-status="cordova plugin add cordova-plugin-battery-status --save"
-alias corpa-camera="cordova plugin add cordova-plugin-camera --save"
-alias corpa-console="cordova plugin add cordova-plugin-console --save"
-alias corpa-contacts="cordova plugin add cordova-plugin-contacts --save"
-alias corpa-device="cordova plugin add cordova-plugin-device --save"
-alias corpa-device-motion="cordova plugin add cordova-plugin-device-motion --save"
-alias corpa-device-orientation="cordova plugin add cordova-plugin-device-orientation --save"
-alias corpa-dialogs="cordova plugin add cordova-plugin-dialogs --save"
-alias corpa-file="cordova plugin add cordova-plugin-xxx --save"
-alias corpa-file-transfer="cordova plugin add cordova-plugin-file-transfer --save"
-alias corpa-geolocation="cordova plugin add cordova-plugin-geolocation --save"
-alias corpa-globalization="cordova plugin add cordova-plugin-globalization --save"
-alias corpa-inappbrowser="cordova plugin add cordova-plugin-inappbrowser --save"
-alias corpa-media="cordova plugin add cordova-plugin-media --save"
-alias corpa-media-capture="cordova plugin add cordova-plugin-media-capture --save"
-alias corpa-network-information="cordova plugin add cordova-plugin-network-information --save"
-alias corpa-splashscreen="cordova plugin add cordova-plugin-splashscreen --save"
-alias corpa-statusbar="cordova plugin add cordova-plugin-statusbar --save"
-alias corpa-vibration="cordova plugin add cordova-plugin-vibration --save"
+# # Common official plugins
+# alias corpa-battery-status="cordova plugin add cordova-plugin-battery-status --save"
+# alias corpa-camera="cordova plugin add cordova-plugin-camera --save"
+# alias corpa-console="cordova plugin add cordova-plugin-console --save"
+# alias corpa-contacts="cordova plugin add cordova-plugin-contacts --save"
+# alias corpa-device="cordova plugin add cordova-plugin-device --save"
+# alias corpa-device-motion="cordova plugin add cordova-plugin-device-motion --save"
+# alias corpa-device-orientation="cordova plugin add cordova-plugin-device-orientation --save"
+# alias corpa-dialogs="cordova plugin add cordova-plugin-dialogs --save"
+# alias corpa-file="cordova plugin add cordova-plugin-xxx --save"
+# alias corpa-file-transfer="cordova plugin add cordova-plugin-file-transfer --save"
+# alias corpa-geolocation="cordova plugin add cordova-plugin-geolocation --save"
+# alias corpa-globalization="cordova plugin add cordova-plugin-globalization --save"
+# alias corpa-inappbrowser="cordova plugin add cordova-plugin-inappbrowser --save"
+# alias corpa-media="cordova plugin add cordova-plugin-media --save"
+# alias corpa-media-capture="cordova plugin add cordova-plugin-media-capture --save"
+# alias corpa-network-information="cordova plugin add cordova-plugin-network-information --save"
+# alias corpa-splashscreen="cordova plugin add cordova-plugin-splashscreen --save"
+# alias corpa-statusbar="cordova plugin add cordova-plugin-statusbar --save"
+# alias corpa-vibration="cordova plugin add cordova-plugin-vibration --save"
 
-# Common 3rd party plugins
-alias corpa-3dtouch="cordova plugin add cordova-plugin-3dtouch --save"
-alias corpa-background="cordova plugin add cordova-plugin-background-mode --save"
-alias corpa-badge="cordova plugin add cordova-plugin-badge --save"
-alias corpa-config="cordova plugin add cordova-custom-config"
-alias corpa-ga="cordova plugin add cordova-plugin-google-analytics --save"
-alias corpa-keyboard="cordova plugin add cordova-plugin-keyboard --save"
-alias corpa-push="cordova plugin add https://github.com/phonegap-build/PushPlugin.git --save"
-alias corpa-socialsharing="cordova plugin add cordova-plugin-x-socialsharing --save"
-alias corpa-spinnerdialog="cordova plugin add https://github.com/Paldom/SpinnerDialog.git --save"
-alias corpa-toast="cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git --save"
-alias corpa-webviewcolor="cordova plugin add cordova-plugin-webviewcolor --save"
-alias corpa-purchase="cordova plugin add cordova-plugin-inapppurchase --save"
+# # Common 3rd party plugins
+# alias corpa-3dtouch="cordova plugin add cordova-plugin-3dtouch --save"
+# alias corpa-background="cordova plugin add cordova-plugin-background-mode --save"
+# alias corpa-badge="cordova plugin add cordova-plugin-badge --save"
+# alias corpa-config="cordova plugin add cordova-custom-config"
+# alias corpa-ga="cordova plugin add cordova-plugin-google-analytics --save"
+# alias corpa-keyboard="cordova plugin add cordova-plugin-keyboard --save"
+# alias corpa-push="cordova plugin add https://github.com/phonegap-build/PushPlugin.git --save"
+# alias corpa-socialsharing="cordova plugin add cordova-plugin-x-socialsharing --save"
+# alias corpa-spinnerdialog="cordova plugin add https://github.com/Paldom/SpinnerDialog.git --save"
+# alias corpa-toast="cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git --save"
+# alias corpa-webviewcolor="cordova plugin add cordova-plugin-webviewcolor --save"
+# alias corpa-purchase="cordova plugin add cordova-plugin-inapppurchase --save"
 
-# Cordova Resource Generators
-# https://github.com/busterc/cordova-resource-generators
-alias cgicons="cordova-generate-icons"
-alias cgscreens="cordova-generate-splash-screens"
+# # Cordova Resource Generators
+# # https://github.com/busterc/cordova-resource-generators
+# alias cgicons="cordova-generate-icons"
+# alias cgscreens="cordova-generate-splash-screens"
 
-# Create an empty Cordova Project
-function corce() {
-  cordova create "$@"
+# # Create an empty Cordova Project
+# function corce() {
+#   cordova create "$@"
 
-  if [[ $? -eq 0 ]]; then
-    cd "$1"
-    rm -rf www/*
-  fi
-}
+#   if [[ $? -eq 0 ]]; then
+#     cd "$1"
+#     rm -rf www/*
+#   fi
+# }
 
-# Create a Cordova Project using Yo Generator: cordova-www
-function corc-www() {
-  cordova create "$@"
+# # Create a Cordova Project using Yo Generator: cordova-www
+# function corc-www() {
+#   cordova create "$@"
 
-  if [[ $? -eq 0 ]]; then
-    cd "$1"
-    rm -rf www/*
-    yo cordova-www
+#   if [[ $? -eq 0 ]]; then
+#     cd "$1"
+#     rm -rf www/*
+#     yo cordova-www
 
-    microgen $MICROGEN_TEMP_DIR/cordova-common/package.json.hbs
-  fi
-}
+#     microgen $MICROGEN_TEMP_DIR/cordova-common/package.json.hbs
+#   fi
+# }

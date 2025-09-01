@@ -3,121 +3,54 @@
 # Enable errexit; stop on any error
 set -e
 
+# Prevent sourcing of this file
+if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
+  echo >&2 "Error: This script cannot be sourced"
+  return 1
+fi
+
+# Ensure the script is run from the correct directory
+if [[ "$(pwd)" != "$HOME/.profiles" ]]; then
+  echo >&2 "Error: This script must be run from $HOME/.profiles"
+  exit 1
+fi
+
+# Ensure a machine type is specified
+if [[ $# -ne 1 ]]; then
+  echo >&2 "Usage: $0 <mac|linux>"
+  exit 1
+fi
+
+# Ensure a machine type is "mac" or "linux" only
+machine_type="$1"
+if [[ "$machine_type" != "mac" && "$machine_type" != "linux" ]]; then
+  echo >&2 "Error: Invalid machine type '$machine_type'. Must be 'mac' or 'linux'."
+  exit 1
+fi
+
 cat <<EOF
 
 # IN THE BEGINNING, THERE WERE ...
 
 EOF
+sleep 2
 
-# Prevent sourcing of this file
-if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
-  echo >&2 "Error: Cannot be sourced"
-  return 1
-fi
+# Prompt for sudo password
+sudo -v
 
-temp="${0%/*}/temp"
-datetime=$(date -u +%F-%H%M%S)
-backupdir="$(pwd)/backup/$datetime"
-activedir="$(pwd)/active"
-linktype="-sfn" # default to symlinking "-s"
+# Establish backup directory for archiving any pre-existing dotfiles
+backupdir="$(pwd)/backup/$(date -u +%F-%H%M%S)"
+mkdir -p "$backupdir"
 
-function cleanup() {
-  rm -rf "$temp"
-}
-
-# Clean up before exiting
-trap cleanup EXIT
-
-function usage() {
-  cat <<EOF
-
-  Usage: $0 <osx|msys|ubu>
-
-EOF
-
-  exit 1
-}
-
-function main() {
-
-  # Ask for the administrator password upfront
-  sudo -v
-
-  local valid="false"
-  local profiles=(
-    osx
-    msys
-    ubu
-  )
-
-  # Prepare temp directory
-  mkdir -p "$temp"
-
-  # Prepare the active directory
-  mkdir -p "$activedir"
-
-  for profile in "${profiles[@]}"; do
-
-    # Validate profile
-    if [[ "$1" = "$profile" ]]; then
-      valid="true"
-
-      # Prepare backup directory
-      mkdir -p "$backupdir"
-
-      # Set dotfile linking type
-      if [[ "$profile" = "msys" ]]; then
-        # On Windows, Cygwin symlinks don't always work properly (Sublimetext)
-        linktype="-fn"
-      fi
-
-      copydots "x" # cross-profile dots
-      copydots "$1"
-
-      # Set XDG Defaults
-      source "./x/sources/xdg"
-
-      # Activate platform specific profile
-      activate "$1"
-
-      # Install profile specific apps
-      [ -f "./$1/installs.sh" ] && source "./$1/installs.sh"
-
-      # Add sshkey
-      sshme
-
-      # Install cross-profile apps
-      [ -f "./x/installs.sh" ] && source "./x/installs.sh"
-
-      # Set profile specific system defaults
-      [ -f "./$1/defaults.sh" ] && source "./$1/defaults.sh"
-
-      break
-    fi
-  done
-
-  [[ "$valid" = "true" ]] || usage
-}
-
-function validate_pwd() {
-
-  function bad_path() {
-    printf "\n  Error: you need to cd into %s/.profiles then run setup.sh\n\n" "$HOME"
-    exit 2
-  }
-
-  [[ "$(pwd)" = "$HOME/.profiles" ]] || bad_path
-
-}
-
-function copydots() {
+# Link dotfiles from the specified directory to the home directory
+# and create backups of any existing dotfiles
+function link_dotfiles() {
   local dotfile
-
   cat <<EOF
 
-================================================================================
+========================================
 # DOTFILES ($1)
-================================================================================
+========================================
 
 EOF
 
@@ -138,39 +71,58 @@ EOF
     echo "✓ $dotfile"
   done
 }
+link_dotfiles "x"
+link_dotfiles "$machine_type"
 
-function sshme() {
-
+# Activate profile for specified machine type
+function activate_profile() {
   cat <<EOF
 
-================================================================================
-# SSH
-================================================================================
+========================================
+# PROFILE ACTIVATION ($1)
+========================================
 
 EOF
 
-  mkdir -p "$HOME/.ssh"
-  local privatekey="$HOME/.ssh/id_rsa"
-  lpass show --notes "SSH key for busterc" > "$privatekey"
-  chmod 600 "$privatekey"
-  chown $USER "$privatekey"
-  echo "✓ Added $privatekey"
-}
-
-function activate() {
-  cat <<EOF
-
-================================================================================
-# PROFILE ACTIVATION
-================================================================================
-
-EOF
+  # Establish directory for the active profile
+  mkdir -p "$(pwd)/active"
 
   # ~/.bashrc sources ./active/profile
   # ./active/profile links to the appropriate profile
   ln "$linktype" "$(pwd)/$1/_profile" "$activedir/profile"
   echo "✓ Activated $1"
 }
+activate_profile "$machine_type"
 
-validate_pwd
-main "$@"
+
+# Set XDG defaults before sourcing profile specifics
+source "./x/sources/xdg"
+
+# Install profile specific apps and tools
+[ -f "./$1/installs.sh" ] && source "./$1/installs.sh"
+
+# Install universal apps and tools
+[ -f "./x/installs.sh" ] && source "./x/installs.sh"
+
+# Set profile specific system defaults
+[ -f "./$1/defaults.sh" ] && source "./$1/defaults.sh"
+
+cat <<EOF
+
+========================================
+# THIS IS THE END, MY FRIEND
+========================================
+
+You need to restart the machine for all changes to take effect!
+
+EOF
+
+read -p "Would you like to restart now? (Y/n) " restart_now
+if [[ -z $restart_now || $restart_now == [Yy] ]]; then
+  printf "\nVery well.. cya you on the flip flop"
+  sleep 5
+  sudo shutdown -r now
+else
+  printf "\nAlrighty then, but some things won't work as expected.\n\n"
+  printf "     ~ Adios Amigo ~\n\n"
+fi

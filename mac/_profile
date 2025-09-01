@@ -17,36 +17,36 @@ function source_profile_osx() {
 source_profile_osx
 
 # Homebrew related
-[[ -f "/opt/homebrew/bin/brew" ]] && [[ -z "${HOMEBREW_PREFIX}" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+# [[ -f "/opt/homebrew/bin/brew" ]] && [[ -z "${HOMEBREW_PREFIX}" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 # export PATH="/usr/local/sbin:$PATH"
 alias brew-outdated="brew outdated --verbose | column -t -s '()'"
 alias bro="brew-outdated"
 alias brew-upgrade="brew-outdated | ipt -u -m -M 'Select Packages to Upgrade:' | cut -d ' ' -f 1 | xargs brew upgrade"
 alias bru="brew-upgrade"
-alias cask-outdated="brew cask outdated --verbose | sed 's#[!=<()]##g; s#\S*, ##g' | column -t"
-alias cask-upgrade="brew cask outdated | ipt -m -M 'Select Packages to Upgrade:' | xargs brew cask upgrade"
+# alias cask-outdated="brew cask outdated --verbose | sed 's#[!=<()]##g; s#\S*, ##g' | column -t"
+# alias cask-upgrade="brew cask outdated | ipt -m -M 'Select Packages to Upgrade:' | xargs brew cask upgrade"
 # Load bash completions courtesy of homebrew
-[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
-if type brew &>/dev/null
-then
-  HOMEBREW_PREFIX="$(brew --prefix)"
-  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
-  then
-    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-  else
-    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
-    do
-      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
-    done
-  fi
-fi
+# [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+# if type brew &>/dev/null
+# then
+#   HOMEBREW_PREFIX="$(brew --prefix)"
+#   if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+#   then
+#     source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+#   else
+#     for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+#     do
+#       [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+#     done
+#   fi
+# fi
 
-# JAVA SUCKS. Use JEnv and pray :P
-jenv_dir="$HOME/.jenv/bin:"
-if [[ "${PATH}" != *"${jenv_dir}"* ]]; then
-  export PATH="$jenv_dir$PATH"
-fi
-eval "$(jenv init -)"
+# # JAVA SUCKS. Use JEnv and pray :P
+# jenv_dir="$HOME/.jenv/bin:"
+# if [[ "${PATH}" != *"${jenv_dir}"* ]]; then
+#   export PATH="$jenv_dir$PATH"
+# fi
+# eval "$(jenv init -)"
 
 # remove last newline when using `pbcopy`
 alias npbcopy="tr -d '\n$' | pbcopy"
@@ -111,39 +111,39 @@ alias fonts="open /Library/Fonts"
 # Clear terminal screen and remove backscroll
 alias cl="clear && printf '\e[3J'"
 
-# Open a new Terminal (Tab or Window) & run passed commands
-function term() {
-  case $2 in
-  "")
-    osascript -e "
-        tell application \"System Events\" to tell process \"Terminal\" to keystroke \"$1\" using command down
-        tell application \"Terminal\" to do script \"cd \\\"$(PWD)\\\" && clear\" in selected tab of the front window
-    " > /dev/null 2>&1
-    ;;
-  *)
-    osascript -e "
-        tell application \"System Events\" to tell process \"Terminal\" to keystroke \"$1\" using command down
-        tell application \"Terminal\" to do script \"cd \\\"$(PWD)\\\" && clear\" in selected tab of the front window
-        tell application \"Terminal\" to do script \"$2\" in selected tab of the front window
-    " > /dev/null 2>&1
-  esac
-}
+# # Open a new Terminal (Tab or Window) & run passed commands
+# function term() {
+#   case $2 in
+#   "")
+#     osascript -e "
+#         tell application \"System Events\" to tell process \"Terminal\" to keystroke \"$1\" using command down
+#         tell application \"Terminal\" to do script \"cd \\\"$(PWD)\\\" && clear\" in selected tab of the front window
+#     " > /dev/null 2>&1
+#     ;;
+#   *)
+#     osascript -e "
+#         tell application \"System Events\" to tell process \"Terminal\" to keystroke \"$1\" using command down
+#         tell application \"Terminal\" to do script \"cd \\\"$(PWD)\\\" && clear\" in selected tab of the front window
+#         tell application \"Terminal\" to do script \"$2\" in selected tab of the front window
+#     " > /dev/null 2>&1
+#   esac
+# }
 
-# Open new Terminal Tab
-function tab() {
-  term t "$1"
-}
+# # Open new Terminal Tab
+# function tab() {
+#   term t "$1"
+# }
 
-# Open new Terminal Tab and Close Current Tab
-function tabx() {
-  term t "$1"
-  exit
-}
+# # Open new Terminal Tab and Close Current Tab
+# function tabx() {
+#   term t "$1"
+#   exit
+# }
 
-# Open new Terminal Window
-function window() {
-  term n "$1"
-}
+# # Open new Terminal Window
+# function window() {
+#   term n "$1"
+# }
 
 # Run NPM HTTP-Server and open Chrome
 function serve() {

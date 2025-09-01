@@ -22,20 +22,6 @@ export NVM_DIR="$HOME/.nvm" && (
 # Node
 nvm install --lts
 
-# Lastpass CLI `lpass`
-sudo apt-get install -y cmake libcurl4-openssl-dev libssl-dev libxml2 libxml2-dev openssl pinentry-curses pkg-config xclip
-mkdir -p temp
-(
-  cd temp
-  git clone https://github.com/lastpass/lastpass-cli
-  cd lastpass-cli
-  make
-  sudo make install
-)
-printf "LastPass Username: "
-read lpuser
-lpass login "$lpuser"
-
 # Ack
 sudo apt-get install -y ack-grep
 

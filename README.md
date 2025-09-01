@@ -1,39 +1,78 @@
 # profiles
 
-dotfiles, system defaults and more
+## Prepares your mac or linux machine for getting things done!
 
-## Setup
+- Runs on Bash (and installs latest version)
+- Symlinks dotfiles for easy git version control
+- Sources aliases, functions and .env variables
+
+## Prerequisites
+
+Before running the automated goodness, do a couple of small manual tasks:
+
+- Add a `~/.env` file with helpful secrets like `HOMEBREW_GITHUB_API_TOKEN`
+- Add your private SSH key `~/.ssh/id_rsa` and restrict it:
+  ```sh
+  $ chmod 600 ~/.ssh/id_rsa
+  $ chown $USER ~/.ssh/id_rsa
+  ```
+
+## Usage
+
+__Recommended:__ before running, add a `~/.env` file with helpful secrets like `HOMEBREW_GITHUB_API_TOKEN`
+
 ```sh
 $ git clone https://github.com/busterc/profiles.git ~/.profiles
 $ cd ~/.profiles
-$ ./setup.sh <osx|ubu|msys>
+$ ./setup.sh <mac|linux>
 ```
 
-## FYI
-- [`setup.sh`](setup.sh) creates symlinked dotfiles in `~/`. Therefore, any existing dotfiles will be copied to `backup` under newly created date-time named directories, e.g. `./backup/2012-12-20-235959`
-- When setting up OSX you'll also apply several system defaults from [`osx/defaults.sh`](osx/defaults.sh)
-- Checkout more dotfiles https://dotfiles.github.io/
+## Directory Structure
 
+### Top Level
 
-## License
-The MIT License (MIT)
+```sh
+.
+├── active (not git committed, holds a symlink of your current profile)
+├── backup (not git committed, holds backup copies of any replaced dotfiles)
+├── linux (all your linux specifics)
+├── mac (all your macOS specifics)
+└── x (all your universal specfiics)
+```
 
-Copyright (c) 2015 Buster Collings
+### Tree View
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+```sh
+.
+├── active
+│   └── profile (symlinks to ~/.profiles/<mac|linux>/_profile)
+├── backup
+│   └── * ("YYYY-MM-DD-HHmmss" folders hold copies of any replaced dotfiles)
+├── linux
+│   ├── _profile (linux compatible aliases and functions)
+│   ├── dotfiles (symlinks files to ~/.* on linux during setup)
+│   │   ├── gitignore_global
+│   │   └── *
+│   ├── installs.sh (runs during setup)
+│   └── sources (files with aliases and functions, sourced by linux/_profile)
+│       └── *
+├── mac
+│   ├── _profile (macOS compatible aliases and functions)
+│   ├── defaults.sh (sets macOS system defaults during setup)
+│   ├── dotfiles (symlinks files to ~/.* on mac setup)
+│   │   ├── gitignore_global
+│   │   └── *
+│   ├── installs_extras.sh (can be run manually for more common goodies)
+│   ├── installs.sh (runs during setup)
+│   └── sources (files with aliases and functions, sourced by mac/_profile)
+│       └── *
+└── x
+    ├── _profile (universally compatible aliases and functions)
+    ├── dotfiles (symlinks files to ~/.* on all systems during setup)
+    │   ├── bash_profile (sources bashrc)
+    │   ├── bashrc (sources x/_profile and active/profile and ~/.env)
+    │   └── *
+    ├── installs.sh (runs during setup)
+    └── sources (files with aliases and functions, sourced by x/_profile)
+        └── *
+```

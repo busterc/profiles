@@ -1,24 +1,16 @@
 #!/usr/bin/env bash
-# Amazon Q pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash"
 
-# CROSS-PROFILE GOODNESS
+[[ -f "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+
 if [[ -f "$HOME/.profiles/x/_profile" ]]; then
   source "$HOME/.profiles/x/_profile"
 fi
 
-# ACTIVE PROFILE SPECIFICS
 if [[ -f "$HOME/.profiles/active/profile" ]]; then
   source "$HOME/.profiles/active/profile"
 fi
 
-# .env contains uncommitted secrets (eg. private tokens)
 if [[ -f "$HOME/.env" ]]; then
 	export $(xargs < "$HOME/.env")
 fi
-
-
-[[ -f "$HOME/fig-export/dotfiles/dotfile.bash" ]] && source "$HOME/fig-export/dotfiles/dotfile.bash"
-
-# Amazon Q post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash"
