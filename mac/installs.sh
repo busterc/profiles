@@ -78,6 +78,7 @@ homebrew_casks=(
     docker-desktop
     fanny
     gcloud-cli
+    ghostty
     gimp
     google-chrome
     google-drive
@@ -87,6 +88,7 @@ homebrew_casks=(
     mysqlworkbench
     ngrok
     pgadmin4
+    rectangle
     visual-studio-code
     vlc
     xbar
