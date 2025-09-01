@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 
-# OSX _profile
+# mac _profile
 
-function source_profile_osx() {
+function source_profile_mac() {
   # cope with spaces in file/directory names
   local IFS_backup="$IFS"
   IFS=$'\n'
 
-  local sources=($(dirname "${BASH_SOURCE[0]}")/../osx/sources/*)
+  local sources=($(dirname "${BASH_SOURCE[0]}")/../mac/sources/*)
   for s in "${sources[@]}"; do
     source "$s"
   done
 
   IFS="$IFS_backup"
 }
-source_profile_osx
+source_profile_mac
 
 # Homebrew related
 # [[ -f "/opt/homebrew/bin/brew" ]] && [[ -z "${HOMEBREW_PREFIX}" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"

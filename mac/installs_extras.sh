@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 homebrew_packages=(
+    arq
     dart
     duckdb
     fvm

@@ -20,21 +20,16 @@ cat <<EOF
 EOF
 
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 echo "✓ Homebrew"
-
-# # Prevent Homebrew from getting rate-limited during installs
-# if [[ -z "$HOMEBREW_GITHUB_API_TOKEN" ]]; then
-#   read -p "Enter your GitHub Access Token (To Prevent Rate-Limiting): " github_token
-#   export "HOMEBREW_GITHUB_API_TOKEN=$github_token"
-#   echo "✓ HOMEBREW_GITHUB_API_TOKEN=$HOMEBREW_GITHUB_API_TOKEN"
-# fi
 
 # Install Bash and make it the default shell
 brew install bash
 if ! grep -q "/opt/homebrew/bin/bash" /etc/shells; then
-  sudo echo "/opt/homebrew/bin/bash" >> /etc/shells
+  sudo echo "/opt/homebrew/bin/bash" | sudo tee -a /etc/shells
 fi
-chsh -s "/opt/homebrew/bin/bash"
+# Ensure bash (from homebrew) is the default shell
+[[ "$SHELL" != "/opt/homebrew/bin/bash" ]] && chsh -s "/opt/homebrew/bin/bash"
 source "$HOME/.bash_profile"
 echo "✓ Bash"
 
@@ -44,7 +39,7 @@ echo "✓ Bash Completion"
 
 homebrew_recipes=(
     ack
-    applesimutils
+    wix/brew/applesimutils
     awscli
     bat
     corepack
@@ -76,8 +71,6 @@ for pkg in "${homebrew_recipes[@]}"; do
 done
 
 homebrew_casks=(
-    arq
-    cheatsheet
     claude
     cursor
     disk-inventory-x
@@ -94,10 +87,8 @@ homebrew_casks=(
     mysqlworkbench
     ngrok
     pgadmin4
-    spectacle
     visual-studio-code
     vlc
-    vmware-fusion
     xbar
 )
 for cask in "${homebrew_casks[@]}"; do

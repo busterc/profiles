@@ -28,6 +28,10 @@ if [[ "$machine_type" != "mac" && "$machine_type" != "linux" ]]; then
   exit 1
 fi
 
+# Prompt for sudo password
+echo "Sudo password required"
+sudo -v
+
 cat <<EOF
 
 # IN THE BEGINNING, THERE WERE ...
@@ -35,8 +39,6 @@ cat <<EOF
 EOF
 sleep 2
 
-# Prompt for sudo password
-sudo -v
 
 # Establish backup directory for archiving any pre-existing dotfiles
 backupdir="$(pwd)/backup/$(date -u +%F-%H%M%S)"
@@ -67,7 +69,7 @@ EOF
     fi
 
     # create symlinks for ~
-    ln "$linktype" "$f" "$dotfile"
+    ln -sfn "$f" "$dotfile"
     echo "✓ $dotfile"
   done
 }
@@ -89,7 +91,7 @@ EOF
 
   # ~/.bashrc sources ./active/profile
   # ./active/profile links to the appropriate profile
-  ln "$linktype" "$(pwd)/$1/_profile" "$activedir/profile"
+  ln -sfn "$(pwd)/$1/_profile" "$(pwd)/active/profile"
   echo "✓ Activated $1"
 }
 activate_profile "$machine_type"
