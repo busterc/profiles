@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# # JAVA SUCKS. Use JEnv and pray :P
+# jenv_dir="$HOME/.jenv/bin:"
+# if [[ "${PATH}" != *"${jenv_dir}"* ]]; then
+#   export PATH="$jenv_dir$PATH"
+# fi
+# eval "$(jenv init -)"
+

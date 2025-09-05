@@ -55,7 +55,7 @@ homebrew_recipes=(
     lastpass-cli
     lazydocker
     mkcert
-    node
+    nvm
     pgcli
     rename
     repl
@@ -73,10 +73,8 @@ done
 homebrew_casks=(
     claude
     cursor
-    disk-inventory-x
     docker
     docker-desktop
-    fanny
     gcloud-cli
     ghostty
     gimp

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# These are tools and apps that I _might_ want to install
+
 homebrew_packages=(
     arq
     dart
@@ -15,23 +17,14 @@ homebrew_packages=(
     tmux
     youtube-dl
 )
-
-selected=()
-for pkg in "${homebrew_packages[@]}"; do
-  read -p "Install $pkg? (Y/n) " choice
-  if [[ -z $choice || $choice == [Yy] ]]; then
-    selected+=("$pkg")
-  fi
-done
-
-if [[ ${#selected[@]} -gt 0 ]]; then
-  brew install "${selected[@]}"
-fi
+echo "${homebrew_packages[@]}" | ipt -s " " -m -M "Select Homebrew Packages to Install:" | xargs brew install
 
 homebrew_casks=(
     android-studio
     chatgpt
     claude-code
+    disk-inventory-x
+    fanny
     inkscape
     keycastr
     proxyman
@@ -42,7 +35,4 @@ homebrew_casks=(
     skitch
     thunderbird
 )
-for cask in "${homebrew_casks[@]}"; do
-  brew install --cask "$cask"
-  echo "✓ $cask"
-done
+echo "${homebrew_casks[@]}" | ipt -s " " -m -M "Select Homebrew Casks to Install:" | xargs brew install --cask

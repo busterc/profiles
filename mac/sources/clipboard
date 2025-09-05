@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# remove last newline when using `pbcopy`
+alias npbcopy="tr -d '\n$' | pbcopy"
+
+# pbpaste (no need to tab)
+alias pbp="pbpaste"
+
+# quick pbcopy
+function pbc() {
+  echo "$@" | pbcopy
+}
+
+# quickly append pbcopy
+function pba() {
+  local archive="$(pbpaste)"
+  echo "$archive $@" | pbcopy
+}

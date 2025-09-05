@@ -13,7 +13,7 @@ cat <<EOF
 EOF
 
 # dramatic pause
-sleep 5
+sleep 3
 
 function namebaby() {
   local validname="^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
@@ -51,6 +51,7 @@ cat <<EOF
 
 EOF
 
+# This no longer works with Sequoia :(
 echo "✓ Disable transparency in the menu bar and elsewhere on Yosemite"
 sudo defaults write com.apple.universalaccess reduceTransparency -bool true
 

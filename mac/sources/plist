@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# PlistBuddy for plist file editing
+alias PlistBuddy="/usr/libexec/PlistBuddy"
+alias plistbuddy="PlistBuddy"
