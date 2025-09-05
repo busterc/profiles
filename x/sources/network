@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# My IPs
+alias ips="npx -q ips | lbl -e 'x=>{if(!x)return;x=JSON.parse(x);Object.keys(x).forEach(k=>console.log(x[k],k))}'"
+
+function scrape() {
+  function usage() {
+    cat <<EOF
+
+  Usage: scrape <url>
+
+  Description: scrape a site recursively, using wget
+
+EOF
+  }
+
+  if [[ $# -lt 1 ]] || [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+    usage
+    return
+  fi
+
+  wget -r "$@"
+
+  # Remove query strings from file names
+  for file in $(find . -name '*\?*'); do
+    mv "$file" "${file%%\?*}";
+  done
+}
+
+function curl_time() {
+    curl -so /dev/null -w "\
+   namelookup:  %{time_namelookup}s\n\
+      connect:  %{time_connect}s\n\
+   appconnect:  %{time_appconnect}s\n\
+  pretransfer:  %{time_pretransfer}s\n\
+     redirect:  %{time_redirect}s\n\
+starttransfer:  %{time_starttransfer}s\n\
+-------------------------\n\
+        total:  %{time_total}s\n" "$@"
+}

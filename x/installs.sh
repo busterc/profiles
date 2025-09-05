@@ -10,6 +10,8 @@ EOF
 
 npm_packages=(
     ipt
+    lbl
+    npm-check
     nve
     optipng-bin
     trash-cli

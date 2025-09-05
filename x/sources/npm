@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-## general info
-#######################################
-
+# general info
 alias npmv="npm --version"
 alias npml="npm list --depth 0 | less"
 alias npmlg="npm list --global --depth 0 | less"
@@ -10,11 +8,9 @@ alias npmgl="npmlg"
 alias npmo="npm outdated"
 alias npmog="npmo --global"
 
-## normal user local
-#######################################
-
 # local install
 alias npmi="npm install"
+alias npmig="npm install --global"
 alias npmise="npmi --save-exact"
 alias npmisd="npmi --save-dev"
 alias npmisde="npmisd --save-exact"
@@ -46,45 +42,8 @@ alias npmcg="npm-check -gu"
 alias npmt="npm test"
 alias npmit="npm it"
 
-## super user local
-#######################################
-
-# local install
-alias snpmi="sudo npm install"
-
-# local update
-alias snpmup="sudo npm update"
-
-# local remove
-alias snpmr="sudo npm remove"
-alias snpmx="snpmr"
-
-## super user global
-#######################################
-
-# global install
-alias npmig="npm install --global"
-alias npmgi="npmig"
-alias npmg="npmig"
-alias snpmig="sudo npm install --global"
-alias snpmgi="snpmig"
-alias snpmg="snpmig"
-
-# global update
-alias npmupg="npm update --global"
-alias npmgup="npmupg"
-alias snpmupg="sudo npm update --global"
-alias snpmgup="snpmupg"
-
 # global remove
 alias npmrg="npm remove --global"
-alias npmgr="npmrg"
-alias npmxg="npmrg"
-alias npmgx="npmrg"
-alias snpmrg="sudo npm remove --global"
-alias snpmgr="snpmrg"
-alias snpmxg="snpmrg"
-alias snpmgx="snpmrg"
 
 # Run NPM Install on all subdirectories
 function subnpmi() {

@@ -1,0 +1,208 @@
+#!/usr/bin/env bash
+
+# CLI for JS `encodeURIComponent` handy for quick svg conversions
+function encodeURI() {
+  if [[ $# -eq 0 ]]; then
+    cat <<'EOF'
+
+  Usage: encodeURI <string>
+
+  Example: $ encodeURI "$(cat logo.svg)" | pbcopy
+
+EOF
+  else
+    local fn
+    if echo "$1" | grep "\"" >/dev/null && echo "$1" | grep "'" > /dev/null; then
+      echo "Error: string contains both single and double quotes."
+      return 1
+    elif echo "$1" | grep "\'" >/dev/null; then
+      fn="encodeURIComponent(\"$1\")"
+    else
+      fn="encodeURIComponent('$1')"
+    fi
+    node -p "$fn"
+  fi
+}
+
+# CLI for JS `decodeURIComponent` handy for quick svg conversions
+function decodeURI() {
+  if [[ $# -eq 0 ]]; then
+    cat <<'EOF'
+
+  Usage: decodeURI <string>
+
+  Example: $ decodeURI "%3Csvg%3E%3C%2Fsvg%3E" | pbcopy"
+
+EOF
+  else
+    local fn
+    if echo "$1" | grep "\"" >/dev/null && echo "$1" | grep "'" > /dev/null; then
+      echo "Error: string contains both single and double quotes."
+      return 1
+    elif echo "$1" | grep "\'" >/dev/null; then
+      fn="decodeURIComponent(\"$1\")"
+    else
+      fn="decodeURIComponent('$1')"
+    fi
+    node -p "$fn"
+  fi
+}
+
+
+# defaults for `iconr` and fix classname preprending
+alias iconz="iconr . . -avNnokSd -c=i.icon.icon- | sed 's#\.i\.icon\.#i\.icon\.#g' > _iconz.css"
+
+# add color to svgs
+function fill-svg() {
+  if [[ $# -lt 3 ]] || [[ $1 == *".svg" ]] || [[ $2 == *".svg" ]]; then
+    cat <<'EOF'
+
+    Usage: fill-svg <color-name> <color> <svg-file>...
+
+    Description: adds `fill="color"` to svg `<path>` element and saves
+    the new file(s) in ./filled/<color-name>/*
+
+    Options:
+
+      <color-name>  a user friendly name that gets applied to each filename
+      <color>       the actual color to apply; rgb(), hex or html color-name
+      <svg-file>    the source files
+
+    Examples:
+
+      $ fill-svg burnt-orange "#bf5700" *.svg
+
+      $ fill-svg orange orange *.svg
+
+EOF
+  else
+    local colorname="$1"
+    shift
+    local color="$1"
+    shift
+
+    local dest="./filled/$colorname"
+    mkdir -p "$dest"
+
+    for file in $@; do
+      outfile="$(echo $file | sed s#\.svg#\-$colorname\.svg#)"
+      cat $file | sed 's/\<path/\<path fill="'$color'"/' > "$dest/$outfile"
+      echo "$dest/$outfile"
+    done
+  fi
+}
+
+# FontAwesome to SVG (font glyphs to individual svg files)
+function fa2svg() {
+  git clone https://github.com/fortawesome/font-awesome
+  mkdir -p ./fontawesome-svg/
+  svg-caster --svg-font ./font-awesome/fonts/fontawesome-webfont.svg --svg-font-css ./font-awesome/css/font-awesome.css --out-svg ./fontawesome-svg/
+  rm -rf ./font-awesome/
+}
+
+# simple stopwatch with laps
+function stopwatch() {
+  local n=0
+  local t=0
+  local continuing="true"
+  local lap=1
+  local key="~"
+  local pausing="~"
+
+  cat <<EOF
+
+  * type "p" to pause and "r" to resume
+  * hit the spacebar to start a new lap
+    * if paused you will resume with a new lap
+  * type "q" or "x" or Ctrl-c to stop
+
+EOF
+
+  function summary() {
+    continuing="false" # break the while loop
+    local elapsed=$(($t-$lap+1))
+    printf "\r\033[0KLap ${lap}: $n seconds\n"
+    printf "\nTotal Elapsed: $elapsed seconds\n"
+  }
+
+  trap "summary" SIGINT
+
+  while [[ $continuing = "true" ]]; do
+    key="~"
+    pausing="~"
+    printf "\r\033[0KLap ${lap}: $n seconds"
+    read -s -t 1 -n 1 key
+
+    case "$key" in
+      "")
+        printf "\r\033[0KLap ${lap}: $n seconds\n"
+        key=""
+        n=-1
+        ((lap++))
+        ;;
+      q|x)
+        summary
+        break
+        ;;
+      p)
+        function paused() {
+          read -s -n 1 pausing
+          case "$pausing" in
+            "")
+              printf "\r\033[0KLap ${lap}: $n seconds\n"
+              key=""
+              n=-1
+              ((lap++))
+              ;;
+            q|x)
+              summary
+              break
+              ;;
+            r)
+              : # noop
+              ;;
+            *)
+              paused
+              ;;
+          esac
+        }
+        paused
+        ;;
+    esac
+    ((t++))
+    ((n++))
+  done
+}
+
+# ImageMagick FavIcon Generator
+function favicon() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: favicon <image-filename>\n\n"
+  else
+    convert "$1" -bordercolor white -border 0 \
+      \( -clone 0 -resize 16x16 \) \
+      \( -clone 0 -resize 32x32 \) \
+      \( -clone 0 -resize 48x48 \) \
+      \( -clone 0 -resize 64x64 \) \
+      -delete 0 -alpha off -colors 256 favicon.ico
+  fi
+}
+
+# Move images into YYYY-MM-DD directories
+yyyymmdddir() {
+  if [ $# -eq 0 ]; then
+    cat <<EOF
+
+  Usage: yyyymmdddir <file>
+
+EOF
+    return 1
+  fi
+
+  for file in "$@"; do
+    echo "$file"
+    dir=$(stat -f "%Sm" -t "%Y-%m-%d" "$file")
+    mkdir -p "$dir"
+    mv "$file" "$dir"
+  done
+}

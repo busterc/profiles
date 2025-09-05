@@ -1,0 +1,548 @@
+#!/usr/bin/env bash
+
+shopt -s direxpand 2>/dev/null
+shopt -s autocd 2>/dev/null
+export LESS="r"
+export PAGER="less"
+if [[ -s "$HOME/bin/bat_pager" ]]; then
+  export BAT_PAGER="$HOME/bin/bat_pager"
+fi
+
+# Prompt display
+# export PROMPTERTYPE=short
+function prompter(){
+  local _ps1=""
+  if [[ $# -gt 0 ]]; then
+    export PROMPTERTYPE="$1"
+  fi
+
+  local sshd
+  local git
+  local status
+  local branch
+
+  sshd="$(ssh-add -l 2>/dev/null | awk 'BEGIN {r=""} \
+    !/no identities/ {r="* "}\
+    END {print r}
+  ')"
+  status="$(git status 2>/dev/null)"
+  branch="$(echo "$status" | awk '/On branch/ {print $3}')"
+
+  if [[ "$branch" != "" ]]; then
+    local flags
+    flags="$(
+      echo "$status" | awk 'BEGIN {r=""} \
+        /^Changes to be committed:$/        {r=r "+"}\
+        /^Changes not staged for commit:$/  {r=r "!"}\
+        /^Untracked files:$/                {r=r "?"}\
+        END {print r}'
+    )"
+    git=" [$branch$flags]"
+  fi
+
+  case "$PROMPTERTYPE" in
+  long)
+    _ps1="\u @$(hostname -s) in \$PWD"$git
+    PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
+    ;;
+  short)
+    _ps1="$(pwd | sed "s#$HOME#~#")"$git
+    PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
+    ;;
+  z)
+    _ps1="$(pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g")"$git
+    PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
+    ;;
+  $)
+    PS1="$ " ; export PS1
+    ;;
+  esac
+}
+if [[ $- == *i* ]]; then
+  # is an interactive shell
+  export PROMPT_COMMAND=prompter
+fi
+
+# Prefix prompt with node version (via NVM)
+function nvsh() {
+  if [[ "$1" == "x" ]]; then
+    PROMPT_PREFIX=""
+  else
+    PROMPT_PREFIX="n$(nvm current): "
+  fi
+}
+
+# Prep ~/bin if not already in PATH
+mkdir -p "$HOME/bin"
+my_bin_dir="$HOME/bin:";
+if [[ "${PATH}" != *"${my_bin_dir}"* ]]; then
+  export PATH="$HOME/bin:$PATH"
+  export b="$HOME/bin"
+fi
+
+# Reload profile
+alias repro="source ~/.bash_profile"
+alias mmm="repro"
+
+# Erase the last command from history when chained, e.g.
+# $ echo hiya; erase
+function erase() {
+  history -d $(history 1)
+}
+
+# Erase the last command from history
+# $ echo hiya
+# $ forget
+function forget() {
+  history -d $(history 1); history -d $(history 1)
+}
+
+# Copy the last command from history
+# $ ssh -i ~/.ssh/some.pem user@server.com
+# $ copythat
+# $ pbp
+# ssh -i ~/.ssh/some.pem user@server.com
+alias copythat="erase; history 1 | sed 's#^ *[0-9]* *##' | pbcopy"
+
+# Easy navigation
+alias cdd="cdl -"
+alias ~="cdl ~"
+alias ..="cdl .."
+alias ...="cdl ../.."
+alias ....="cdl ../../.."
+alias .....="cdl ../../../.."
+
+# Shortcuts
+alias dl="cdl ~/Downloads"
+alias dt="cdl ~/Desktop"
+mkdir -p ~/Screenshots
+alias ss="cdl ~/Screenshots"
+mkdir -p ~/Github/busterc
+alias gh="cdl ~/Github"
+alias ghb="cdl ~/Github/busterc"
+mkdir -p ~/Bitbucket/busterc
+alias bb="cdl ~/Bitbucket"
+alias bbb="cdl ~/Bitbucket/busterc"
+alias dev="cd ~/Desktop && mkdir -p .dev && cdl .dev"
+alias temp="cd ~/Desktop && mkdir -p .temp && cdl .temp"
+alias data="cd ~ && mkdir -p data && cdl data"
+
+# Always use color output
+if ls --color > /dev/null 2>&1; then
+  # GNU `ls`
+  colorflag="--color"
+else
+  # macOS `ls`
+  colorflag="-G"
+fi
+alias ls="command ls ${colorflag}"
+
+# List all files colorized in long format
+alias l="ls -l ${colorflag}"
+
+# List all files colorized in long format, including dot files
+alias la="ls -la ${colorflag}"
+
+# List only directories
+alias lsd="ls -l ${colorflag} | grep '^d'"
+
+# List only dotfiles
+alias lds="ls -lad ${colorflag} .*"
+
+# List only directories, including dot files
+alias lsda="ls -la ${colorflag} | grep '^d'"
+
+# Always enable colored `grep` output
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+
+# Enable aliases to be sudo’ed
+# alias sudo="sudo "
+
+# Recursively touch all files and subdirectories
+alias grope="find . -exec touch {} \;"
+
+# Touch new files in a new directory (touch + mkdir -p)
+function touchy() {
+  for path in $@; do
+    mkdir -p "$(dirname "$path")"
+    touch "$path"
+  done
+}
+
+# Copy and Change Owner
+function cpwn() {
+  function usage() {
+    cat <<EOF
+
+  Usage: cpwn <source> <destination>
+
+    Description: copy file and change owner
+
+EOF
+  }
+
+  if [[ $# -eq 2 ]] && [[ -f "$1" ]]; then
+    sudo cp "$1" "$2"
+    sudo chown $USER:$USER "$2"
+  else
+    usage
+  fi
+}
+
+# Copy to new directory
+function cpdirp() {
+  function usage() {
+    cat <<EOF
+
+  Usage: cpdirp <source> <destination>
+
+    Description: mkdir -p the <destination> and cp -R the <source>
+
+    Examples:
+
+      $ find stuff
+      # ==> stuff
+      # ==> stuff/.dofile
+      # ==> stuff/a.file
+      # ==> stuff/b
+      # ==> stuff/b/c.file
+
+
+      ### Copy the contents of the <source> folder ###
+
+      $ cpdirp stuff/ stuff/this # stuff/ <-- has trailing slash
+
+      $ find stuff/this
+      # ==> stuff/this
+      # ==> stuff/this/.dofile
+      # ==> stuff/this/a.file
+      # ==> stuff/this/b
+      # ==> stuff/this/b/c.file
+
+
+      ### Copy the entire <source> folder ###
+
+      $ cpdirp stuff stuff/that # stuff <-- NO trailing slash
+
+      $ find stuff/that
+      # ==> stuff/that
+      # ==> stuff/that/.dofile
+      # ==> stuff/that/a.file
+      # ==> stuff/that/b
+      # ==> stuff/that/b/c.file
+
+
+      ### Copy a <source> file to folder ###
+
+      $ cpdirp stuff/a.file stuff/what/
+
+      $ find stuff/what
+      # ==> stuff/what
+      # ==> stuff/what/a.file
+
+EOF
+  }
+
+  if [[ $# -eq 2 ]]; then
+    mkdir -p "$2"
+    cp -R "$1" "$2"
+  else
+    usage
+  fi
+}
+
+# Create a new directory
+alias mdp="mkdir -p"
+
+# Create a new directory and enter it
+function md() {
+  mkdir -p "$@" && cd "$@"
+}
+
+# Remove files and/or directories
+function rmd() {
+  if [[ "$1" = "." ]]; then
+    # remove everything inside the CWD,
+    # including dotfiles while suppressing
+    # the error message for . and ..
+    find . -exec rm -rf {} 2> /dev/null \;
+  else
+    rm -rf "$@"
+  fi
+}
+
+# Remove empty directories
+alias rmd-empty="find . -empty -type d -delete"
+
+# Erase the contents of a directory, leaving the folder
+function riddir() {
+  function usage() {
+    cat <<EOF
+
+  Usage: riddir <directory>
+
+    Description:
+      Remove the contents of a directory,
+      leaving the directory itself in place.
+
+EOF
+  }
+
+  if [ -z "$1" ]; then
+    usage
+    return 1
+  fi
+
+  if [ -d "$1" ]; then
+    (
+      cd "$1"
+      find . -exec rm -rf {} 2> /dev/null \;
+    )
+  else
+    cat <<EOF
+
+    Error: Not a valid directory => "$1"
+
+EOF
+  fi
+
+}
+alias rid=riddir
+
+# Change directory and list contents
+function cdl() {
+  cd "$@" && la
+}
+
+# Find files or directories (by name) with grep
+function _q() {
+  find . -type "$1" | grep "$2" | grep -v "$2.*/"
+}
+
+# Find files with grep
+function qf() {
+  _q f "$@"
+}
+
+# Find directories with grep
+function qd() {
+  _q d "$@"
+}
+
+# Determine size of a file or total size of a directory
+function fs() {
+  if du -b /dev/null > /dev/null 2>&1; then
+    local arg=-sbh
+  else
+    local arg=-sh
+  fi
+  if [[ -n "$@" ]]; then
+    du $arg -- "$@"
+  else
+    du $arg .[^.]* *
+  fi
+}
+
+# List all file extensions in CWD and total count for each type.
+# Pass number for -maxdepth (default is infinity)
+function xfiles() {
+  local depth=${1:-1}
+  local maxdepth="-maxdepth $depth"
+  if ! [[ $1 -ge 1 ]]; then
+    maxdepth=""
+  fi
+  eval "find . -type f $maxdepth | rev | cut -d. -f1 | rev  | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -rn"
+}
+
+# Find the biggest files in a directory
+function bigfiles() {
+  echo "Biggest Files (KB) in $PWD"
+  local target="."
+  if [[ -n "$@" ]]; then
+    target="$@"
+  fi
+  find "$target" -type f | xargs -I {} du -sk "{}" | sort -nr
+}
+
+# Open Editor
+function e() {
+  local ed="$EDITOR"
+  if [[ -z "$1" ]]; then
+    ed+=" ."
+  else
+    ed+=" $1"
+  fi
+  $ed
+}
+
+# List all environment variables that match regexp
+alias envs="env | grep "
+
+# List aliases that match regexp, e.g. $ alls .*sudo.*
+function alls() {
+  alias -p | grep "^alias $1" | sed "s#^alias ##" | grep $1
+}
+
+# List functions that match regexp, e.g. $ fnls .*c.*
+function fnls() {
+  declare -F | grep "^declare -f $1" | sed "s#^declare -f ##" | awk '{print $0 "()"}' | grep $1
+}
+
+# List functions (with source) that match regexp, e.g. $ funls .*c.*
+function funls() {
+  fns="$(fnls $1)"
+  for fn in "$fns"; do
+    _fn=$(echo "$fn" | sed "s#()##")
+    declare -f $_fn
+  done
+}
+
+# List functions AND aliases that match regexp, e.g. $ fnalls .*c.*
+function fnalls() {
+  alls "$1"
+  echo
+  fnls "$1"
+}
+
+# List functions (with source) AND aliases that match regexp, e.g. $ funalls .*c.*
+function funalls() {
+  alls "$1"
+  funls "$1"
+}
+
+# Generate a stubbed Bash file
+function bashfile() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: bashfile <name>\n\n"
+  else
+    read -r -d '' src <<'EOF'
+#!/usr/bin/env bash
+
+function {{name}}() {
+
+}
+
+if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
+  export -f {{name}}
+else
+  {{name}}
+fi
+EOF
+  echo "$src" | sed 's#{{name}}#'$1'#g' > "$1"
+  chmod +x "$1"
+  e "$1"
+  fi
+}
+
+# Generate a stubbed Shell file
+function shfile() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: shfile <filename>\n\n"
+  else
+    read -r -d '' src <<'EOF'
+#!/usr/bin/env sh
+
+function {{name}}() {
+
+}
+
+if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
+  export -f {{name}}
+else
+  {{name}}
+fi
+EOF
+  echo "$src" | sed 's#{{name}}#'$1'#g' > "$1"
+  chmod +x "$1"
+  e "$1"
+  fi
+}
+
+# Generate a stubbed Node Shell file
+function nodefile() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: nodefile <filename>\n\n"
+  else
+    local shell
+    local file
+    file="$1"
+    printf "#!/usr/bin/env node\n'use strict';\n// %s\n\n" "$1" > "$file"
+    chmod +x "$file"
+    e "$file"
+  fi
+}
+
+# HR for terminal, see also: https://github.com/LuRsT/hr
+function hr() {
+  local COLS
+  COLS="$(tput cols)"
+  if (( COLS <= 0 )) ; then
+    COLS="${COLUMNS:-80}"
+  fi
+
+  local WORD="$1"
+  if [[ -z "$WORD" ]] ; then
+    WORD="_"
+  fi
+
+  local LINE=''
+  while (( ${#LINE} < COLS ))
+  do
+    LINE="$LINE$WORD"
+  done
+  echo "${LINE:0:$COLS}"
+}
+
+# Flatten file names, e.g.: ./dir/subdir/file.ext -> ./dir-subdir-file.ext
+alias rename-flat-all="find * -type f -exec rename 's#\/#\-#g' {} \;"
+
+# Move CWD into a new/existing subdirectory
+function bury() {
+  if [[ $# -eq 0 ]]; then
+    cat <<EOF
+
+  Usage: bury <subdirectory>
+
+    Description: put contents of CWD into a new or existing subdirectory
+
+EOF
+  else
+    mkdir -p "$1"
+    (
+      shopt -s dotglob
+      for file in *;
+      do
+        local target=$(echo $1 | cut -d "/" -f1)
+        if [[ "$file" != "$target" ]]; then
+          # echo "==> $file"
+          mv "$file" "$1"
+        fi
+      done
+    )
+  fi
+}
+
+# Tree with dotfiles; use $TREEZ_IGNORE for filtering
+## ingore defaults
+export TREEZ_IGNORE=".git|node_modules"
+function treez() {
+  tree -a -I "$TREEZ_IGNORE" "$@" | less
+}
+
+# find a file in the first possible parent dir
+function find_up() {
+  (
+    while [[ "$PWD" != "/" ]]; do
+      find "$PWD/$@" -maxdepth 1 2>/dev/null && return || cd ..
+    done
+    (>&2 echo ":( not found: $@")
+    return 1
+  )
+}
+
+# Get absolute path to dir or file
+function abs() {
+  echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
+}

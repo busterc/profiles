@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# case insensitive match
+alias acki="ack -i"
+
+# list file names
+alias ackl="ack -l"
+
+# case insensitive match && list file names
+alias ackil="ack -il"

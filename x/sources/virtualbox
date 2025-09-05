@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# VirtualBox
+
+alias vbxl="VBoxManage list vms"
+alias vbxlr="VBoxManage list runningvms"
+alias vbxs="VBoxManage startvm"
+alias vbx="VBoxManage startvm --type headless"
+
+# VirtualBox PowerOff VM
+function vbxo() {
+  VBoxManage controlvm "$1" poweroff
+}

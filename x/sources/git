@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# Git aliases
 ## add
 alias gta="git add"
 alias gtap="git add -p"
@@ -97,12 +96,6 @@ function ghc() {
 function ghcbc() {
   git clone git@github.com:busterc/"$1"
 }
-function ghcus() {
-  git clone git@github.com:UserStyles/"$1"
-}
-function ghchj() {
-  git clone git@github.com:HyperJSON/"$1"
-}
 
 # Setup GitHub remote repo and push for the first time
 function repo-ghbc() {
@@ -121,7 +114,6 @@ function repo-bbbc() {
 }
 
 # BitBucket aliases
-
 function bbc() {
   git clone git@bitbucket.org:"$1"
 }

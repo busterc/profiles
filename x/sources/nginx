@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+# NGINX helper
+function ngx() {
+  function usage() {
+    cat <<EOF
+
+  Usage: ngx <options>
+
+    Description: NGINX utils
+
+    Options:
+
+      -la            list available websites
+      -le            list enabled websites
+      -es <website>  enable a website
+      -ds <website>  disable a website
+      -ca            cd to /etc/nginx/sites-available
+      -ce            cd to /etc/nginx/sites-enabled
+
+EOF
+  }
+
+  if [[ $# -eq 0 ]]; then
+    usage
+  else
+
+    local availableDir="/etc/nginx/sites-available/"
+    local enabledDir="/etc/nginx/sites-enabled/"
+
+    case "$1" in
+    -la)
+      ls $availableDir
+      ;;
+    -le)
+      ls $enabledDir
+      ;;
+    -es)
+      if [[ -f "$availableDir$2" ]]; then
+        sudo ln -sfn "$availableDir$2" "$enabledDir$2"
+        sudo nginx -s reload
+      else
+        printf "\n  Error: $2 was not found\n\n"
+      fi
+      ;;
+    -ds)
+      if [[ -f "$enabledDir$2" ]]; then
+        sudo rm "$enabledDir$2"
+        sudo nginx -s reload
+      else
+        printf "\n  Error: $2 was not found\n\n"
+      fi
+      ;;
+    -ca)
+      cd $availableDir
+      ;;
+    -ce)
+      cd $enabledDir
+      ;;
+    *)
+      usage
+      ;;
+    esac
+  fi
+}
+alias ngxla="ngx -la"
+alias ngxle="ngx -le"
+alias ngxes="ngx -es"
+alias ngxds="ngx -ds"
+alias ngxca="ngx -ca"
+alias ngxce="ngx -ce"

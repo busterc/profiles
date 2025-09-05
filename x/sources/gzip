@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Tar + Gzip
+alias tgz="tar -czvf"
+# Unzip + Untar
+alias utgz="tar -xzvf"
+
+# Tar + Gzip Subdirectories
+alias tgzs="find . -type d -depth 1 -exec tar -czf \"{}\".tar.gz \"{}\" \;"
+alias utgzs="find . -depth 1 -name '*.tar.gz' -exec tar -xzf \"{}\" \;"
+alias tgzs-clean="find . -type d -depth 1 -exec tar -czf \"{}\".tar.gz \"{}\" \; -exec rm -rf \"{}\" \;"
+alias utgzs-clean="find . -depth 1 -name '*.tar.gz' -exec tar -xzf \"{}\" \; -exec rm \"{}\" \;"
