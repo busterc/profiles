@@ -4,6 +4,7 @@
 
 homebrew_packages=(
     arq
+    cheat
     dart
     duckdb
     fvm
@@ -14,12 +15,14 @@ homebrew_packages=(
     jenv
     lynx
     surfraw
+    tlrc
     tmux
     youtube-dl
 )
 echo "${homebrew_packages[@]}" | ipt -s " " -m -M "Select Homebrew Packages to Install:" | xargs brew install
 
 homebrew_casks=(
+    amazon-q
     android-studio
     chatgpt
     claude-code
