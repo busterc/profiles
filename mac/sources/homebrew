@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-alias brew-outdated="brew outdated --verbose | column -t -s '()'"
-alias bro="brew-outdated"
-alias brew-upgrade="brew-outdated | ipt -u -m -M 'Select Packages to Upgrade:' | cut -d ' ' -f 1 | xargs brew upgrade"
-alias bru="brew-upgrade"
+alias brew_outdated="brew outdated --verbose | column -t -s '()'"
+alias bro="brew_outdated"
+alias brew_upgrade_interactive="brew_outdated | ipt -u -m -M 'Select Packages to Upgrade:' | cut -d ' ' -f 1 | xargs brew upgrade"
+alias bru="brew_upgrade_interactive"
