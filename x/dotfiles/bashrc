@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Try to unload any current SSH agent
+trap 'ssh_unload_agent' EXIT
+
 [[ -f "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
