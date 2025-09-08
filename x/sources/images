@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 # CLI for JS `encodeURIComponent` handy for quick svg conversions
-function encodeURI() {
+function encode_uri() {
   if [[ $# -eq 0 ]]; then
     cat <<'EOF'
 
-  Usage: encodeURI <string>
+  Usage: encode_uri <string>
 
-  Example: $ encodeURI "$(cat logo.svg)" | pbcopy
+  Example: $ encode_uri "$(cat logo.svg)" | pbcopy
 
 EOF
   else
@@ -25,13 +25,13 @@ EOF
 }
 
 # CLI for JS `decodeURIComponent` handy for quick svg conversions
-function decodeURI() {
+function decode_uri() {
   if [[ $# -eq 0 ]]; then
     cat <<'EOF'
 
-  Usage: decodeURI <string>
+  Usage: decode_uri <string>
 
-  Example: $ decodeURI "%3Csvg%3E%3C%2Fsvg%3E" | pbcopy"
+  Example: $ decode_uri "%3Csvg%3E%3C%2Fsvg%3E" | pbcopy"
 
 EOF
   else
@@ -49,15 +49,17 @@ EOF
 }
 
 
-# defaults for `iconr` and fix classname preprending
-alias iconz="iconr . . -avNnokSd -c=i.icon.icon- | sed 's#\.i\.icon\.#i\.icon\.#g' > _iconz.css"
+# Defaults for `iconr` and fix classname preprending
+if command -v iconr >/dev/null 2>&1; then
+  alias iconz="iconr . . -avNnokSd -c=i.icon.icon- | sed 's#\.i\.icon\.#i\.icon\.#g' > _iconz.css"
+fi
 
-# add color to svgs
-function fill-svg() {
+# Add color to svgs
+function fill_svg() {
   if [[ $# -lt 3 ]] || [[ $1 == *".svg" ]] || [[ $2 == *".svg" ]]; then
     cat <<'EOF'
 
-    Usage: fill-svg <color-name> <color> <svg-file>...
+    Usage: fill_svg <color-name> <color> <svg-file>...
 
     Description: adds `fill="color"` to svg `<path>` element and saves
     the new file(s) in ./filled/<color-name>/*
@@ -70,9 +72,9 @@ function fill-svg() {
 
     Examples:
 
-      $ fill-svg burnt-orange "#bf5700" *.svg
+      $ fill_svg burnt-orange "#bf5700" *.svg
 
-      $ fill-svg orange orange *.svg
+      $ fill_svg orange orange *.svg
 
 EOF
   else
@@ -93,91 +95,17 @@ EOF
 }
 
 # FontAwesome to SVG (font glyphs to individual svg files)
-function fa2svg() {
+function fontawesome_to_svg() {
   git clone https://github.com/fortawesome/font-awesome
   mkdir -p ./fontawesome-svg/
   svg-caster --svg-font ./font-awesome/fonts/fontawesome-webfont.svg --svg-font-css ./font-awesome/css/font-awesome.css --out-svg ./fontawesome-svg/
   rm -rf ./font-awesome/
 }
 
-# simple stopwatch with laps
-function stopwatch() {
-  local n=0
-  local t=0
-  local continuing="true"
-  local lap=1
-  local key="~"
-  local pausing="~"
-
-  cat <<EOF
-
-  * type "p" to pause and "r" to resume
-  * hit the spacebar to start a new lap
-    * if paused you will resume with a new lap
-  * type "q" or "x" or Ctrl-c to stop
-
-EOF
-
-  function summary() {
-    continuing="false" # break the while loop
-    local elapsed=$(($t-$lap+1))
-    printf "\r\033[0KLap ${lap}: $n seconds\n"
-    printf "\nTotal Elapsed: $elapsed seconds\n"
-  }
-
-  trap "summary" SIGINT
-
-  while [[ $continuing = "true" ]]; do
-    key="~"
-    pausing="~"
-    printf "\r\033[0KLap ${lap}: $n seconds"
-    read -s -t 1 -n 1 key
-
-    case "$key" in
-      "")
-        printf "\r\033[0KLap ${lap}: $n seconds\n"
-        key=""
-        n=-1
-        ((lap++))
-        ;;
-      q|x)
-        summary
-        break
-        ;;
-      p)
-        function paused() {
-          read -s -n 1 pausing
-          case "$pausing" in
-            "")
-              printf "\r\033[0KLap ${lap}: $n seconds\n"
-              key=""
-              n=-1
-              ((lap++))
-              ;;
-            q|x)
-              summary
-              break
-              ;;
-            r)
-              : # noop
-              ;;
-            *)
-              paused
-              ;;
-          esac
-        }
-        paused
-        ;;
-    esac
-    ((t++))
-    ((n++))
-  done
-}
-
 # ImageMagick FavIcon Generator
-function favicon() {
+function favicon_generator_via_imagemagick() {
   if [[ $# -eq 0 ]]; then
-    printf "\n  Usage: favicon <image-filename>\n\n"
+    printf "\n  Usage: favicon_generator_via_imagemagick <image-filename>\n\n"
   else
     convert "$1" -bordercolor white -border 0 \
       \( -clone 0 -resize 16x16 \) \
@@ -189,11 +117,11 @@ function favicon() {
 }
 
 # Move images into YYYY-MM-DD directories
-yyyymmdddir() {
+move_images_to_YYYY-MM-DD_subdirectories() {
   if [ $# -eq 0 ]; then
     cat <<EOF
 
-  Usage: yyyymmdddir <file>
+  Usage: move_images_to_YYYY-MM-DD_subdirectories <file>
 
 EOF
     return 1

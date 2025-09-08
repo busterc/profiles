@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-# case insensitive match
-alias acki="ack -i"
-
-# list file names
-alias ackl="ack -l"
-
-# case insensitive match && list file names
-alias ackil="ack -il"
+alias ack_ignore_case="ack --ignore-case"
+alias ack_list_files="ack --files-with-matches"
+alias ack_ignore_case_list_files="ack --ignore-case --files-with-matches"

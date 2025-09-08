@@ -4,16 +4,12 @@ shopt -s direxpand 2>/dev/null
 shopt -s autocd 2>/dev/null
 export LESS="r"
 export PAGER="less"
-if [[ -s "$HOME/bin/bat_pager" ]]; then
-  export BAT_PAGER="$HOME/bin/bat_pager"
-fi
 
-# Prompt display
-# export PROMPTERTYPE=short
-function prompter(){
+# Prompt display customization
+function prompter() {
   local _ps1=""
   if [[ $# -gt 0 ]]; then
-    export PROMPTERTYPE="$1"
+    export PROMPT_TYPE="$1"
   fi
 
   local sshd
@@ -40,7 +36,7 @@ function prompter(){
     git=" [$branch$flags]"
   fi
 
-  case "$PROMPTERTYPE" in
+  case "$PROMPT_TYPE" in
   long)
     _ps1="\u @$(hostname -s) in \$PWD"$git
     PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
@@ -63,13 +59,18 @@ if [[ $- == *i* ]]; then
   export PROMPT_COMMAND=prompter
 fi
 
-# Prefix prompt with node version (via NVM)
-function nvsh() {
-  if [[ "$1" == "x" ]]; then
-    PROMPT_PREFIX=""
-  else
-    PROMPT_PREFIX="n$(nvm current): "
+# Set PROMPT_PREFIX with node version (via NVM)
+function prompt_prefix_set_with_current_node_version() {
+  current_node_version="$(nvm current 2>/dev/null)"
+  if [[ "$current_node_version" == "system" ]]; then
+    current_node_version="$(node -v)"
   fi
+  PROMPT_PREFIX="n$current_node_version: "
+}
+
+# Unset PROMPT_PREFIX
+function prompt_prefix_unset() {
+  PROMPT_PREFIX=""
 }
 
 # Prep ~/bin if not already in PATH
@@ -81,28 +82,28 @@ if [[ "${PATH}" != *"${my_bin_dir}"* ]]; then
 fi
 
 # Reload profile
-alias repro="source ~/.bash_profile"
-alias mmm="repro"
+alias reload_bash_profile="source ~/.bash_profile"
+alias mmm="reload_bash_profile"
 
 # Erase the last command from history when chained, e.g.
-# $ echo hiya; erase
-function erase() {
+# $ echo hiya; erase_command_from_history
+function erase_command_from_history() {
   history -d $(history 1)
 }
 
 # Erase the last command from history
 # $ echo hiya
-# $ forget
-function forget() {
+# $ erase_the_last_command_from_history
+function erase_the_last_command_from_history() {
   history -d $(history 1); history -d $(history 1)
 }
 
 # Copy the last command from history
 # $ ssh -i ~/.ssh/some.pem user@server.com
-# $ copythat
+# $ copy_the_last_command_from_history
 # $ pbp
 # ssh -i ~/.ssh/some.pem user@server.com
-alias copythat="erase; history 1 | sed 's#^ *[0-9]* *##' | pbcopy"
+alias copy_the_last_command_from_history="erase; history 1 | sed 's#^ *[0-9]* *##' | pbcopy"
 
 # Easy navigation
 alias cdd="cdl -"
@@ -274,14 +275,14 @@ function rmd() {
 }
 
 # Remove empty directories
-alias rmd-empty="find . -empty -type d -delete"
+alias rmd_empty="find . -empty -type d -delete"
 
 # Erase the contents of a directory, leaving the folder
-function riddir() {
+function remove_contents_from_directory_but_leave_directory() {
   function usage() {
     cat <<EOF
 
-  Usage: riddir <directory>
+  Usage: remove_contents_from_directory_but_leave_directory <directory>
 
     Description:
       Remove the contents of a directory,
@@ -309,7 +310,7 @@ EOF
   fi
 
 }
-alias rid=riddir
+alias rid="remove_contents_from_directory_but_leave_directory"
 
 # Change directory and list contents
 function cdl() {
@@ -344,10 +345,12 @@ function fs() {
     du $arg .[^.]* *
   fi
 }
+alias file_size="fs"
+alias folder_size="fs"
 
 # List all file extensions in CWD and total count for each type.
 # Pass number for -maxdepth (default is infinity)
-function xfiles() {
+function count_files_by_extension_in_current_directory() {
   local depth=${1:-1}
   local maxdepth="-maxdepth $depth"
   if ! [[ $1 -ge 1 ]]; then
@@ -355,9 +358,10 @@ function xfiles() {
   fi
   eval "find . -type f $maxdepth | rev | cut -d. -f1 | rev  | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -rn"
 }
+alias xfiles="count_files_by_extension_in_current_directory"
 
 # Find the biggest files in a directory
-function bigfiles() {
+function list_big_files() {
   echo "Biggest Files (KB) in $PWD"
   local target="."
   if [[ -n "$@" ]]; then
@@ -365,6 +369,7 @@ function bigfiles() {
   fi
   find "$target" -type f | xargs -I {} du -sk "{}" | sort -nr
 }
+alias bigfiles="list_big_files"
 
 # Open Editor
 function e() {
@@ -378,44 +383,50 @@ function e() {
 }
 
 # List all environment variables that match regexp
-alias envs="env | grep "
+alias grep_env="env | grep "
+alias envs="grep_env"
 
 # List aliases that match regexp, e.g. $ alls .*sudo.*
-function alls() {
+function find_aliases_matching_regex() {
   alias -p | grep "^alias $1" | sed "s#^alias ##" | grep $1
 }
+alias alls="find_aliases_matching_regex"
 
 # List functions that match regexp, e.g. $ fnls .*c.*
-function fnls() {
+function find_functions_matching_regex() {
   declare -F | grep "^declare -f $1" | sed "s#^declare -f ##" | awk '{print $0 "()"}' | grep $1
 }
+alias fnls="find_functions_matching_regex"
 
 # List functions (with source) that match regexp, e.g. $ funls .*c.*
-function funls() {
+function find_functions_with_source_matching_regex() {
   fns="$(fnls $1)"
   for fn in "$fns"; do
     _fn=$(echo "$fn" | sed "s#()##")
     declare -f $_fn
   done
 }
+alias funls="find_functions_with_source_matching_regex"
 
 # List functions AND aliases that match regexp, e.g. $ fnalls .*c.*
-function fnalls() {
-  alls "$1"
+function find_aliases_and_functions_matching_regex() {
+  find_aliases_matching_regex "$1"
   echo
-  fnls "$1"
+  find_functions_matching_regex "$1"
 }
+alias fnalls="find_aliases_and_functions_matching_regex"
 
 # List functions (with source) AND aliases that match regexp, e.g. $ funalls .*c.*
-function funalls() {
-  alls "$1"
-  funls "$1"
+function find_aliases_and_functions_matching_regex() {
+  find_aliases_matching_regex "$1"
+  find_functions_matching_regex "$1"
 }
+alias funalls="find_aliases_and_functions_matching_regex"
 
 # Generate a stubbed Bash file
-function bashfile() {
+function generate_stubbed_bash_file() {
   if [[ $# -eq 0 ]]; then
-    printf "\n  Usage: bashfile <name>\n\n"
+    printf "\n  Usage: generate_stubbed_bash_file <name>\n\n"
   else
     read -r -d '' src <<'EOF'
 #!/usr/bin/env bash
@@ -435,11 +446,12 @@ EOF
   e "$1"
   fi
 }
+alias bash_file="generate_stubbed_bash_file"
 
 # Generate a stubbed Shell file
-function shfile() {
+function generate_stubbed_shell_file() {
   if [[ $# -eq 0 ]]; then
-    printf "\n  Usage: shfile <filename>\n\n"
+    printf "\n  Usage: generate_stubbed_shell_file <filename>\n\n"
   else
     read -r -d '' src <<'EOF'
 #!/usr/bin/env sh
@@ -459,20 +471,37 @@ EOF
   e "$1"
   fi
 }
+alias sh_file="generate_stubbed_shell_file"
 
 # Generate a stubbed Node Shell file
-function nodefile() {
+function generate_stubbed_node_file() {
   if [[ $# -eq 0 ]]; then
-    printf "\n  Usage: nodefile <filename>\n\n"
+    printf "\n  Usage: generate_stubbed_node_file <filename>\n\n"
   else
     local shell
     local file
     file="$1"
-    printf "#!/usr/bin/env node\n'use strict';\n// %s\n\n" "$1" > "$file"
+    printf "#!/usr/bin/env node\n/* eslint-disable no-console */;\n// %s\n\n" "$1" > "$file"
     chmod +x "$file"
     e "$file"
   fi
 }
+alias node_file="generate_stubbed_node_file"
+
+# Generate a stubbed TypeScript Node file
+function generate_stubbed_ts_node_file() {
+  if [[ $# -eq 0 ]]; then
+    printf "\n  Usage: generate_stubbed_ts_node_file <filename>\n\n"
+  else
+    local shell
+    local file
+    file="$1"
+    printf "#!/usr/bin/env ts-node-script\n/* eslint-disable no-console */;\n// %s\n\n" "$1" > "$file"
+    chmod +x "$file"
+    e "$file"
+  fi
+}
+alias ts_node_file="generate_stubbed_ts_node_file"
 
 # HR for terminal, see also: https://github.com/LuRsT/hr
 function hr() {
@@ -496,14 +525,14 @@ function hr() {
 }
 
 # Flatten file names, e.g.: ./dir/subdir/file.ext -> ./dir-subdir-file.ext
-alias rename-flat-all="find * -type f -exec rename 's#\/#\-#g' {} \;"
+alias flat_rename_all_files_in_directory_and_subdirectories="find * -type f -exec rename 's#\/#\-#g' {} \; && find . -type d -exec rm -rf {} 2> /dev/null \;"
 
 # Move CWD into a new/existing subdirectory
-function bury() {
+function bury_files_and_folders_into_subdirectory() {
   if [[ $# -eq 0 ]]; then
     cat <<EOF
 
-  Usage: bury <subdirectory>
+  Usage: bury_files_and_folders_into_subdirectory <subdirectory>
 
     Description: put contents of CWD into a new or existing subdirectory
 
@@ -524,12 +553,8 @@ EOF
   fi
 }
 
-# Tree with dotfiles; use $TREEZ_IGNORE for filtering
-## ingore defaults
-export TREEZ_IGNORE=".git|node_modules"
-function treez() {
-  tree -a -I "$TREEZ_IGNORE" "$@" | less
-}
+alias tree_all_files="tree -la"
+alias tree_ignore_dev="tree -a -I '.git|node_modules|_private|.husky|.next'"
 
 # find a file in the first possible parent dir
 function find_up() {
@@ -543,6 +568,6 @@ function find_up() {
 }
 
 # Get absolute path to dir or file
-function abs() {
+function absolute_path_to_file_or_directory() {
   echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
 }

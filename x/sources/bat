@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+if command -v bat &> /dev/null; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p --paging=always'"
+
+  alias bat_without_paging="bat --paging=never"
+
+  function bat_json_pretty_print() {
+    if [[ -z "$1" ]]; then
+      echo "Usage: bat_json_pretty_print <filename>"
+      return 1
+    fi
+    bat "$1" | json_pp | bat --language=json
+  }
+
+  function bat_json_pretty_print_without_paging() {
+    if [[ -z "$1" ]]; then
+      echo "Usage: bat_json_pretty_print_without_paging <filename>"
+      return 1
+    fi
+    bat "$1" | json_pp | bat --language=json --paging=never
+  }
+fi

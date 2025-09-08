@@ -3,11 +3,11 @@
 # My IPs
 alias ips="npx -q ips | lbl -e 'x=>{if(!x)return;x=JSON.parse(x);Object.keys(x).forEach(k=>console.log(x[k],k))}'"
 
-function scrape() {
+function scrape_url_with_wget_recursively() {
   function usage() {
     cat <<EOF
 
-  Usage: scrape <url>
+  Usage: scrape_url_with_wget_recursively <url>
 
   Description: scrape a site recursively, using wget
 
@@ -28,7 +28,7 @@ EOF
 }
 
 function curl_time() {
-    curl -so /dev/null -w "\
+    curl -so /dev/null -w "\n\
    namelookup:  %{time_namelookup}s\n\
       connect:  %{time_connect}s\n\
    appconnect:  %{time_appconnect}s\n\

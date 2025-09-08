@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 # SSH Key Caching
-alias sshload='eval $(ssh-agent) > /dev/null && ssh-add'
-alias sshunload='eval $(ssh-agent -k)'
-alias sshexit="sshunload && exit"
+alias ssh_load_agent='eval $(ssh-agent) > /dev/null && ssh-add'
+alias ssh_unload_agent='eval $(ssh-agent -k)'
+alias ssh_exit="ssh_unload_agent && exit"

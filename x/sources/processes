@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
 # Process Search by Name
-alias psa="ps aux | grep -v 'grep' | grep "
+alias process_grep_name="ps aux | grep -v 'grep' | grep "
 
 # Process Kill Matching Name
-function psakill() {
+function process_kill_name() {
   ps aux | grep -v 'grep' | grep "$@" | awk '{print $2}' | xargs kill -9
 }
 
 # Process ID Search by Port
-function psport() {
+function process_id_for_port() {
   if [[ $# -eq 0 ]]; then
-    printf "\n  Usage: psport <port>\n\n"
+    printf "\n  Usage: process_id_for_port <port>\n\n"
   else
     pids="$(lsof -ti:$1)"
     if [[ "${#pids}" -eq 0  ]]; then
@@ -26,18 +26,18 @@ function psport() {
 }
 
 # Process Search by Port
-function psaport() {
+function process_details_for_port() {
   if [[ $# -eq 0 ]]; then
-    printf "\n  Usage: psaport <port>\n\n"
+    printf "\n  Usage: process_details_for_port <port>\n\n"
   else
-    psport "$@" | xargs -I{} ps -p {}
+    process_id_for_port "$@" | xargs -I{} ps -p {}
   fi
 }
 
 # Process Kill by Port
-function killport() {
+function process_kill_for_port() {
   if [[ $# -eq 0 ]]; then
-    printf "\n  Usage: killport <port>\n\n"
+    printf "\n  Usage: process_kill_for_port <port>\n\n"
   else
     lsof -ti:$1 | xargs -I{} kill -9 {}
   fi

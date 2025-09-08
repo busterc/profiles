@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 
 # Tar + Gzip
-alias tgz="tar -czvf"
-# Unzip + Untar
-alias utgz="tar -xzvf"
-
+alias tar_gzip_create_verbose_filename="tar -czvf"
+alias tgz="tar_gzip_create_verbose_filename"
 # Tar + Gzip Subdirectories
-alias tgzs="find . -type d -depth 1 -exec tar -czf \"{}\".tar.gz \"{}\" \;"
-alias utgzs="find . -depth 1 -name '*.tar.gz' -exec tar -xzf \"{}\" \;"
-alias tgzs-clean="find . -type d -depth 1 -exec tar -czf \"{}\".tar.gz \"{}\" \; -exec rm -rf \"{}\" \;"
-alias utgzs-clean="find . -depth 1 -name '*.tar.gz' -exec tar -xzf \"{}\" \; -exec rm \"{}\" \;"
+alias tar_gzip_create_for_each_subdirectory="find . -type d -depth 1 -exec tar -czf \"{}\".tar.gz \"{}\" \;"
+alias tgzs="tar_gzip_create_for_each_subdirectory"
+# Tar + Gzip Subdirectories and Delete Subdirectory folders
+alias tar_gzip_create_for_each_subdirectory_and_delete_subdirectory_folders="find . -type d -depth 1 -exec tar -czf \"{}\".tar.gz \"{}\" \; -exec rm -rf \"{}\" \;"
+alias tgzs-clean="tar_gzip_create_for_each_subdirectory_and_delete_subdirectory_folders"
+
+
+# Unzip + Untar
+alias tar_gzip_extract_verbose_filename="tar -xzvf"
+alias utgz="tar_gzip_extract_verbose_filename"
+# Unzip + Untar Subdirectories
+alias tar_gzip_extract_for_each_subdirectory="find . -depth 1 -name '*.tar.gz' -exec tar -xzf \"{}\" \;"
+alias utgzs="tar_gzip_extract_for_each_subdirectory"
+# Unzip + Untar Subdirectories and Delete *.tar.gz files
+alias tar_gzip_extract_for_each_subdirectory_and_delete_targz_files="find . -depth 1 -name '*.tar.gz' -exec tar -xzf \"{}\" \; -exec rm \"{}\" \;"
+alias utgzs-clean="tar_gzip_extract_for_each_subdirectory_and_delete_targz_files"

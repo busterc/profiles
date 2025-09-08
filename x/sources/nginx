@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 
-# NGINX helper
-function ngx() {
+# Aliases for NGINX Helper
+alias nginx_list_available_websites="nginx_helper -la"
+alias nginx_list_enabled_websites="nginx_helper -le"
+alias nginx_enable_website="nginx_helper -es"
+alias nginx_disable_website="nginx_helper -ds"
+alias nginx_cd_to_sites_available="nginx_helper -ca"
+alias nginx_cd_to_sites_enabled="nginx_helper -ce"
+
+# NGINX Helper
+function nginx_helper() {
   function usage() {
     cat <<EOF
 
-  Usage: ngx <options>
+  Usage: nginx_helper <options>
 
     Description: NGINX utils
 
@@ -63,9 +71,3 @@ EOF
     esac
   fi
 }
-alias ngxla="ngx -la"
-alias ngxle="ngx -le"
-alias ngxes="ngx -es"
-alias ngxds="ngx -ds"
-alias ngxca="ngx -ca"
-alias ngxce="ngx -ce"
