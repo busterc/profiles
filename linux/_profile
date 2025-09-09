@@ -1,26 +1,18 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # linux _profile
 
-export LS_COLORS="di=32;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:"
+source_profile_linux() {
+  # cope with spaces in file/directory names
+  local IFS_backup="$IFS"
+  IFS=$'\n'
 
-# VIM as editor
-export EDITOR="vim"
+  local sources=($(dirname "${BASH_SOURCE[0]}")/../linux/sources/*)
+  for s in "${sources[@]}"; do
+    source "$s"
+  done
 
-# Default to long prompter, because I'm likely to be on a server
-prompter long
+  IFS="$IFS_backup"
+}
+source_profile_linux
 
-# misc
-alias ls="ls --color"
-alias ack="ack-grep"
-
-# Clipboard copy/paste like a Mac
-alias pbcopy="xargs -0 -I {} echo \"{}\" > /tmp/clipboard"
-alias pbpaste="cat /tmp/clipboard"
-
-if [[ $- == *i* ]]; then
-  # is an interactive shell
-  # Cache my ssh password :P
-  eval "$(ssh-agent)" > /dev/null
-  ssh-add /home/$USER/.ssh/id_rsa
-fi
