@@ -1,52 +1,34 @@
 #!/usr/bin/env bash
 
-# general info
-alias npmv="npm --version"
-alias npml="npm list --depth 0 | less"
-alias npmlg="npm list --global --depth 0 | less"
-alias npmgl="npmlg"
-alias npmo="npm outdated"
-alias npmog="npmo --global"
+# Init
+alias npm_init_yes="npm init -y"
 
-# local install
-alias npmi="npm install"
-alias npmig="npm install --global"
-alias npmise="npmi --save-exact"
-alias npmisd="npmi --save-dev"
-alias npmisde="npmisd --save-exact"
-alias npmiso="npmi --save-optional"
-alias npmisoe="npmiso --save-exact"
+# List Dependencies
+alias npm_list_deps="npm list --depth 0 | less"
+alias npm_list_deps_global="npm list --global --depth 0 | less"
+alias npm_list_deps_outdated="npm outdated"
+alias npm_list_deps_outdated_global="npm outdated --global"
 
-# local update
-alias npmup="npm update"
+# Check Dependencies (Always use pinning with --save-exact)
+alias npm_check_deps_interactive="npm-check --update --save-exact"
+alias npm_check_deps_global_interactive="npm-check --update --save-exact --global"
 
-# local remove
-alias npmr="npm remove"
-alias npmrs="npmr --save"
-alias npmrsd="npmr --save-dev"
-alias npmrso="npmr --save-optional"
-alias npmx="npmr"
-alias npmxrs="npmrs"
-alias npmxsd="npmrsd"
-alias npmxso="npmrso"
-alias npmxse="npmrse"
+# Install Dependencies (Always use pinning with --save-exact)
+alias npm_install_and_check_deps="npm install --save-exact && npm-check"
+alias npm_install_and_check_deps_interactive="npm install --save-exact && npm-check --update --save-exact"
+alias npmi="npm install --save-exact"
+alias npmig="npm install --save-exact --global"
+alias npmisd="npmi --save-exact --save-dev"
 
-# misc
-alias npmbump="npm version patch"
-alias npm-version-prerelease-bc-dev="npm version prerelease --preid=bc-dev"
-alias npmy="npm init -y"
-alias ppj="npx prettier-package-json --write ./package.json"
-alias npmc="npm-check -u"
-alias npmic="npmi && npmc"
-alias npmcg="npm-check -gu"
-alias npmt="npm test"
-alias npmit="npm it"
+# Versioning
+alias npm_version_patch="npm version patch"
+alias npm_version_prerelease_bc-dev="npm version prerelease --preid=bc-dev"
 
-# global remove
-alias npmrg="npm remove --global"
+# Package.json formatting
+alias npm_prettier_package_json="npx prettier-package-json --write ./package.json"
 
 # Run NPM Install on all subdirectories
-function subnpmi() {
+function npm_install_for_all_subdirectories() {
   for d in $(find . -name 'package.json' | grep -v 'node_modules' | sed 's/\/package\.json//g'); do
     hr
     (
@@ -57,71 +39,27 @@ function subnpmi() {
   done
 }
 
-# Reinstall modules completely
-## local, no save
-function npmri() {
-  npmrs "$@"
-  npmi "$@"
-}
-## local, save
-function npmris() {
-  npmrs "$@"
-  npmris "$@"
-}
-## local, save exact
-function npmrise() {
-  npmrs "$@"
-  npmise "$@"
-}
-## local, save dev
-function npmrisd() {
-  npmrsd "$@"
-  npmisd "$@"
-}
-## local, save dev exact
-function npmrisde() {
-  npmrsd "$@"
-  npmisde "$@"
-}
-
-# npm stars
-function npmstars() {
-  for p in $(npm stars $@); do
-    npm view "$p" name description repository.url
-    # echo "$p"
-    hr
-  done
-}
-
 # Check deps on subdirectories
-function npm-check-subs() {
+function npm_check_deps_for_all_subdirectories() {
   for d in $(find . -name 'package.json' -maxdepth 2 | sed 's#/package.json##g'); do
     hr
     (
       cd "$d"
       echo "$d"
-      npm install --silent
       npm-check -ps
     )
   done
 }
 
-# Check deps on subdirectiories AND clean up after
-function npm-check-subs-clean() {
-  local report_file=$(date +"%Y.%m.%d-%H%M%S")_deps_report.txt
-  rm *_deps_report.txt 2>/dev/null
-
-  for d in $(find . -name 'package.json' -maxdepth 2 | sed 's#/package.json##g'); do
+# View NPM Stars for Username
+function npm_stars_for_username() {
+  # require username as argument
+  if [ -z "$1" ]; then
+    echo "Usage: npm_stars_for_username <username>"
+    return 1
+  fi
+  npm stars "$@" | while IFS= read -r p; do
+    npm view "$p" name description repository.url
     hr
-    (
-      cd "$d"
-      echo "$d"
-      npm install --silent >/dev/null
-      hr >> "../$report_file"
-      echo "$d" >> "../$report_file"
-      npm-check -ps | lbl -e 'x=>!x.match(/^Use npm-check/) && log(x)' | tee -a "../$report_file"
-    )
   done
-  gtcleans >/dev/null
-  echo "Results saved to: $report_file"
 }
