@@ -1,130 +1,84 @@
 #!/usr/bin/env bash
 
-## add
-alias gta="git add"
-alias gtap="git add -p"
-## branch
-alias gtb="git branch"
-alias gtbd="git branch -D"
-alias gtbl="git branch --list"
-alias gtbld='git branch | grep -v "^\*" | sed "s/^[ \t]*//" | ipt -m | xargs -r git branch -D'
-## clone
-alias gtc="git clone"
-## checkout
-alias gtch="git checkout"
-alias gtchb="git checkout -b"
-## commit
-alias gtco="git commit"
-## generic first commit using "0.0.0"
-alias gt0="git init && git add . && git commit -m 0.0.0"
-## diff
-alias gtd="git difftool"
-alias gtdmom="git fetch origin && git difftool origin/master master"
-alias gtdfmom="git fetch origin && git difftool --name-only origin/master master"
-alias gtdup="git fetch upstream && git difftool master upstream/master"
-## fetch
-alias gtf="git fetch"
-## init
-alias gti="git init"
-## log
-alias gtlog="git log --graph --oneline --decorate --all"
-## push
-alias gtp="git push && git push --tags"
-alias gtpuo="git push -u origin --all && git push origin --tags"
-alias gtpom="git push origin master"
-## remote
-alias gtrev="git remote -v"
-## status
-alias gts="git status"
-## clean/remove ignored files/folders
-alias gtclean="git clean -Xdf"
-## dry-run clean/remove ignored files/folders
-alias gtclean-dryrun="git clean -Xdfn"
-alias gtcleand="gtclean-dryrun"
+# Init
+alias gt_init_add_commit_v0="git init && git add . && git commit -m 0.0.0"
 
+# Add
+alias gt_add="git add"
+alias gt_add_patch="git add -p"
 
-# Rebase Workflow = gtur then gtpomm
-alias gtur="git fetch upstream && git rebase upstream/master"
-alias gtpomm="git push origin +master:master"
+# Branch
+alias gt_branch_list="git branch --list"
+alias gt_branch_list_delete_interactive='git branch | grep -v "^\*" | sed "s/^[ \t]*//" | ipt -m | xargs -r git branch -D'
+alias gt_checkout_new_branch="git checkout -b"
+
+## Diff
+alias gt_difftool="git difftool"
+alias gt_difftool_master_origin_master="git fetch origin && git difftool origin/master master"
+alias gt_difftool_master_origin_master_filenames_only="git fetch origin && git difftool --name-only origin/master master"
+alias gt_difftool_master_upstream_master="git fetch upstream && git difftool master upstream/master"
+alias gt_difftool_master_upstream_master_filenames_only="git fetch upstream && git difftool --name-only master upstream/master"
+
+## Log
+alias gt_log="git log --graph --oneline --decorate --all"
+alias gt_log_past_7_days="git log --since='7 days ago' --graph --oneline --decorate --all"
+alias gt_log_past_30_days="git log --since='30 days ago' --graph --oneline --decorate --all"
+
+## Remote
+alias gt_view_remotes="git remote -v"
+
+## Status
+alias gt_view_status="git status"
+
+# Clean up
+alias gt_clean_ignored_files="git clean -Xdf"
+alias gt_clean_ignored_files_dryrun="git clean -Xdfn"
 
 # GitHub Public API Rate Limit
-alias ghrate="curl -s https://api.github.com/rate_limit"
+alias github_check_rate_limit="curl -s https://api.github.com/rate_limit | less"
 
-# Easy peasy git tagging
-function gtag() {
+function gt_tag_easy_same_annotation_and_message() {
   if [[ $# -eq 0 ]]; then
-    git tag
+    cat <<EOF
+
+  Usage: gt_tag_easy_same_annotation_and_message <tagname>
+
+  Creates an annotated git tag with the same annotation and message.
+
+  For example:
+    gt_tag_easy_same_annotation_and_message v1.2.3
+    > tag: "v1.2.3" message: "v1.2.3"
+
+EOF
   else
     git tag -a "$@" -m "$@"
   fi
 }
 
-# Git tag with semver "vX.X.X" "X.X.X"
-function gtagv() {
+function gt_tag_easy_version_annotation() {
   if [[ $# -eq 0 ]]; then
-    git tag
+    cat <<EOF
+
+  Usage: gt_tag_easy_version_annotation <version>
+
+  Creates an annotated git tag with a "v" prefix
+  and the version as the annotation and message.
+
+  For example:
+    gt_tag_easy_version_annotation 1.2.3
+    > tag: "v1.2.3" message: "1.2.3"
+
+EOF
   else
     git tag -a "v$@" -m "$@"
   fi
 }
 
-# Git tag with datetimestamp
-function gtagdate() {
-  gtag $(date +"%Y.%m.%d-%H%M%S")
+function gt_tag_with_date_time() {
+  gt_tag_easy_same_annotation_and_message "$(date +"%Y.%m.%d-%H%M%S")"
 }
 
-# GitHub upstreaming
-function upstreamhub() {
-  if [[ $# -eq 0 ]]; then
-    cat <<EOF
-Usage: upstreamhub <organization|username>
-
-  Description:
-    Set the GitHub upstream for the current repo, by passing
-    an organization or username
-
-EOF
-  else
-    echo "$PWD" | sed 's#.*\/##' | xargs -I '{}' git remote add upstream git@github.com:"$1"/{}
-  fi
-}
-
-# GitHub aliases
-function ghc() {
-  git clone git@github.com:"$1"
-}
-function ghcbc() {
-  git clone git@github.com:busterc/"$1"
-}
-
-# Setup GitHub remote repo and push for the first time
-function repo-ghbc() {
-  # todo: curl github to create the repo
-  git remote add origin "git@github.com:busterc/$(basename $PWD).git"
-  git push -u origin --all
-  git push origin --tags
-}
-
-# Setup BitBucket remote repo and push for the first time
-function repo-bbbc() {
-  # todo: curl bitbucket to create the repo
-  git remote add origin "git@bitbucket.org:busterc/$(basename $PWD).git"
-  git push -u origin --all
-  git push origin --tags
-}
-
-# BitBucket aliases
-function bbc() {
-  git clone git@bitbucket.org:"$1"
-}
-function bbcbc() {
-  git clone git@bitbucket.org:busterc/"$1"
-}
-
-# Git Power Functions
-
-# Run Git-Diff on Orign/Master for all immediate subdirectories
-function gtdmoms() {
+function gt_difftool_all_subdirectories_with_orign_master() {
   for d in $(find . -name ".git" -maxdepth 2); do
   hr
   (
@@ -135,33 +89,7 @@ function gtdmoms() {
   done
 }
 
-# Run Git-Clean all immediate subdirectories
-function gtcleans() {
-  for d in $(find . -name ".git" -maxdepth 2); do
-  hr
-  (
-    cd "$d"/..
-    echo "processing $d" | sed 's#\/\.git##';
-    git clean -Xdf
-  )
-  done
-}
-
-# Run a Dryrun of Git-Clean all immediate subdirectories
-function gtcleands() {
-  for d in $(find . -name ".git" -maxdepth 2); do
-  hr
-  (
-    cd "$d"/..
-    echo "processing $d" | sed 's#\/\.git##';
-    git clean -Xdfn
-  )
-  done
-}
-
-# Run Git-Diff on Upstream/Master for all immediate subdirectories
-# todo: rename to gtdmums
-function gtdups() {
+function gt_difftool_all_subdirectories_with_upstream_master() {
   for d in $(find . -name ".git" -maxdepth 2); do
   hr
   (
@@ -172,8 +100,29 @@ function gtdups() {
   done
 }
 
-# Run Git-Status on all immediate subdirectories
-function gtss() {
+function gt_clean_all_subdirectories_ignored_files() {
+  for d in $(find . -name ".git" -maxdepth 2); do
+  hr
+  (
+    cd "$d"/..
+    echo "processing $d" | sed 's#\/\.git##';
+    git clean -Xdf
+  )
+  done
+}
+
+function gt_clean_all_subdirectories_ignored_files_dryrun() {
+  for d in $(find . -name ".git" -maxdepth 2); do
+  hr
+  (
+    cd "$d"/..
+    echo "processing $d" | sed 's#\/\.git##';
+    git clean -Xdfn
+  )
+  done
+}
+
+function gt_view_status_all_subdirectories() {
   for d in $(find . -name ".git" -maxdepth 2); do
   hr
   (
@@ -184,8 +133,7 @@ function gtss() {
   done
 }
 
-# Run Git Pull on all immediate subdirectories
-function gtps() {
+function gt_pull_all_subdirectories() {
   for d in $(find . -name ".git" -maxdepth 2); do
   hr
   (
@@ -196,77 +144,45 @@ function gtps() {
   done
 }
 
-# Select modified files to git-diff
-function gtds() {
-  PS3="
-Select File to Diff or Quit: "
-  files=($(git status --porcelain | awk 'match($1, "M"){print $2}'))
-
-  [[ "${#files[@]}" -eq 0 ]] && echo "No files have been modified" && return 0
-
-  files+=("Quit")
-  echo
-  select file in "${files[@]}"; do
-    case "$file" in
-      "Quit")
-        break
-        ;;
-      *)
-        if [[ "$REPLY" =~ ^[0-9]+$ ]] && [[ "$REPLY" -le "${#files[@]}" ]]; then
-          git difftool "$file"
-          if [[ "$@" == "-ac" ]]; then
-            git add "$file"
-            git commit
-          fi
-        else
-          echo "You've choosen poorly.. try using only numbers :P"
-        fi
-        break
-        ;;
-    esac
-  done
-}
-alias gtdac="gtds -ac"
-
-# Reuse a git repo for new project
-function regit() {
+function degit_repo() {
   if [[ $# -ne 2 ]]; then
     cat <<EOF
 
-  Re-use a git repo for a new project.
+  Get a git repo for a new project and remove its git history.
 
-  Usage: regit <repo> <dest>
+  Usage: degit_repo <repo> <dest>
 
 EOF
   else
     git clone --depth 1 "$1" "$2" &&
     cd "$2" &&
-    rm -rf .git &&
-    git init
+    rm -rf .git
   fi
 }
 
-function regithub() {
+function degit_github_repo() {
   if [[ $# -ne 2 ]]; then
     cat <<EOF
 
-  Re-use a git repo (from GitHub) for a new project.
+  Get a git repo from GitHub for a new project and remove its git history.
 
-  Usage: regithub <repo> <dest>
+  Usage: degit_github_repo <repo> <dest>
 
 EOF
   else
-    regit "git@github.com:$1" "$2"
+    git clone --depth 1 "git@github.com:$1" "$2" &&
+    cd "$2" &&
+    rm -rf .git
   fi
 }
 
-function regitbucket() {
+function degit_bitbucket_repo() {
   if [[ $# -ne 2 ]]; then
     cat <<EOF
 
-  Re-use a git repo (from BitBucket) for a new project.
+  Get a git repo from BitBucket for a new project and remove its git history.
 
-  Usage: regitbucket <repo> <dest>
+  Usage: degit_bitbucket_repo <repo> <dest>
 
 EOF
   else
@@ -274,14 +190,13 @@ EOF
   fi
 }
 
-# Get dist/**/* from a git repo
-function gitdist() {
+function degit_dist_from_repo() {
   if [[ $# -ne 2 ]]; then
     cat <<EOF
 
   Get dist/**/* from a git repo
 
-  Usage: gitdist <repo> <dest>
+  Usage: degit_dist_from_repo <repo> <dest>
 
 EOF
   else
@@ -292,12 +207,12 @@ EOF
   fi
 }
 
-function stash_export() {
+function gt_stash_export() {
   (
     IFS=$'\n'
     stash_dir="${PWD}/stashes"
-    mkdir -p $stash_dir
-    cd $stash_dir
+    mkdir -p "$stash_dir"
+    cd "$stash_dir"
     stashes=( $(git stash list) )
 
     for stash in "${stashes[@]}"; do
@@ -314,41 +229,3 @@ function stash_export() {
     done
   )
 }
-
-# #####################
-# #  THE DANGER ZONE  #
-# #####################
-
-# # Caution: this is destructive, no turning back
-# # GitHub RESET TO UPSTREAM
-# alias _gtreup="git fetch upstream && git checkout master && git reset --hard upstream/master && git push origin master --force"
-
-# # Caution: this is destructive, no turning back
-# # GitHub RESET TO UPSTREAM
-# function gtreup() {
-#   read -p "Are you sure? " -n 1 -r
-#   echo
-#   if [[ $REPLY =~ ^[Yy]$ ]]
-#   then
-#     _gtreup
-#   fi
-# }
-
-# # Caution: this is destructive, no turning back
-# # GitHub RESET TO UPSTREAM ON ALL IMMEDIATE SUBDIRECTORIES
-# function gtreups() {
-#   read -p "Are you sure? " -n 1 -r
-#   echo
-#   if [[ $REPLY =~ ^[Yy]$ ]]
-#   then
-#     for d in $(find . -name ".git" -maxdepth 2); do
-#     hr
-#     (
-#       cd "$d"/..
-#       echo "processing $d" | sed 's#\/\.git##';
-#       _gtreup
-#     )
-#     done
-#   fi
-# }
-
