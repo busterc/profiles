@@ -39,15 +39,15 @@ function prompter() {
   case "$PROMPT_TYPE" in
   long)
     _ps1="\u @$(hostname -s) in \$PWD"$git
-    PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
+    PS1="$(hr)$PROMPTER_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPTER_PREFIX$ " ; export PS1
     ;;
   short)
     _ps1="$(pwd | sed "s#$HOME#~#")"$git
-    PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
+    PS1="$(hr)$PROMPTER_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPTER_PREFIX$ " ; export PS1
     ;;
   z)
     _ps1="$(pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g")"$git
-    PS1="$(hr)$PROMPT_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPT_PREFIX$ " ; export PS1
+    PS1="$(hr)$PROMPTER_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPTER_PREFIX$ " ; export PS1
     ;;
   $)
     PS1="$ " ; export PS1
@@ -59,18 +59,26 @@ if [[ $- == *i* ]]; then
   export PROMPT_COMMAND=prompter
 fi
 
-# Set PROMPT_PREFIX with node version (via NVM)
-function prompt_prefix_set_with_current_node_version() {
+# Set prompt display type
+alias prompter_string_set_ps1_long="prompter long"
+alias prompter_string_set_ps1_short="prompter short"
+alias prompter_string_set_ps1_z="prompter z"
+alias prompter_string_set_ps1_dollar="prompter $"
+alias prompter_for_work="prompter_prefix_set_with_current_node_version && prompter short"
+alias pfw="prompter_for_work"
+
+# Set PROMPTER_PREFIX with node version (via NVM)
+function prompter_prefix_set_with_current_node_version() {
   current_node_version="$(nvm current 2>/dev/null)"
   if [[ "$current_node_version" == "system" ]]; then
     current_node_version="$(node -v)"
   fi
-  PROMPT_PREFIX="n$current_node_version: "
+  PROMPTER_PREFIX="n$current_node_version: "
 }
 
-# Unset PROMPT_PREFIX
-function prompt_prefix_unset() {
-  PROMPT_PREFIX=""
+# Unset PROMPTER_PREFIX
+function prompter_prefix_unset() {
+  PROMPTER_PREFIX=""
 }
 
 # Prep ~/bin if not already in PATH
