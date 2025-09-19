@@ -45,6 +45,11 @@ function prompter() {
     _ps1="$(pwd | sed "s#$HOME#~#")"$git
     PS1="$(hr)$PROMPTER_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPTER_PREFIX$ " ; export PS1
     ;;
+  work)
+    prompter_prefix_set_with_current_node_version
+    _ps1="$(pwd | sed "s#$HOME#~#")"$git
+    PS1="$(hr)$PROMPTER_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPTER_PREFIX$ " ; export PS1
+    ;;
   z)
     _ps1="$(pwd | sed "s#$HOME#~#" | sed "s#\(/.\)\([^\/]*\)#\1#g")"$git
     PS1="$(hr)$PROMPTER_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPTER_PREFIX$ " ; export PS1
@@ -64,8 +69,8 @@ alias prompter_string_set_ps1_long="prompter long"
 alias prompter_string_set_ps1_short="prompter short"
 alias prompter_string_set_ps1_z="prompter z"
 alias prompter_string_set_ps1_dollar="prompter $"
-alias prompter_for_work="prompter_prefix_set_with_current_node_version && prompter short"
-alias pfw="prompter_for_work"
+alias prompter_for_work="prompter work"
+alias pfw="prompter work"
 
 # Set PROMPTER_PREFIX with node version (via NVM)
 function prompter_prefix_set_with_current_node_version() {
