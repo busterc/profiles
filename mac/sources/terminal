@@ -7,8 +7,8 @@ export LSCOLORS="cxfxcxdxbxegedabagacad"
 # Clear terminal screen and remove backscroll
 alias cl="clear && printf '\e[3J'"
 
-# VSCode as editor, when possible
-export EDITOR="code"
+# Cursor as editor, when possible
+export EDITOR="cursor"
 
 # TextEdit (when desperate)
 alias textedit='open -a TextEdit'
