@@ -22,20 +22,23 @@ homebrew_packages=(
 echo "${homebrew_packages[@]}" | ipt -s " " -m -M "Select Homebrew Packages to Install:" | xargs brew install
 
 homebrew_casks=(
-    amazon-q
     android-studio
     chatgpt
     claude-code
     disk-inventory-x
+    font-geist
+    font-geist-mono
     fanny
     inkscape
     keycastr
+    kiro-cli
     proxyman
     recordit
     rescuetime
     scribus
     shotcut
     skitch
+    slack
     thunderbird
 )
 echo "${homebrew_casks[@]}" | ipt -s " " -m -M "Select Homebrew Casks to Install:" | xargs brew install --cask
