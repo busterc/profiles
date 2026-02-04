@@ -45,8 +45,13 @@ function prompter() {
     _ps1="$(pwd | sed "s#$HOME#~#")"$git
     PS1="$(hr)$PROMPTER_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPTER_PREFIX$ " ; export PS1
     ;;
-  work)
+  node)
     prompter_prefix_set_with_current_node_version
+    _ps1="$(pwd | sed "s#$HOME#~#")"$git
+    PS1="$(hr)$PROMPTER_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPTER_PREFIX$ " ; export PS1
+    ;;
+  python)
+    prompter_prefix_set_with_current_python_version
     _ps1="$(pwd | sed "s#$HOME#~#")"$git
     PS1="$(hr)$PROMPTER_PREFIX$sshd$(tput rev)$_ps1$(tput sgr0)\n$PROMPTER_PREFIX$ " ; export PS1
     ;;
@@ -69,16 +74,28 @@ alias prompter_string_set_ps1_long="prompter long"
 alias prompter_string_set_ps1_short="prompter short"
 alias prompter_string_set_ps1_z="prompter z"
 alias prompter_string_set_ps1_dollar="prompter $"
+alias prompter_for_node="prompter node"
+alias prompter_for_python="prompter python"
 alias prompter_for_work="prompter work"
-alias pfw="prompter work"
+alias pfn="prompter node"
+alias pfp="prompter python"
 
 # Set PROMPTER_PREFIX with node version (via NVM)
 function prompter_prefix_set_with_current_node_version() {
+  prompter_prefix_unset
   current_node_version="$(nvm current 2>/dev/null)"
   if [[ "$current_node_version" == "system" ]]; then
     current_node_version="$(node -v)"
   fi
   PROMPTER_PREFIX="n$current_node_version: "
+}
+
+# Set PROMPTER_PREFIX with python version (via PYENV)
+function prompter_prefix_set_with_current_python_version() {
+  prompter_prefix_unset
+  # get version value until space or newline
+  current_python_version="$(pyenv version 2>/dev/null | cut -d' ' -f1)"
+  PROMPTER_PREFIX="pv$current_python_version: "
 }
 
 # Unset PROMPTER_PREFIX

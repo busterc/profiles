@@ -57,6 +57,7 @@ homebrew_recipes=(
     mkcert
     nvm
     pgcli
+    pyenv
     rename
     repl
     rlwrap

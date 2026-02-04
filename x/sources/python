@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Prep ~/bin if not already in PATH
+pyenv_bin_dir="$HOME/.pyenv/bin:";
+if [[ "${PATH}" != *"${pyenv_bin_dir}"* ]]; then
+  export PATH="$HOME/.pyenv/bin:$PATH"
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+fi
