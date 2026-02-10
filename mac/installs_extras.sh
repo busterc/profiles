@@ -5,6 +5,7 @@
 homebrew_packages=(
     arq
     cheat
+    csvkit
     dart
     duckdb
     fvm
