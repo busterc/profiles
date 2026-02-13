@@ -41,5 +41,6 @@ homebrew_casks=(
     skitch
     slack
     thunderbird
+    utm
 )
 echo "${homebrew_casks[@]}" | ipt -s " " -m -M "Select Homebrew Casks to Install:" | xargs brew install --cask
