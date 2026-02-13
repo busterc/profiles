@@ -22,7 +22,7 @@ alias npmisd="npmi --save-exact --save-dev"
 
 # Versioning
 alias npm_version_patch="npm version patch"
-alias npm_version_prerelease_bc-dev="npm version prerelease --preid=bc-dev"
+alias npm_version_branch_prerelease='npm version prerelease --preid=$(git branch --show-current)'
 
 # Package.json formatting
 alias npm_prettier_package_json="npx prettier-package-json --write ./package.json"
