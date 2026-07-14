@@ -8,7 +8,7 @@ export LSCOLORS="cxfxcxdxbxegedabagacad"
 alias cl="clear && printf '\e[3J'"
 
 # Cursor as editor, when possible
-export EDITOR="cursor"
+export EDITOR="cursor --classic"
 
 # TextEdit (when desperate)
 alias textedit='open -a TextEdit'
