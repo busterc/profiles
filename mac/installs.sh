@@ -39,7 +39,6 @@ echo "✓ Bash Completion"
 
 homebrew_recipes=(
     ack
-    wix/brew/applesimutils
     awscli
     bat
     corepack
@@ -74,7 +73,6 @@ done
 homebrew_casks=(
     claude
     cursor
-    docker
     docker-desktop
     gcloud-cli
     ghostty
@@ -82,7 +80,6 @@ homebrew_casks=(
     google-chrome
     google-drive
     lastpass
-    lepton
     mysql-shell
     mysqlworkbench
     ngrok

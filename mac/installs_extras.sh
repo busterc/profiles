@@ -3,14 +3,11 @@
 # These are tools and apps that I _might_ want to install
 
 homebrew_packages=(
-    arq
     cheat
     csvkit
-    dart
     duckdb
     fvm
     fx
-    gemini-cli
     gifsicle
     httrack
     jenv
@@ -18,15 +15,16 @@ homebrew_packages=(
     surfraw
     tlrc
     tmux
-    youtube-dl
+    yt-dlp
 )
 echo "${homebrew_packages[@]}" | ipt -s " " -m -M "Select Homebrew Packages to Install:" | xargs brew install
 
 homebrew_casks=(
     android-studio
+    antigravity
+    antigravity-cli
     chatgpt
     claude-code
-    disk-inventory-x
     font-geist
     font-geist-mono
     fanny
@@ -34,11 +32,10 @@ homebrew_casks=(
     keycastr
     kiro-cli
     proxyman
-    recordit
+    radix
     rescuetime
     scribus
     shotcut
-    skitch
     slack
     thunderbird
     utm
