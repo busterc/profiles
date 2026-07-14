@@ -149,7 +149,7 @@ alias dt="cdl ~/Desktop"
 mkdir -p ~/Screenshots
 alias ss="cdl ~/Screenshots"
 mkdir -p ~/Github/busterc
-alias gh="cdl ~/Github"
+alias ghu="cdl ~/Github"
 alias ghb="cdl ~/Github/busterc"
 mkdir -p ~/Bitbucket/busterc
 alias bb="cdl ~/Bitbucket"
