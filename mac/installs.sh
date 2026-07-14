@@ -44,6 +44,7 @@ homebrew_recipes=(
     corepack
     curl
     ffmpeg
+    gh
     git
     handbrake
     htop
@@ -54,8 +55,12 @@ homebrew_recipes=(
     lastpass-cli
     lazydocker
     mkcert
+    mysql-client
     nvm
+    optipng
+    pandoc
     pgcli
+    pv
     pyenv
     rename
     repl
@@ -71,6 +76,7 @@ for pkg in "${homebrew_recipes[@]}"; do
 done
 
 homebrew_casks=(
+    basictex
     claude
     cursor
     docker-desktop

@@ -11,7 +11,9 @@ homebrew_packages=(
     gifsicle
     httrack
     jenv
+    lume
     lynx
+    sshpass
     surfraw
     tlrc
     tmux
@@ -25,9 +27,11 @@ homebrew_casks=(
     antigravity-cli
     chatgpt
     claude-code
+    discord
+    fanny
+    font-eb-garamond
     font-geist
     font-geist-mono
-    fanny
     inkscape
     keycastr
     kiro-cli
